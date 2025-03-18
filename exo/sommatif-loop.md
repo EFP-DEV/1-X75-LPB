@@ -21,10 +21,6 @@ Voici les énoncés rédigés clairement en Markdown, classés du plus simple au
 ### 2. Boucle des Nombres Pairs (sans `if`, sans modulo `%`)  
 **Consigne :** Écris une boucle qui affiche uniquement les nombres **pairs** compris entre **1 et 20**.
 
-> **⚠️ Contraintes :**  
-> - Interdiction d'utiliser `if`  
-> - Interdiction d'utiliser le modulo `%`
-
 **Exemple de sortie attendue :**
 ```
 2
