@@ -16,12 +16,9 @@
 ## Enoncé
 Nous allons construire un calendrier HTML (rudimentaire) à l'aide du langage JavaScript et de la fonction `document.write()`.
 
-Le rendu final sera constitué :
-1. D'un fichier HTML nommé **JS-Calendar-NOM-PRENOM.html** (en majuscules, et les noms séparés par des `-`).
-2. D'un fichier JavaScript nommé **JS-Calendar-NOM-PRENOM.js** dans lequel le code sera isolé.
+Le rendu final sera constituéd d'un fichier HTML nommé **JS-Calendar-NOM-PRENOM.html** (en majuscules, et les noms séparés par des `-`).
 
 **Important** :  
-- Veillez à ce que votre fichier HTML pointe correctement vers votre fichier JavaScript.  
 - N'oubliez pas de commencer vos scripts en écrivant des **commentaires d’intention** puis le code correspondant.  
 
 Avant la fin du cours, vous devrez mettre vos fichiers en ligne sur GitHub (voir [Instructions de remise sur GitHub](#instructions-de-remise-sur-github)).
@@ -43,9 +40,7 @@ console.log('current/max : ' + current_day + '/' + max_days);
 
 **Exemple de résultat** (représentation simplifiée) :
 
-```
-|  1 |  2 |  3 | … | 31 |
-```
+![image](partie0.png)
 
 ---
 
@@ -59,13 +54,7 @@ Utiliser **2 variables** nommées `max_col`, `max_line`.
 
 **Exemple de résultat** (représentation simplifiée) :
 
-```
-|  1 |  2 |  3 |  4 |  5 |  6 |  7 |
-|  8 |  9 | 10 | 11 | 12 | 13 | 14 |
-| 15 | 16 | 17 | 18 | 19 | 20 | 21 |
-| 22 | 23 | 24 | 25 | 26 | 27 | 28 |
-| 29 | 30 | 31 | 32 | 33 | 3  | 35 |
-```
+![image](partie1.png)
 
 ---
 
@@ -76,8 +65,8 @@ Utiliser **2 variables** nommées `max_col`, `max_line`.
 Écrire un programme qui va construire le **calendrier du mois de janvier**.  
 Utiliser une variable nommée : `max_days_january`.
 
-**Exemple de résultat** :  
-Une table HTML qui affiche les jours du mois de janvier, correctement répartis sur plusieurs lignes (7 colonnes, etc.).
+![image](partie2.png)
+
 
 ---
 
@@ -100,6 +89,7 @@ Ensuite, appeler la fonction pour afficher le résultat pour 29 jours :
 ```js
 print_table_month(29);
 ```
+![image](partie3.png)
 
 ---
 
@@ -116,15 +106,11 @@ Les noms des mois sont stockés dans un tableau `month_names`.
 
 *(On considère que l’année courante n’est pas bissextile.)*
 
-**Exemple de résultat** :
-```
-<h3>Janvier</h3>
-<table> ... </table>
+![image](partie4-1.png)
+![image](partie4-2.png)
+![image](partie4-3.png)
+![image](partie4-4.png)
 
-<h3>Février</h3>
-<table> ... </table>
-...
-```
 
 ---
 
@@ -136,10 +122,12 @@ Modifier votre programme pour qu’il affiche **aujourd’hui** en rouge.
 Pour obtenir le mois courant et le jour courant en JavaScript, on peut utiliser :
 
 ```js
-var today = new Date();                
-var current_month = today.getMonth();  // mois courant (0-11)
-var current_day = today.getDate();     // jour courant (1-31)
+let today = new Date();                
+let current_month = today.getMonth();  // mois courant (0-11)
+let current_day = today.getDate();     // jour courant (1-31)
 ```
+
+![image](partie5.png)
 
 ---
 
@@ -159,7 +147,7 @@ Indice : vous pourriez placer le code généré dans un `<textarea>` au lieu d�
 2. Nommez votre dépôt par exemple `JS-Calendar-NOM-PRENOM`.
 3. Dans ce dépôt, placez `JS-Calendar.html` (votre fichier HTML avec Javascript).
 4. **Commitez** et **poussez** (push) vos modifications sur GitHub.
-5. **Partagez** ensuite l’URL de votre dépôt sur la plateforme de rendu de votre choix (ou selon les consignes de votre professeur).
+5. **Partagez** ensuite l’URL de votre dépôt sur la plateforme Teams dans le canal LPB
 
 ---
 
