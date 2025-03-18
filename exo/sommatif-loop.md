@@ -4,7 +4,7 @@ Voici les énoncés rédigés clairement en Markdown, classés du plus simple au
 
 ## Exercices JavaScript : Boucles
 
-### 1. Boucle de Comptage  
+### 1. Boucle de Comptage (5min)
 **Consigne :** Écris une boucle qui affiche les nombres de **1 à 10** dans la console.
 
 **Exemple de sortie attendue :**
@@ -18,8 +18,8 @@ Voici les énoncés rédigés clairement en Markdown, classés du plus simple au
 
 ---
 
-### 2. Boucle des Nombres Pairs (sans `if`, sans modulo `%`)  
-**Consigne :** Écris une boucle qui affiche uniquement les nombres **pairs** compris entre **1 et 20**.
+### 2. Boucle des Nombres Pairs  (5min)
+**Consigne :** Écris une boucle qui affiche uniquement les nombres **pairs** compris entre **1 et 20**, sans `if`, sans modulo `%`
 
 **Exemple de sortie attendue :**
 ```
@@ -32,7 +32,7 @@ Voici les énoncés rédigés clairement en Markdown, classés du plus simple au
 
 ---
 
-### 3. Boucle de Somme Cumulative  
+### 3. Boucle de Somme Cumulative (10min)
 **Consigne :** Écris une boucle qui affiche la **somme cumulative** des nombres de 1 à 10.
 
 **Exemple de sortie attendue :**
@@ -47,7 +47,7 @@ Somme jusqu'à 10 : 55
 
 ---
 
-### 4. Boucle des Puissances de 2 (sans opérateur exponentiel)  
+### 4. Boucle des Puissances de 2 (sans opérateur exponentiel)  (5min)
 **Consigne :** Écris une boucle qui affiche les **puissances de 2**, en partant de 1 jusqu'à atteindre la limite de **1024**.
 
 > **⚠️ Contrainte :**  
@@ -71,7 +71,7 @@ Somme jusqu'à 10 : 55
 
 ---
 
-### 5. Boucle d'Affichage de Motifs (triangle)  
+### 5. Boucle d'Affichage de Motifs (triangle)  (15min)
 **Consigne :** Utilise des boucles imbriquées pour afficher un **triangle d'astérisques** de **X lignes**.
 
 **Exemple de sortie attendue pour 4 lignes :**
