@@ -47,10 +47,10 @@ Somme jusqu'à 10 : 55
 
 ---
 
-### 4. Boucle des Puissances de 2 (sans opérateur exponentiel)  (5min)
+### 4. Boucle des Puissances de 2 (5min)
 **Consigne :** Écris une boucle qui affiche les **puissances de 2**, en partant de 1 jusqu'à atteindre la limite de **1024**.
 
-> **⚠️ Contrainte :**  
+> **Contrainte :**  
 > - Interdiction d'utiliser les opérateurs exponentiels (`**` ou `^`)
 
 **Exemple de sortie attendue :**
@@ -71,7 +71,7 @@ Somme jusqu'à 10 : 55
 
 ---
 
-### 5. Boucle d'Affichage de Motifs (triangle)  (15min)
+### 5. Boucle d'Affichage de Motifs (15min)
 **Consigne :** Utilise des boucles imbriquées pour afficher un **triangle d'astérisques** de **X lignes**.
 
 **Exemple de sortie attendue pour 4 lignes :**
