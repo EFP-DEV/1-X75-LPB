@@ -1,7 +1,3 @@
-Voici les énoncés rédigés clairement en Markdown, classés du plus simple au plus complexe selon la difficulté et la complexité :
-
----
-
 ## Exercices JavaScript : Boucles
 
 ### 1. Boucle de Comptage (5min)
