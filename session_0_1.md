@@ -175,7 +175,7 @@ Quand il n'y a plus que les chiffres 0 et 1 pour compter, l'importance du chiffr
 
 Si 0 c'est rien, c'est rien de quoi?
 
-Décomposons le nombre décimal 1023:
+Décomposons le nombre **décimal** 1023:
 
 ```
 1023 = 1 x 1000 + 0 x 100 + 2 x 10 + 3 x 1
@@ -201,6 +201,12 @@ Base 2:  1101
          2³   2²   2¹   2⁰
          1    1    0    1
 ```
+
+### Unaire (base 1)
+
+La base 1 est un système de numération où chaque nombre est représenté par une série de symboles identiques. Par exemple, le nombre 5 serait représenté par cinq symboles identiques, comme "|||||".
+Dans ce système, il n'y a pas de chiffres distincts pour représenter les valeurs, et chaque symbole représente une unité. La base 1 est souvent considérée comme un système de numération très limité et peu pratique pour des calculs complexes.
+<img src="assets/unary_ishango_bone.jpg" alt="Unary" width="161"/>
 
 ---
 
