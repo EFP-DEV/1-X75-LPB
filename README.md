@@ -19,43 +19,40 @@ Voici le **plan complet mis à jour** du module **LPB : Langages de programmatio
 
 ## Plan détaillé du module
 
-### Partie 1 : Fondamentaux des algorithmes (28h / 7 cours)
+### Partie 1 : Fondamentaux des algorithmes (24h / 6 cours)
 
 | Séance | Thème du cours                        | Durée |
 |--------|---------------------------------------|-------|
-| 1      | Introduction à l'algorithmique, concepts et logique | 4h    |
-| 2      | Variables, types de données et opérateurs | 4h    |
-| 3      | Structures conditionnelles (Si...Alors...Sinon) | 4h    |
-| 4      | Structures conditionnelles (Si...Alors...Sinon) | 4h    |
-| 5      | Structures répétitives (boucles)      | 4h    |
-| 6      | Structures répétitives (boucles)      | 4h    |
-| 7      | Fonctions et procédures               | 4h    |
+| 1      | Introduction, concepts et logique | 4h    |
+| 2      | Structures conditionnelles | 4h    |
+| 3      | Structures conditionnelles (avancées) | 4h    |
+| 4      | Structures itératives (boucles)      | 4h    |
+| 5      | Structures itératives (boucles)      | 4h    |
+| 6      | Fonctions et procédures               | 4h    |
 
----
-
-### Partie 2 : Programmation JavaScript (32h / 8 cours)
+### Partie 2 : Programmation JavaScript (24h / 6 cours)
 
 | Séance | Thème du cours                         | Durée |
 |--------|----------------------------------------|-------|
-| 8      | Conditions et opérateurs logiques en JS| 4h    |
-| 9     | Boucles : while et exercices pratiques | 4h    |
-| 10      | Boucles : la boucle for                | 4h    |
-| 11     | Fonctions, événements et interaction utilisateur | 4h    |
-| 12     | Manipulation basique du DOM            | 4h    |
-| 13     | Exercices pratiques, révision JS       | 4h    |
+| 7      | De l'algo a la programmation           | 4h    |
+| 8      | Exo: JS-Calendar                       | 4h    |
+| 90     | Exo: JS-Crypto                         | 4h    |
+| 10     | Evénements et interaction utilisateur  | 4h    |
+| 11     | Exo: JS-DOM                            | 4h    |
+| 12     | Exo: JS-DOM                            | 4h    |
 
----
 
 ### Partie 3 : Programmation PHP (28h / 7 cours)
 
 | Séance | Thème du cours                         | Durée |
 |--------|----------------------------------------|-------|
-| 14     | Introduction à PHP : concepts et syntaxe générale | 4h    |
-| 15     | Variables, types de données et opérateurs en PHP | 4h    |
-| 16     | Structures conditionnelles en PHP      | 4h    |
-| 17     | Boucles en PHP                         | 4h    |
-| 18     | Fonctions PHP                          | 4h    |
-| 19     | Traitement des formulaires avec PHP    | 4h    |
+| 13     | Introduction à PHP: concepts et syntaxe générale | 4h    |
+| 14     | Exo: Découpe pour SSR                  | 4h    |
+| 15     | Exo: Formulaires & PDO                      | 4h    |
+| 16     | Exo: Moteur de recherche               | 4h    |
+| 17     | Exo: Login                             | 4h    |
+| 18     | Exo:                                   | 4h    |
+| 19     | Exo: PHP-Formulaire                    | 4h    |
 | 20     | **Examen final : Algorithmes, JS, PHP**| 4h    |
 
 ---
