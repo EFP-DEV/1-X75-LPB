@@ -210,4 +210,14 @@ Dans ce système, il n'y a pas de chiffres distincts pour représenter les valeu
 
 ---
 
+### Système maya
+Le système maya est un système de numération vigésimal (base 20) qui utilise des symboles pour représenter les nombres. Il est composé de trois symboles principaux:
+- Un point (•) pour représenter 1
+- Une barre (—) pour représenter 5
+- Un symbole de coquillage (&#1D2E0;)pour représenter 0
+
+Le système maya utilise également un système de positionnement vertical, où les nombres sont empilés les uns sur les autres. Le symbole de coquillage est utilisé pour représenter le zéro, et il est placé en bas de la pile.
+
+Les nombres sont lus de bas en haut, et chaque niveau de la pile représente une puissance de 20. Par exemple, le niveau le plus bas représente les unités (20^0), le niveau du milieu représente les vingtaines (20^1), et le niveau supérieur représente les quatre-vingts (20^2).
+
 <img src="assets/mayan_number_revealed.png" alt="Mayan Number" />
