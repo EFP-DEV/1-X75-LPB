@@ -123,8 +123,8 @@ Pour obtenir le mois courant et le jour courant en JavaScript, on peut utiliser 
 
 ```js
 let today = new Date();                
-let current_month = today.getMonth();  // mois courant (0-11)
-let current_day = today.getDate();     // jour courant (1-31)
+let current_month = today.getMonth();
+let current_day = today.getDay();    
 ```
 
 ![image](partie5.png)
