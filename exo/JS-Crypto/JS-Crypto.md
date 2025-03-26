@@ -7,7 +7,6 @@ Le but étant de manipuler des chaînes de caractères, l'utilisation des foncti
 - length
 - charAt()
 - charCodeAt() // à partir de 8, en mode avancé
-- fromCharCode()
 
 Vous ne pouvez donc pas utiliser:
 * toLowerCase()
@@ -173,12 +172,18 @@ Avec un décalage de 3 vers la droite, A est remplacé par D, B devient E, et ai
 <img src="../../assets/caesarCipher.png" alt="Caesar Cypher" width="600"/>
 
 
+
+
 ```javascript
 to_crypt = 'it is possible to invent a single machine which can be used to compute any computable sequence';
 crypted = crypto(to_crypt, 3);
 console.log(crypted); 
 // affiche 'lw lv srvvleoh wr lqyhqw d vlqjoh pdfklqh zklfk fdq eh xvhg wr frpsxwh dqb frpsxwdeoh vhtxhqfh'
 ```
+Ecrire une fonction `caesar(a_char, a_number)` serait judicieux.
+---
+
+---
 
 ## Partie 8: Déchiffrement César
 Déclarer et implémenter une fonction `decrypt(a_string, a_number)` qui prend en paramètre une chaîne de caractères et un nombre ; et retourne une version décryptée selon le principe précédemment exposé.
@@ -190,6 +195,7 @@ decrypt('te td azddtmwp ez tygpye l dtyrwp xlnstyp hstns nly mp fdpo ez nzxafep 
 ```
 
 Cette fonction s'écrit sur une seule ligne.
+---
 
 --- 
 ## Partie 9: Recherche de clé de chiffrement

@@ -47,6 +47,7 @@ console.group('Partie 3');
   console.assert(count_vowels('Turing believes machines think') === 10);
   console.assert(count_vowels('Turing lies with men') === 6);
   console.assert(count_vowels('Therefore machines do not think') === 10);
+  console.assert(count_vowels('Oui') === 3);
 
 
   console.group('Moyen');
@@ -81,8 +82,8 @@ console.group('Partie 4');
   console.assert(count_consonants('c') === 1);
   console.assert(count_consonants('cc') === 2);
   console.assert(count_consonants('c c') === 2);
-  console.assert(count_consonants('non') === 2);
-  console.assert(count_consonants('oui') === 0);
+  console.assert(count_consonants('Non') === 2);
+  console.assert(count_consonants('Oui') === 0);
   // console.group('Avancé');
   //   console.assert(count_consonants() === 0);
   // console.groupEnd();
@@ -103,24 +104,24 @@ console.groupEnd();
 
 
 console.group('Partie 6');
-  console.assert(remove_strings('Turing believes machines think','z') === 'Turing believes machines think');
-  console.assert(remove_strings('Turing believes machines think','e') === 'Turing blivs machins think');
-  console.assert(remove_strings('Turing lies with men', 'i') === 'Turng les wth men');
-  console.assert(remove_strings('Therefore machines do not think', ' ') === 'Thereforemachinesdonotthink');
-  console.assert(remove_strings('aeeiuouyuioz', 'o') === 'aeeiuuyuiz');
-  console.assert(remove_strings('', '') === '');
-  console.assert(remove_strings('    ', ' ') === '');
-  console.assert(remove_strings('ccccc', 'c') === '');
-  console.assert(remove_strings('c c c c c', 'c') === '    ');
+  console.assert(remove_many('Turing believes machines think','z') === 'Turing believes machines think');
+  console.assert(remove_many('Turing believes machines think','e') === 'Turing blivs machins think');
+  console.assert(remove_many('Turing lies with men', 'i') === 'Turng les wth men');
+  console.assert(remove_many('Therefore machines do not think', ' ') === 'Thereforemachinesdonotthink');
+  console.assert(remove_many('aeeiuouyuioz', 'o') === 'aeeiuuyuiz');
+  console.assert(remove_many('', '') === '');
+  console.assert(remove_many('    ', ' ') === '');
+  console.assert(remove_many('ccccc', 'c') === '');
+  console.assert(remove_many('c c c c c', 'c') === '    ');
 
-  console.assert(remove_strings('Turing believes machines think','dumber') === 'Ting livs achins think');
-  console.assert(remove_strings('Turing lies with men', 'good people read good books') === 'Tuiniwithmn');
-  console.assert(remove_strings('Therefore machines do not think', 'dumber') === 'Thfo achins o not think');
-  console.assert(remove_strings('aeeiuouyuioz', 'aeeiuuyuiz') === 'oo');
-  console.assert(remove_strings('', '') === '');
-  console.assert(remove_strings('    ', ' ') === '');
-  console.assert(remove_strings('ccccc', 'c') === '');
-  console.assert(remove_strings('c c c c c', 'c c') === '');
+  console.assert(remove_many('Turing believes machines think','dumber') === 'Ting livs achins think');
+  console.assert(remove_many('Turing lies with men', 'good people read good books') === 'Tuiniwithmn');
+  console.assert(remove_many('Therefore machines do not think', 'dumber') === 'Thfo achins o not think');
+  console.assert(remove_many('aeeiuouyuioz', 'aeeiuuyuiz') === 'oo');
+  console.assert(remove_many('', '') === '');
+  console.assert(remove_many('    ', ' ') === '');
+  console.assert(remove_many('ccccc', 'c') === '');
+  console.assert(remove_many('c c c c c', 'c c') === '');
 console.groupEnd();
 
 
