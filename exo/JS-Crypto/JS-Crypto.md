@@ -4,9 +4,10 @@
 Nous allons travailler sur les chaînes de caractères, dans le but de créer un programme basique de cryptographie.
 
 Le but étant de manipuler des chaînes de caractères, l'utilisation des fonctions et propriétés des String en JavaScript doit se limiter à :
-- length
-- charAt()
-- charCodeAt() // à partir de 8, en mode avancé
+- String.length
+- String.charAt()       // [ou []](../../more/string_charat_or_brackets.md)
+- String.charCodeAt()   // à partir de 8, en mode avancé
+- String.fromCharCode()
 
 Vous ne pouvez donc pas utiliser:
 * toLowerCase()
