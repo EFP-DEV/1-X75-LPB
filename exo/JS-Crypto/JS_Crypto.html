@@ -5,22 +5,19 @@
 </head>
 <body>
 <h1>JS-Crypto</h1>
-<h2>ouvrir la console (F12)</h2>
-<script src="crypto_lib_PRENOM_NOM.js"></script>
+<h2>ouvrir la console (inspecteur web)</h2>
+<script src="crypto_lib.js"></script>
 <script>
 
-let alphabet = 'abcdefghijklmnopqrstuvwxyz';
-let alphabet_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-let vowels = ['a', 'e', 'i', 'u', 'o', 'y', 'A', 'E', 'I', 'U', 'O', 'Y'];
 
+let vowels = ['a', 'e', 'i', 'u', 'o', 'y']; // A noir, E blanc, I rouge, U vert, O bleu.
 
-
-console.group('Partie 1');
-  console.assert(what_are_words_worth());
+console.group('Partie 0');
+  console.assert(has_validated_length());
 console.groupEnd();
 
 
-console.group('Partie 2');
+console.group('Partie 1');
   console.assert(count_words('Turing believes machines think') === 4);
   console.assert(count_words('Turinglieswithmen') === 1);
 
@@ -34,7 +31,7 @@ console.group('Partie 2');
 console.groupEnd();
 
 
-console.group('Partie 3');
+console.group('Partie 2');
   console.assert(count_words_by('Turing believes machines think', 'i') === 5);
   console.assert(count_words_by('Turingbelievesmachinesthink', 'i') === 5);
   console.assert(count_words_by('Therefore machines do not think', 'e') === 5);
@@ -46,7 +43,7 @@ console.group('Partie 3');
 console.groupEnd();
 
 
-console.group('Partie 4');
+console.group('Partie 3');
   console.assert(count_vowels('Turing believes machines think') === 10);
   console.assert(count_vowels('Turing lies with men') === 6);
   console.assert(count_vowels('Therefore machines do not think') === 10);
@@ -74,7 +71,7 @@ console.group('Partie 4');
 console.groupEnd();
 
 
-console.group('Partie 5');
+console.group('Partie 4');
   console.assert(count_consonants('Turing believes machines think') === 17);
   console.assert(count_consonants('Turing lies with men') === 11);
   console.assert(count_consonants('Therefore machines do not think') === 17);
@@ -92,7 +89,7 @@ console.group('Partie 5');
 console.groupEnd();
 
 
-console.group('Partie 6');
+console.group('Partie 5');
   console.assert(remove('Turing believes machines think','z') === 'Turing believes machines think');
   console.assert(remove('Turing believes machines think','e') === 'Turing blivs machins think');
   console.assert(remove('Turing lies with men', 'i') === 'Turng les wth men');
@@ -105,7 +102,7 @@ console.group('Partie 6');
 console.groupEnd();
 
 
-console.group('Partie 7');
+console.group('Partie 6');
   console.assert(remove_strings('Turing believes machines think','z') === 'Turing believes machines think');
   console.assert(remove_strings('Turing believes machines think','e') === 'Turing blivs machins think');
   console.assert(remove_strings('Turing lies with men', 'i') === 'Turng les wth men');
@@ -127,7 +124,7 @@ console.group('Partie 7');
 console.groupEnd();
 
 
-console.group('Partie 8');
+console.group('Partie 7');
   console.assert(crypto('turing believes machines think',1) === 'uvsjoh cfmjfwft nbdijoft uijol');
   console.assert(crypto('turing believes machines think',2) === 'vwtkpi dgnkgxgu ocejkpgu vjkpm');
   console.assert(crypto('turing believes machines think',3) === 'wxulqj eholhyhv pdfklqhv wklqn');
@@ -149,7 +146,7 @@ console.group('Partie 8');
 console.groupEnd();
 
 
-console.group('Partie 9');
+console.group('Partie 8');
   console.assert(decrypt('uvsjoh cfmjfwft nbdijoft uijol',1) === 'turing believes machines think');
   console.assert(decrypt('uvsjoh cfmjfwft nbdijoft uijol',27) === 'turing believes machines think');
   console.assert(decrypt('vwtkpi dgnkgxgu ocejkpgu vjkpm',2) === 'turing believes machines think');
@@ -171,7 +168,7 @@ console.group('Partie 9');
 console.groupEnd();
 
 
-console.group('Partie 10');
+console.group('Partie 9');
   enigma('lzw akgdslwv esf vgwk fgl vwnwdgh sfq aflwddwulmsd hgowj. Al ak fwuwkksjq xgj zae lg tw aeewjkwv af sf wfnajgfewfl gx glzwj ewf, ozgkw lwuzfaimwk zw stkgjtk vmjafy lzw xajkl lowflq qwsjk gx zak daxw. Zw esq lzwf hwjzshk vg s dalldw jwkwsjuz gx zak gof sfv escw s nwjq xwo vakugnwjawk ozauz sjw hskkwv gf lg glzwj ewf. Xjge lzak hgafl gx nawo lzw kwsjuz xgj fwo lwuzfaimwk emkl tw jwysjvwv sk usjjawv gml tq lzw zmesf ugeemfalq sk s ozgdw, jslzwj lzsf tq afvanavmsdk');
 console.groupEnd();
 
