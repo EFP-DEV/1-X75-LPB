@@ -3,23 +3,45 @@
 
 <head>
     <title>JS-Calendar</title>
-    <meta charset="UTF-8">
     <style type="text/css">
         td {
             border: 1px solid black;
             padding: 1em;
             text-align: center;
         }
+
+        td.today {
+            background-color: red;
+        }
+
+        textarea {
+            width: 100%;
+            height: 30em;
+        }
     </style>
 </head>
 
 <body>
 
+
     <h1>JS-Calendar</h1>
     <h2>Partie 0 : Générer un &lt;table&gt; pour le mois de janvier</h2>
-
     <script type="application/javascript">
-        console.log("Début Partie 0");
+        console.log("Début");
+
+        let max_days = 31;
+        let current_day = 1;
+
+
+        document.write("<table><tr>");
+        while (current_day <= max_days) {
+            // console.log('current/max : ' + current_day + '/' + max_days);
+            document.write("\n<td>" + current_day + "</td>");
+            current_day = current_day + 1;
+        }
+        document.write("</tr></table>");
+
+
         console.log("Fin");
     </script>
 
@@ -27,7 +49,22 @@
 
     <h2>Partie 1 : Générer un &lt;table&gt; sur plusieurs lignes</h2>
     <script type="application/javascript">
-        console.log("Début Partie 1");
+        console.log("Début");
+
+        let max_cols = 7, max_lines = 5;
+        let cpt_line = 1, cpt_col = 1;
+        current_day = 1;
+        document.write("<table>");
+
+        for (let i = 0; i < max_line; ++i) {
+            document.write("<tr>");
+            for (let cpt_col = 0; cpt_col < max_cols; ++cpt_col) {
+                document.write("<td>" + current_day++ + "</td>");
+            }
+            document.write("</tr>");
+        }
+        document.write("</table>");
+
         console.log("Fin");
     </script>
 
@@ -35,39 +72,47 @@
 
     <h2>Partie 2 : Générer le mois de janvier</h2>
     <script type="application/javascript">
-        console.log("Début Partie 2");
-        console.log("Fin");
+        let nombre_jour = 31;
+        current_day = 1;
+
+
+        document.write("<table>");
+        document.write("</table>");
+
     </script>
 
 
 
     <h2>Partie 3 : Isoler le code dans une fonction</h2>
     <script type="application/javascript">
-        console.log("Début Partie 3");
+        "use strict;"
+        function print_table_month(max_days_in_month, dujour = 0) {
+            console.log('partie 3', dujour)
+            const days_in_a_week = 7;
+            let current_day = 1
 
-        function print_table_month(max_days) {
+
         }
 
         print_table_month(29);
-
-        console.log("Fin");
     </script>
 
 
 
     <h2>Partie 4 : Générer les autres mois</h2>
     <script type="application/javascript">
-        console.log("Début Partie 4");
+        console.log("Début");
+
         console.log("Fin");
     </script>
-
 
     <h2>Partie 5 : Afficher le jour courant en rouge</h2>
     <script type="application/javascript">
-        console.log("Début Partie 5");
-        console.log("Fin");
-    </script>
+        console.log("Début");
 
+        console.log("Fin");
+
+    </script>
 </body>
 
 </html>
