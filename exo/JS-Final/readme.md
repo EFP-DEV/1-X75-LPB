@@ -17,28 +17,28 @@ Chaque exercice contient une ébauche de fonction que vous devez compléter. Tes
 **Exemple**: `"hello"` → `"hlo"`
 
 ```javascript
-function mergeEveryTwoLetters(word) {
+function extractAlternateChars(word) {
   // Votre code ici
 }
 
 // Test
-console.log(mergeEveryTwoLetters("word")); // Devrait afficher: "wr"
+console.log(extractAlternateChars("word")); // Devrait afficher: "wr"
 ```
 
 ## Exercice 2: Validation de Nombres
 **Tâche**: Vérifiez si l'un des deux nombres est 42 ou si leur somme est 42.
 
-**Exemple**: `has42OrSumIs42(40, 2)` → `true`
+**Exemple**: `isFortyTwoOrSum(40, 2)` → `true`
 
 ```javascript
-function has42OrSumIs42(a, b) {
+function isFortyTwoOrSum(a, b) {
   // Votre code ici
 }
 
 // Test
-console.log(has42OrSumIs42(42, 0)); // Devrait afficher: true
-console.log(has42OrSumIs42(20, 22)); // Devrait afficher: true
-console.log(has42OrSumIs42(10, 10)); // Devrait afficher: false
+console.log(isFortyTwoOrSum(42, 0)); // Devrait afficher: true
+console.log(isFortyTwoOrSum(20, 22)); // Devrait afficher: true
+console.log(isFortyTwoOrSum(10, 10)); // Devrait afficher: false
 ```
 
 ## Exercice 3: Comptage dans un Tableau
@@ -47,13 +47,13 @@ console.log(has42OrSumIs42(10, 10)); // Devrait afficher: false
 **Exemple**: `[1, 0, 2, 0, 0, 0, 0]` → `true`
 
 ```javascript
-function moreThanFourZeros(n) {
+function exceedsZeroThreshold(arr) {
   // Votre code ici
 }
 
 // Test
-console.log(moreThanFourZeros([1, 0, 2, 0, 0, 0, 0])); // Devrait afficher: true
-console.log(moreThanFourZeros([1, 0, 2, 0, 0, 0])); // Devrait afficher: false
+console.log(exceedsZeroThreshold([1, 0, 2, 0, 0, 0, 0])); // Devrait afficher: true
+console.log(exceedsZeroThreshold([1, 0, 2, 0, 0, 0])); // Devrait afficher: false
 ```
 
 ## Exercice 4: Conversion de Température
@@ -77,12 +77,12 @@ console.log(celsiusToFahrenheit(0)); // Devrait afficher: 32
 **Exemple**: `[2, -1, 5]` → `[2, 5]`
 
 ```javascript
-function filterPositiveNumbers(arr) {
+function getPositives(arr) {
   // Votre code ici
 }
 
 // Test
-console.log(filterPositiveNumbers([2, 3, -1, 5, 7, 9, 10, 15, 95])); // Devrait afficher: [2, 3, 5, 7, 9, 10, 15, 95]
+console.log(getPositives([2, 3, -1, 5, 7, 9, 10, 15, 95])); // Devrait afficher: [2, 3, 5, 7, 9, 10, 15, 95]
 ```
 
 ## Exercice 6: Somme des Chiffres
@@ -106,17 +106,17 @@ console.log(sumDigits(1235231)); // Somme de 1+2+3+5+2+3+1 = 17
 **Exemple**: `[1, 2, 3, 4]` → `[2, 3, 4, 1]`
 
 ```javascript
-function rotateLeft(arr) {
+function shiftArrayLeft(arr) {
   // Solution avec shift() et push()
 }
 
-function rotateLeftAlternative(arr) {
+function shiftArrayLeftAlt(arr) {
   // Solution sans shift() et push()
 }
 
 // Test
-console.log(rotateLeft([1, 2, 3, 4])); // Devrait afficher: [2, 3, 4, 1]
-console.log(rotateLeftAlternative([1, 2, 3, 4])); // Devrait afficher: [2, 3, 4, 1]
+console.log(shiftArrayLeft([1, 2, 3, 4])); // Devrait afficher: [2, 3, 4, 1]
+console.log(shiftArrayLeftAlt([1, 2, 3, 4])); // Devrait afficher: [2, 3, 4, 1]
 ```
 
 ## Exercice 8: Fusion de Tableaux
@@ -125,12 +125,12 @@ console.log(rotateLeftAlternative([1, 2, 3, 4])); // Devrait afficher: [2, 3, 4,
 **Exemple**: `[1, 2]` et `[3, 4]` → `[1, 2, 3, 4]`
 
 ```javascript
-function mergeArrays(arr1, arr2) {
+function concatenateArrays(arr1, arr2) {
   // Votre code ici
 }
 
 // Test
-console.log(mergeArrays([1, 2, 3], [4, 5, 6])); // Devrait afficher: [1, 2, 3, 4, 5, 6]
+console.log(concatenateArrays([1, 2, 3], [4, 5, 6])); // Devrait afficher: [1, 2, 3, 4, 5, 6]
 ```
 
 ## Exercice 9: Différence Symétrique
@@ -139,12 +139,12 @@ console.log(mergeArrays([1, 2, 3], [4, 5, 6])); // Devrait afficher: [1, 2, 3, 4
 **Exemple**: `[1, 2, 3]` et `[2, 3, 4]` → `[1, 4]`
 
 ```javascript
-function mergeExclusive(arr1, arr2) {
+function getSymmetricDifference(arr1, arr2) {
   // Votre code ici
 }
 
 // Test
-console.log(mergeExclusive([1, 2, 3, 10, 5, 3, 14], [1, 4, 5, 6, 14])); // Devrait afficher: [2, 3, 10, 3, 4, 6]
+console.log(getSymmetricDifference([1, 2, 3, 10, 5, 3, 14], [1, 4, 5, 6, 14])); // Devrait afficher: [2, 3, 10, 3, 4, 6]
 ```
 
 ## Exercice 10: Somme de Nombres dans une Chaîne
@@ -153,12 +153,12 @@ console.log(mergeExclusive([1, 2, 3, 10, 5, 3, 14], [1, 4, 5, 6, 14])); // Devra
 **Exemple**: `"1.5, 2.3, 3.1"` → `6.9`
 
 ```javascript
-function sumNumbersInString(str) {
+function sumDelimitedValues(str) {
   // Votre code ici
 }
 
 // Test
-console.log(sumNumbersInString("1.5, 2.3, 3.1, 4, 5.5, 6, 7, 8, 9, 10.9")); // Devrait afficher: 57.3
+console.log(sumDelimitedValues("1.5, 2.3, 3.1, 4, 5.5, 6, 7, 8, 9, 10.9")); // Devrait afficher: 57.3
 ```
 
 ## Exercice 11: Extraction de Colonne de Tableau 2D
@@ -167,7 +167,7 @@ console.log(sumNumbersInString("1.5, 2.3, 3.1, 4, 5.5, 6, 7, 8, 9, 10.9")); // D
 **Exemple**: De `[["A", 1], ["B", 2]]` extraire la colonne 1 → `[1, 2]`
 
 ```javascript
-function extractColumn(arr, n) {
+function getMatrixColumn(arr, n) {
   // Votre code ici
 }
 
@@ -179,7 +179,7 @@ let data = [
   ["Mel", 112],
   ["Charley", 122]
 ];
-console.log(extractColumn(data, 1)); // Devrait afficher: [120, 115, 123, 112, 122]
+console.log(getMatrixColumn(data, 1)); // Devrait afficher: [120, 115, 123, 112, 122]
 ```
 
 ## Exercice 12: Conversion Binaire
@@ -188,13 +188,13 @@ console.log(extractColumn(data, 1)); // Devrait afficher: [120, 115, 123, 112, 1
 **Exemple**: `"1010"` → `10`
 
 ```javascript
-function binaryToNumber(str) {
+function parseBinary(str) {
   // Votre code ici
 }
 
 // Test
-console.log(binaryToNumber("11111111")); // Devrait afficher: 255
-console.log(binaryToNumber("1010")); // Devrait afficher: 10
+console.log(parseBinary("11111111")); // Devrait afficher: 255
+console.log(parseBinary("1010")); // Devrait afficher: 10
 ```
 
 ## Défiez-vous
