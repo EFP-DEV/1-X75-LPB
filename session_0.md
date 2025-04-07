@@ -1,6 +1,4 @@
-# ALGO-101
-## Introduction à l’algorithmique
-
+# Introduction à l’algorithmique
 
 ### [|{ ](#hummus) 1. Le houmous
 ### [|{ ](#sifr) 2. Les systèmes de numération
