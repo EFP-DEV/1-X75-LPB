@@ -89,15 +89,28 @@ Variables riri, fifi en Texte
 riri <- "loulou"
 fifi <- "riri"
 ```
-`fifi` contient le texte `"riri"` (4 caractères).
+
+Mais aussi
 
 ```
+Variables riri, fifi en Texte
+
 riri <- "loulou"
 fifi <- riri
 ```
-`fifi` contient `"loulou"` (la valeur de la variable `riri`).
 
 **Règle :** guillemets = texte littéral. Sans guillemets = référence à une variable.
+
+<details>
+  <summary><strong>Voir le secret</strong></summary>
+
+```C
+Variante 1: `fifi` contient le texte `"riri"` (4 caractères).
+Variante 2: `fifi` contient `"loulou"` (la valeur de la variable `riri`).
+```
+</details>
+
+
 
 ---
 
@@ -152,7 +165,11 @@ Un opérateur relie deux valeurs pour produire un résultat.
 
 ## Conventions de nommage
 
-Plusieurs styles existent. Chaque langage ou équipe en adopte un.
+Les conventions de nommage sont **des conventions** : des habitudes partagées pour rendre le code plus lisible et cohérent. Il n’y a **pas de convention “supérieure”** : chacune a ses avantages selon le langage, l’équipe ou le projet.
+
+**Règle essentielle :** on **choisit une convention** (selon le langage / le projet / l’équipe / les préférences) et on **s’y tient partout dans le même code**. Mélanger plusieurs styles dans une même base rend le code plus difficile à lire.
+
+### Quelques conventions courrantes
 
 | Convention | Exemple | Utilisé par |
 |------------|---------|-------------|
@@ -162,6 +179,16 @@ Plusieurs styles existent. Chaque langage ou équipe en adopte un.
 | kebab-case | `prix-ttc` | CSS, HTML (attributs), URLs |
 | SCREAMING_SNAKE | `PRIX_TTC` | Constantes (la plupart des langages) |
 
+
+
+**Pourquoi `snake_case` est ma preference ?**
+
+* séparateurs de mots **clairs** (`prix_total_ttc`) : les mots (et acronymes) restent lisibles et sans ambiguïté — ex. `montant_tva`, `prix_ht`, `prix_ttc`, `id_client` (contrairement à `prixTTC` / `prixTva` où les acronymes peuvent varier : `TTC`, `Ttc`, `TVA`, `Tva`).
+* **jeu de caractères minimal** (minuscules + `_` + chiffres)
+* sélection plus **pratique** dans les éditeurs (souvent plus facile qu’en camelCase)
+* `_` n’est généralement **pas un opérateur**, contrairement à `-` (kebab-case), qui sert souvent à la soustraction en programmation.
+
+
 **Règles universelles :**
 - Pas d'espaces : `mon prix` ❌
 - Ne commence pas par un chiffre : `3oranges` ❌
@@ -169,41 +196,6 @@ Plusieurs styles existent. Chaque langage ou équipe en adopte un.
 - Nom descriptif : `x` ❌ → `quantite` ✓
 
 **En pseudo-code**, on utilisera `snake_case` pour les variables.
-
----
-
-## Exercices
-
-### 1. Déclarer
-Créez les variables pour :
-- 250g de farine
-- 2 œufs  
-- Le four est préchauffé (oui ou non)
-
-### 2. Lire
-```
-Variables a, b en Entier
-a <- 10
-b <- 3
-a <- a + b
-b <- a - b
-```
-Quelle est la valeur finale de `a` ? De `b` ?
-
-### 3. Texte ou variable ?
-```
-Variables nom, copie en Texte
-nom <- "Claude"
-copie <- "nom"
-```
-Que contient `copie` ?
-
-### 4. Corriger
-```
-Variable 3oranges en Entier
-Variable mon prix en Décimal
-```
-Qu'est-ce qui ne va pas ?
 
 ---
 
