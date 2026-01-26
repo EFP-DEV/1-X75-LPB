@@ -94,7 +94,7 @@ Fin
 ---
 
 ## Exercice 1.7
-Un stagiaire a écrit cet algorithme. Il contient erreur, laquelle ?
+Un stagiaire a écrit cet algorithme. Il contient une erreur, laquelle ?
 ```C
 Variables nom, prenom, complet en Texte
 
