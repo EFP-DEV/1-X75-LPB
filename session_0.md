@@ -47,7 +47,7 @@ Voici une recette simplifiée du houmous :
 
 ### Ingrédients = Variables
 
-```
+```C
 pois_chiches = 500
 puree_sesame = 5
 citron = 1
@@ -61,7 +61,7 @@ Une variable stocke une valeur. C'est tout.
 
 ### Instructions = Étapes séquentielles
 
-```
+```C
 rincer(pois_chiches)
 egoutter(pois_chiches)
 ajouter(bol, pois_chiches)
@@ -77,7 +77,7 @@ Les instructions s'exécutent **de haut en bas**, une par une.
 
 ### Conditions = Décisions
 
-```
+```C
 Si pate n'est pas lisse Alors
     mixer(bol)
 FinSi
@@ -89,19 +89,19 @@ On teste quelque chose. Si c'est vrai, on exécute le bloc.
 
 ### Boucles = Répétitions
 
-```
+```C
 TantQue pate n'est pas lisse
     mixer(bol)
 FinTantQue
 ```
 
-On répète jusqu'à ce que la condition devienne fausse.
+On répète **tant que la condition est vrai**
 
 ---
 
 ## Code complet
 
-```
+```C
 // Variables
 pois_chiches = 500
 puree_sesame = 5
