@@ -26,8 +26,6 @@
 
 ---
 
-Le **"âge en secondes"** a le meilleur ratio simplicité/impact : trois lignes, opérateurs visibles, résultat spectaculaire (genre 1 milliard+).
-
 ## Qu’est-ce qu’un algorithme ?
 
 Un **algorithme** est une série précise d'instructions **simples**, **ordonnées** et **claires**, permettant de résoudre un problème ou d’accomplir une tâche déterminée.
