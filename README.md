@@ -30,9 +30,9 @@ Voici le **plan complet mis à jour** du module **LPB : Langages de programmatio
 <tr><td>2</td><td><a href="session_2.md">Structures conditionnelles (avancées)</a></td><td>4h</td></tr>
 <tr><td>3</td><td><a href="session_3.md">Structures itératives (boucles)</a></td><td>4h</td></tr>
 <tr><td>4</td><td><a href="session_4.md">Structures itératives (boucles)</a></td><td>4h</td></tr>
-<tr><td>5</td><td><a href="session_5.md">Fonctions et procédures</a></td><td>4h</td></tr>
 <tr><td colspan="3"><strong>Partie 2 : Programmation JavaScript (24h)</strong></td></tr>
-<tr><td>6</td><td><a href="session_6.md">De l'algo a la programmation</a></td><td>4h</td></tr>
+<tr><td>5</td><td><a href="session_5.md">Du pseudo-code au code</a></td><td>4h</td></tr>
+<!-- <tr><td>6</td><td><a href="session_6.md">Tableau et fonction</a></td><td>4h</td></tr>
 <tr><td>7</td><td><a href="session_7.md">Exo: JS-Calendar</a></td><td>4h</td></tr>
 <tr><td>8</td><td><a href="session_8.md">Exo: JS-Crypto</a></td><td>4h</td></tr>
 <tr><td>9</td><td><a href="session_9.md">Evénements et interaction utilisateur</a></td><td>4h</td></tr>
@@ -46,7 +46,7 @@ Voici le **plan complet mis à jour** du module **LPB : Langages de programmatio
 <tr><td>16</td><td><a href="session_16.md">Exo: Login</a></td><td>4h</td></tr>
 <tr><td>17</td><td><a href="session_17.md">Exo:</a></td><td>4h</td></tr>
 <tr><td>18</td><td><a href="session_18.md">Exo: PHP-Formulaire</a></td><td>4h</td></tr>
-<tr><td>19</td><td><a href="session_19.md"><strong>Examen final</strong></a></td><td>4h</td></tr>
+<tr><td>19</td><td><a href="session_19.md"><strong>Examen final</strong></a></td><td>4h</td></tr> -->
 </tbody>
 </table>
 
