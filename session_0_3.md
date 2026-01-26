@@ -290,4 +290,4 @@ Entrez une durée en secondes : 3725
 3725 secondes = 1h 2min 5s
 ```
 
-# [&laquo; Chapitre 2](session_0_1.md) | [Chapitre 4 &raquo;](session_1.md)
+# [Chapitre 3 &laquo;](session_0_2.md) 

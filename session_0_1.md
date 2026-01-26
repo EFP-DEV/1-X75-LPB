@@ -255,3 +255,6 @@ Le système maya utilise également un système de positionnement vertical, où 
 Les nombres sont lus de bas en haut, et chaque niveau de la pile représente une puissance de 20. Par exemple, le niveau le plus bas représente les unités (20^0), le niveau du milieu représente les vingtaines (20^1), et le niveau supérieur représente les quatre-vingts (20^2).
 
 <img src="assets/mayan_number_revealed.png" alt="Mayan Number" />
+
+
+# [Chapitre 3 &raquo;](session_0_2.md)

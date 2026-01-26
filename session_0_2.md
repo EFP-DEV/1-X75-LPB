@@ -221,3 +221,8 @@ nom <- valeur
 | Affectation | Donner une valeur avec `<-` |
 | Expression | Combinaison de valeurs et opérateurs → une valeur |
 | Opérateur | Symbole qui combine des valeurs (+, -, *, /, &, ET, OU...) |
+
+
+
+
+# [Chapitre 2 &laquo;](session_0_1.md)  [&raquo; Chapitre 4](session_0_3.md)
