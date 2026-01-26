@@ -15,6 +15,16 @@
 - Identifier les concepts de base de l’algorithmique en les appliquant à une situation quotidienne.
 - Introduire naturellement les notions de **variables**, **instructions**, **conditions** et **boucles**.
 
+## Démo rapide en JavaScript
+
+
+**1. Âge en secondes** : demander l'âge en années, afficher l'âge en secondes
+**2. Mad libs** : demander un nom, un nombre, un animal et afficher : "NOM cache NOMBRE ANIMALs dans son frigo"
+**3. Année de naissance** : demander l'âge et afficher l'année de naissance
+
+---
+
+Le **"âge en secondes"** a le meilleur ratio simplicité/impact : trois lignes, opérateurs visibles, résultat spectaculaire (genre 1 milliard+).
 
 ## Qu’est-ce qu’un algorithme ?
 
