@@ -418,59 +418,9 @@ FinSi
 
 ---
 
-# Exercices
 
-## Exercice 1 : Comparaisons
+[Exercice a remettre](exo/session_1.md)
+---
 
-Évaluer chaque expression (VRAI ou FAUX) :
-
-```
-a) 5 > 3
-b) 7 = 7
-c) "abc" < "abd"
-d) 10 <> 10
-e) "Z" > "a"
-```
-
-## Exercice 2 : Opérateurs logiques
-
-Soit A = VRAI, B = FAUX, C = VRAI. Évaluer :
-
-```
-a) A ET B
-b) A OU B
-c) NON(A)
-d) A XOR C
-e) (A OU B) ET C
-f) A OU (B ET C)
-```
-
-## Exercice 3 : Catégorie d'âge
-
-Écrire un algorithme qui demande l'âge et affiche la catégorie :
-- Bébé : 0-2 ans
-- Enfant : 3-12 ans
-- Adolescent : 13-17 ans
-- Adulte : 18-64 ans
-- Senior : 65 ans et plus
-
-## Exercice 4 : Année bissextile
-
-Une année est bissextile si :
-- Elle est divisible par 4
-- SAUF si elle est divisible par 100
-- SAUF si elle est divisible par 400
-
-Écrire l'algorithme.
-
-## Exercice 5 : De Morgan
-
-Simplifier avec les lois de De Morgan :
-
-```
-a) NON(x > 0 ET y > 0)
-b) NON(a = 1 OU b = 1)
-c) NON(NON(p) ET q)
-```
 
 # [&laquo; Chapitre 1](session_1.md) | [Chapitre 3 &raquo;](session_3.md)

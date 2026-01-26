@@ -250,6 +250,9 @@ Fin
 
 # Exercices
 
+[Exercice a remettre](exo/session_0_3.md)
+---
+
 ## Exercice 1 : Présentation
 
 Écrire un algorithme qui demande le prénom et l'âge de l'utilisateur, puis affiche :
