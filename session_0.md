@@ -153,4 +153,15 @@ mettre_au_frais(bol_reserve)
 | Boucle | Une répétition (tant que...) |
 
 
-# [Chapitre 2 &raquo;](session_0_1.md)
+## Exercice : Allez vous faire cuire un oeuf
+
+Rédigez l'algorithme pour cuire un œuf (méthode au choix).
+
+Identifiez :
+- Les variables
+- Les instructions
+- Au moins une condition OU une boucle
+
+---
+
+### [Chapitre 2 &raquo;](session_0_1.md)

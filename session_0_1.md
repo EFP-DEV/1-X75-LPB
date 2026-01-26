@@ -256,5 +256,28 @@ Les nombres sont lus de bas en haut, et chaque niveau de la pile représente une
 
 <img src="assets/mayan_number_revealed.png" alt="Mayan Number" />
 
+## Exercices : Systèmes de numération
 
-# [Chapitre 3 &raquo;](session_0_2.md)
+### Exercice 1 : Encoder
+Convertissez **17** en binaire.
+
+| 2⁴ | 2³ | 2² | 2¹ | 2⁰ |
+|----|----|----|----|----|
+| 16 | 8  | 4  | 2  | 1  |
+|    |    |    |    |    |
+
+---
+
+### Exercice 2 : Décoder
+Quelle est la valeur décimale de **101010** ?
+
+| 2⁵ | 2⁴ | 2³ | 2² | 2¹ | 2⁰ |
+|----|----|----|----|----|-----|
+| 32 | 16 | 8  | 4  | 2  | 1   |
+| 1  | 0  | 1  | 0  | 1  | 0   |
+
+---
+
+
+### [Chapitre 1 &laquo;](session_0.md)  [&raquo; Chapitre 3](session_0_2.md)
+
