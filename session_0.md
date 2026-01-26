@@ -45,200 +45,112 @@ Voici une recette simplifiée du houmous :
 
 ## Analysons la recette comme un algorithme
 
-Cette recette contient tous les éléments essentiels d'un algorithme :
+### Ingrédients = Variables
 
-| Élément du houmous | Élément algorithmique | Exemple concret |
-|--------------------|-----------------------|-----------------|
-| Ingrédients        | **Variables** (éléments à manipuler) | `pois_chiches`, `sel`, `citron` |
-| Quantités          | **Valeurs des variables**            | `500g`, `1 citron`, `1 pincée` |
-| Ustensiles         | **Outils de traitement**             | `robot`, `bol`, `réfrigérateur` |
-| Instructions       | **Opérations ou traitements**        | `rincer()`, `mixer()`, `réserver()` |
-| Conditions         | **Structures conditionnelles**       | `Si la pâte n’est pas lisse, continuer à mixer` |
-| Répétitions        | **Boucles (structures itératives)** | `Tant que les pois chiches ne sont pas secs, égoutter` |
+```
+pois_chiches = 500
+puree_sesame = 5
+citron = 1
+sel = 1
+huile_olive = 3
+```
+
+Une variable stocke une valeur. C'est tout.
 
 ---
 
-## Traduction de la recette en pseudo-code (algorithme)
+### Instructions = Étapes séquentielles
 
-Voici comment cette recette pourrait être écrite en **pseudo-code**, une façon simplifiée d'écrire un algorithme :
-
-### Déclaration des variables :
-
-```javascript
-// Ingrédients avec typage et quantités
-Gramme pois_chiche = 500;
-CuillereSoupe puree_sesame = 5;
-Fruit citron = 1;
-Pincee sel = 1;
-CuillereSoupe huile_olive = 3;
-
-// Outils et conteneurs
-Outil evier, presse_agrume, robot, refrigerateur;
-Conteneur verre_a_jus, bol, bol_reserve;
-
-// États possibles (énumération)
-Enum Etat {
-    SEC,
-    HUMIDE,
-    LISSE,
-    GRUMELEUX,
-    HOMOGENE,
-    HETEROGENE
-}
-
-// Constantes temporelles
-Constante HEURE_MANGER = "18:35";
+```
+rincer(pois_chiches)
+egoutter(pois_chiches)
+ajouter(bol, pois_chiches)
+ajouter(bol, puree_sesame)
+ajouter(bol, jus de citron)
+ajouter(bol, sel)
+mixer(bol)
 ```
 
-### Instructions en pseudo-code :
+Les instructions s'exécutent **de haut en bas**, une par une.
 
-#### Étape 1 : Rincer et égoutter les pois chiches
+---
 
-```javascript
-// Méthode orientée objet pour les outils spécialisés
-pois_chiche = evier.rincer(pois_chiche);
+### Conditions = Décisions
 
-// Structure TantQue
-TantQue (pois_chiche.etat != Etat.SEC)
-    pois_chiche = evier.egoutter(pois_chiche);
+```
+Si pate n'est pas lisse Alors
+    mixer(bol)
+FinSi
+```
+
+On teste quelque chose. Si c'est vrai, on exécute le bloc.
+
+---
+
+### Boucles = Répétitions
+
+```
+TantQue pate n'est pas lisse
+    mixer(bol)
 FinTantQue
 ```
 
-#### Étape 2 : Préparer les ingrédients dans le bol
+On répète jusqu'à ce que la condition devienne fausse.
 
-```javascript
-// Fonctions procédurales pour les opérations sur le bol
-ajouter(bol, pois_chiche, 500);
-ajouter(bol, puree_sesame, 5);
+---
 
-// Mélange de styles
-verre_a_jus = presse_agrume.presser(citron, 1);
-verser(bol, verre_a_jus);
+## Code complet
 
-ajouter(bol, sel, 1);
 ```
+// Variables
+pois_chiches = 500
+puree_sesame = 5
+citron = 1
+sel = 1
+huile_olive = 3
+pate_lisse = faux
 
-#### Étape 3 : Mixer jusqu'à obtenir une pâte lisse et homogène
+// Préparation
+rincer(pois_chiches)
+egoutter(pois_chiches)
 
-```javascript
-// Déclaration d'un objet structuré avec ses propriétés
-// Déclaration d'un objet structuré avec ses propriétés
-ObjetCulinaire pate = {
-    texture: Etat.GRUMELEUX,
-    consistance: Etat.HETEROGENE,
-    gout: null
-};
+// Mélange
+ajouter(bol, pois_chiches)
+ajouter(bol, puree_sesame)
+ajouter(bol, jus de citron)
+ajouter(bol, sel)
 
-// Structure TantQue avec opérateurs logiques
-TantQue (pate.texture != Etat.LISSE || pate.consistance != Etat.HOMOGENE)
-    // Appel de méthode orientée objet
-    pate = robot.mixer(bol);
-
-    // Structure conditionnelle
-    Si (pate.texture == Etat.LISSE && pate.consistance == Etat.HOMOGENE) Alors
-        // Boucle TantQue numérique
-        var i = 0;
-        TantQue (i < 3)
-            verser(bol, huile_olive, 1);
-            pate = robot.mixer(bol);
-            huile_olive = huile_olive - 1;
-            i = i + 1;
-        FinTantQue
+// Mixage
+TantQue pate_lisse == faux
+    mixer(bol)
+    Si texture est lisse Alors
+        pate_lisse = vrai
     FinSi
 FinTantQue
-```
 
-#### Étape 4 : Transvaser et réserver
-
-```javascript
-// Fonction procédurale
-verser(bol_reserve, bol);
-
-// Structure TantQue pour l'attente active
-TantQue (heure_courante() != HEURE_MANGER)
-    refrigerateur.reserver(bol_reserve);
+// Ajout huile (3 fois)
+compteur = 0
+TantQue compteur < 3
+    ajouter(bol, 1 cuillère huile_olive)
+    mixer(bol)
+    compteur = compteur + 1
 FinTantQue
+
+// Fin
+verser(bol_reserve, bol)
+mettre_au_frais(bol_reserve)
 ```
 
 ---
 
-## Ce que cette analogie nous apprend
+## Résumé
 
-- Un **algorithme** ressemble beaucoup à une recette : il contient une liste précise d'étapes à suivre.
-- Chaque ingrédient (**variable**) doit être clairement **identifié** et **préparé** avant de l’utiliser.
-- Certaines actions (**instructions**) doivent être **répétées** (boucles) jusqu’à ce que la condition de fin soit atteinte.
-- On vérifie régulièrement certaines **conditions** (tests) pour décider des étapes suivantes.
+| Concept | Ce que c'est |
+|---------|--------------|
+| Variable | Une boîte qui contient une valeur |
+| Instruction | Une action à exécuter |
+| Condition | Un choix (si... alors...) |
+| Boucle | Une répétition (tant que...) |
 
 
-## Code final
-
-```javascript
-// Déclaration des variables d'ingrédients avec typage et quantités
-Gramme pois_chiche = 500;
-CuillereSoupe puree_sesame = 5;
-Fruit citron = 1;
-Pincee sel = 1;
-CuillereSoupe huile_olive = 3;
-
-// Outils et conteneurs
-Outil evier, presse_agrume, robot, refrigerateur;
-Conteneur verre_a_jus, bol, bol_reserve;
-
-// États possibles (énumération)
-Enum Etat {
-    SEC,
-    HUMIDE,
-    LISSE,
-    GRUMELEUX,
-    HOMOGENE,
-    HETEROGENE
-}
-
-// Constantes temporelles
-Constante HEURE_MANGER = "12:00";
-
-// ÉTAPE 1 : Rincer et égoutter les pois chiches
-pois_chiche = evier.rincer(pois_chiche);
-
-TantQue (pois_chiche.etat != Etat.SEC)
-    pois_chiche = evier.egoutter(pois_chiche);
-FinTantQue
-
-// ÉTAPE 2 : Préparer les ingrédients dans le bol
-ajouter(bol, pois_chiche, 500);
-ajouter(bol, puree_sesame, 5);
-
-verre_a_jus = presse_agrume.presser(citron, 1);
-verser(bol, verre_a_jus);
-
-ajouter(bol, sel, 1);
-
-// ÉTAPE 3 : Mixer jusqu'à obtenir une pâte lisse et homogène
-ObjetCulinaire pate = {
-    texture: Etat.GRUMELEUX,
-    consistance: Etat.HETEROGENE,
-    gout: null
-};
-
-TantQue (pate.texture != Etat.LISSE || pate.consistance != Etat.HOMOGENE)
-    pate = robot.mixer(bol);
-
-    Si (pate.texture == Etat.LISSE && pate.consistance == Etat.HOMOGENE) Alors
-        Variable i = 0;
-        TantQue (i < 3)
-            verser(bol, huile_olive, 1);
-            pate = robot.mixer(bol);
-            huile_olive = huile_olive - 1;
-            i = i + 1;
-        FinTantQue
-    FinSi
-FinTantQue
-
-// ÉTAPE 4 : Transvaser et réserver
-verser(bol_reserve, bol);
-
-TantQue (heure_courante() != HEURE_MANGER)
-    refrigerateur.reserver(bol_reserve);
-FinTantQue
-```
 # [Chapitre 2 &raquo;](session_0_1.md)

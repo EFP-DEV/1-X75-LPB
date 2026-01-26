@@ -90,16 +90,48 @@ La **base est 10** et la **puissance** est le rang (0,1,2,..)
 
 ---
 
-### Sexagésimal (base 60)
+### Sexagésimal
 
 ```
-0 → 9
-10 → 19
-20 → 59
-100 → 159
-200 → 259
-5900 → 5959
-10000 → 15900
+000 - 009
+010 - 019
+020 - 029
+030 - 039
+040 - 049
+050 - 059
+
+100 - 109
+110 - 119
+120 - 129
+130 - 139
+140 - 149
+150 - 159
+
+200 - 209
+210 - 219
+220 - 229
+230 - 239
+240 - 249
+250 - 259
+
+...
+
+5900 - 5909
+5910 - 5919
+5920 - 5929
+5930 - 5939
+5940 - 5949
+5950 - 5959
+
+10000 - 10009
+10010 - 10019
+10020 - 10029
+...
+10050 - 10059
+10100 - 10159
+...
+15900 - 15959
+
 ```
 
 <details>
@@ -206,6 +238,8 @@ Base 2:  1101
 
 La base 1 est un système de numération où chaque nombre est représenté par une série de symboles identiques. Par exemple, le nombre 5 serait représenté par cinq symboles identiques, comme "|||||".
 Dans ce système, il n'y a pas de chiffres distincts pour représenter les valeurs, et chaque symbole représente une unité. La base 1 est souvent considérée comme un système de numération très limité et peu pratique pour des calculs complexes.
+
+
 <img src="assets/unary_ishango_bone.jpg" alt="Unary" width="161"/>
 
 ---
