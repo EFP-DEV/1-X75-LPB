@@ -81,6 +81,16 @@ Que s'est-il passé ?
 ## Exercice 1.6
 Alice et Bob veulent échanger leurs places dans la file. Écrire un algorithme permettant d'échanger les valeurs de `place_alice` et `place_bob`.
 
+```C
+Variables place_alice, place_bob en Entier
+
+Début
+    place_alice ← 1
+    place_bob ← 23
+Fin
+
+// a la fin, place_alice vaut 23, place_bob vaut 1
+```
 ---
 
 ## Exercice 1.7
