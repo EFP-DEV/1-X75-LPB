@@ -1,10 +1,3 @@
-# 1-X75-LPB
-
-
-Voici le **plan complet mis à jour** du module **LPB : Langages de programmation, bases** (80 heures - 20 cours) formaté clairement en markdown, avec un **examen final** en remplacement du cours n°20.
-
----
-
 # Module LPB : Langages de programmation, bases (80 heures)
 
 ## Objectifs pédagogiques
