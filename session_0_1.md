@@ -48,7 +48,7 @@ Avec les zéros **non-significatifs**, on peut écrire des nombres de 0 à 999 d
 030 - 039
    ...
 090 - 099
-100 - 999
+100 - 199
 200 - 299
    ...
 300 - 999
