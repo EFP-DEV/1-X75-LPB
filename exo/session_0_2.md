@@ -91,6 +91,19 @@ Fin
 
 // a la fin, place_alice vaut 23, place_bob vaut 1
 ```
+
+Le programme doit aussi fonctionner avec d'autres types de valeurs:
+
+```C
+Variables place_alice, place_bob en Entier
+
+Début
+    place_alice ← "first"
+    place_bob ← "last"
+Fin
+
+// a la fin, place_alice vaut last, place_bob vaut first
+```
 ---
 
 ## Exercice 1.7
