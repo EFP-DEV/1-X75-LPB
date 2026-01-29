@@ -58,7 +58,7 @@ Questions (APRES ECRITURE DU PROGRAMME):
 | Minime | 12-14 ans |
 | Cadet | 15 ans et + |
 
-Si la reponse est "plus que 2 par categorie", reecrire
+Si la reponse est "plus que 1 par categorie", reecrire le code
 
 
 ---
