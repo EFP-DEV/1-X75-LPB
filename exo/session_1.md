@@ -45,9 +45,21 @@ Un club de sport classe ses jeunes membres par catégorie :
 
 Écrire un algorithme qui demande l'âge d'un enfant et affiche sa catégorie.
 
-Questions :
+Questions (APRES ECRITURE DU PROGRAMME):
 - Peut-on concevoir plusieurs algorithmes équivalents ?
+- Peut-on l'ecrire sans composition ?
 - Que faire si l'enfant a moins de 6 ans ?
+- Combien de modification si les tranches deviennent
+
+| Catégorie | Âge |
+|-----------|-----|
+| Poussin | 6-8 ans |
+| Pupille | 9-11 ans |
+| Minime | 12-14 ans |
+| Cadet | 15 ans et + |
+
+Si la reponse est "plus que 2 par categorie", reecrire
+
 
 ---
 
