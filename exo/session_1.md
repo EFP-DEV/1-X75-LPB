@@ -60,7 +60,7 @@ Questions (APRES ECRITURE DU PROGRAMME):
 
 Si la reponse est "plus que 1 par categorie", reecrire le code
 
-
+EXO BONUS
 ---
 
 ### Exercice 3.7
