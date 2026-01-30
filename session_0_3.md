@@ -50,7 +50,7 @@ Périphériques de sortie : écran, imprimante, lecteur braille, haut-parleur...
 ```
 Ecrire "Texte à afficher"
 Ecrire variable
-Ecrire "Texte : ", variable
+Ecrire "Texte : " & variable
 ```
 
 ## Exemples
@@ -71,7 +71,7 @@ Variable resultat en Numérique
 
 Début
     resultat ← 12^2
-    Ecrire "Le carré de 12 est : ", resultat
+    Ecrire "Le carré de 12 est : " & resultat
 Fin
 ```
 
@@ -88,7 +88,7 @@ Variable age en Entier
 Début
     nom ← "Alice"
     age ← 25
-    Ecrire nom, " a ", age, " ans"
+    Ecrire nom & " a " & age & " ans"
 Fin
 ```
 
@@ -153,7 +153,7 @@ Début
     Ecrire "Entrez un nombre : "
     Lire nombre
     resultat ← nombre^2
-    Ecrire "Le carré de ", nombre, " est ", resultat
+    Ecrire "Le carré de " & nombre & " est " & resultat
 Fin
 ```
 
@@ -184,7 +184,7 @@ Variable age en Entier
 Début
     Ecrire "Entrez votre âge : "
     Lire age
-    Ecrire "Vous avez ", age, " ans"
+    Ecrire "Vous avez " & age & " ans"
 Fin
 ```
 
@@ -220,7 +220,7 @@ Début
     
     prixTTC ← prixHT * (1 + tauxTVA / 100)
     
-    Ecrire "Prix TTC : ", prixTTC
+    Ecrire "Prix TTC : " & prixTTC
 Fin
 ```
 
@@ -242,7 +242,7 @@ Début
     
     fahrenheit ← celsius * 9 / 5 + 32
     
-    Ecrire celsius, "°C = ", fahrenheit, "°F"
+    Ecrire celsius & "°C = " & fahrenheit & "°F"
 Fin
 ```
 
