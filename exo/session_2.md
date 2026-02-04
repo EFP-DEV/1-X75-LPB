@@ -151,35 +151,3 @@ Une assurance propose des tarifs identifiés par couleur, du moins au plus cher 
 
 **Bonus fidélité**
 Si le conducteur est **accepté** et qu’il est dans la compagnie depuis **plus d’un an**, alors il obtient un contrat **d’une couleur immédiatement plus avantageuse**.
-
----
-
-### Exercice 4.7 — Vérifier une date valide (jour/mois/année)
-
-**But**
-Écrire un algorithme qui lit un jour, un mois et une année, puis indique si la date est **valide**.
-
-**Données à lire**
-
-* `j` : jour
-* `m` : mois
-* `a` : année
-
-**Résultat attendu**
-Afficher :
-
-* “date valide” ou “date invalide”
-
-**Rappels**
-
-* Les mois ont 30 ou 31 jours, sauf février.
-* Février a 28 jours, **29** si l’année est **bissextile**.
-* Une année est bissextile si :
-
-  * elle est divisible par 4,
-  * sauf si elle est divisible par 100,
-  * mais elle redevient bissextile si elle est divisible par 400.
-
-**Outil autorisé**
-Pour tester la divisibilité : le pseudo-opérateur `dp` :
-`A dp B` vaut VRAI si A est divisible par B.
