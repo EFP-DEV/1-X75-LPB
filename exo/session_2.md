@@ -129,25 +129,44 @@ Une assurance propose des tarifs identifiés par couleur, du moins au plus cher 
 * `permis` : nombre d’années depuis l’obtention du permis
 * `accidents` : nombre d’accidents responsables
 * `anciennete` : nombre d’années dans la compagnie
+* 
+### Règles commerciales — Tarifs d’assurance auto (couleurs)
 
-**Règles (décision principale)**
+L’assurance propose quatre niveaux de tarif, du plus avantageux au plus cher : **bleu**, **vert**, **orange**, **rouge**.
+Selon le profil du conducteur, la demande est **acceptée** avec une couleur, ou **refusée**.
 
-1. Conducteur **< 35 ans** ET permis **< 2 ans** :
+#### 1) Profil “jeune conducteur débutant”
 
-* tarif **rouge** si **0 accident**, sinon **refusé**
+Si le conducteur a **moins de 35 ans** et son permis date de **moins de 2 ans** :
 
-2. Conducteur **< 35 ans** ET permis **≥ 2 ans**, OU conducteur **≥ 35 ans** ET permis **< 2 ans** :
+* il est **assuré au tarif rouge** uniquement s’il n’a **aucun accident responsable** ;
+* sinon, le dossier est **refusé**.
 
-* tarif **orange** si **0 accident**
-* tarif **rouge** si **1 accident**
-* sinon **refusé**
+#### 2) Profil “intermédiaire”
 
-3. Conducteur **≥ 35 ans** ET permis **≥ 2 ans** :
+Si le conducteur est :
 
-* tarif **vert** si **0 accident**
-* tarif **orange** si **1 accident**
-* tarif **rouge** si **2 accidents**
-* sinon **refusé**
+* soit **moins de 35 ans** avec un permis de **2 ans ou plus**,
+* soit **35 ans ou plus** avec un permis de **moins de 2 ans**,
 
-**Bonus fidélité**
-Si le conducteur est **accepté** et qu’il est dans la compagnie depuis **plus d’un an**, alors il obtient un contrat **d’une couleur immédiatement plus avantageuse**.
+alors :
+
+* **0 accident responsable** → **tarif orange**
+* **1 accident responsable** → **tarif rouge**
+* **au-delà** → **refusé**
+
+#### 3) Profil “expérimenté”
+
+Si le conducteur a **35 ans ou plus** et un permis de **2 ans ou plus** :
+
+* **0 accident responsable** → **tarif vert**
+* **1 accident responsable** → **tarif orange**
+* **2 accidents responsables** → **tarif rouge**
+* **au-delà** → **refusé**
+
+---
+
+### Avantage fidélité
+
+Si le dossier est **accepté** et que le conducteur est client depuis **plus d’un an**, il bénéficie d’un **tarif immédiatement plus avantageux** (une couleur au-dessus : rouge → orange → vert → bleu), sans pouvoir dépasser le **bleu**.
+
