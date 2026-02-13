@@ -243,7 +243,7 @@ Afficher :
 
 ---
 
-## Série 2 — Deux informations (AND / OR + pièges)
+## Série 2 — Deux informations (ET / OU + pièges)
 
 ### Exercice 13 — Tarif : enfant, étudiant ou standard
 
