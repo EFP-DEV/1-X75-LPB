@@ -11,6 +11,7 @@ Début
     prix ← 3
 Fin
 ```
+[Solution](solution/1.1.md)
 
 ---
 

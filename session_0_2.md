@@ -1,5 +1,11 @@
 # ALGO-101 - Cours d'algorithmique
+
+
+[Exercices](exo/session_0_2.md)
+
+
 # Les Variables
+
 
 ## C'est quoi une variable ?
 
@@ -216,7 +222,6 @@ nom <- valeur
 
 
 
-[Exercice a remettre](exo/session_0_2.md)
 ---
 
 ### [Chapitre 2 &laquo;](session_0_1.md)  [&raquo; Chapitre 4](session_0_3.md)
