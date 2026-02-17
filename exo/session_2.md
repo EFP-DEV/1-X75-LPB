@@ -129,7 +129,7 @@ Une assurance propose des tarifs identifiés par couleur, du moins au plus cher 
 * `permis` : nombre d’années depuis l’obtention du permis
 * `accidents` : nombre d’accidents responsables
 * `anciennete` : nombre d’années dans la compagnie
-* 
+  
 ### Règles commerciales — Tarifs d’assurance auto (couleurs)
 
 L’assurance propose quatre niveaux de tarif, du plus avantageux au plus cher : **bleu**, **vert**, **orange**, **rouge**.
