@@ -1,4 +1,4 @@
-# Concepts JavaScript pour la génération d'un calendrier dynamique
+# Session 6 - Concepts JavaScript pour la génération d'un calendrier dynamique
 
 Ce cours théorique couvre les concepts JavaScript essentiels pour implémenter un calendrier HTML dynamique.
 
