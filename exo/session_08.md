@@ -14,9 +14,8 @@ Contraintes minimales :
 Exemples :
 
 * `Étape 1 - compteur simple`
-* `Étape 2 - compteur structuré`
-* `Étape 3 - deux actions et total`
-* `Étape 4 - micro-tracker complet`
+* `Étape 2 - deux actions et total`
+* `Étape 3 - micro-tracker complet`
 
 Le but est de construire progressivement une interface interactive, tout en gardant une trace claire de votre progression.
 
@@ -83,38 +82,13 @@ Vous passez maintenant à une interface plus riche.
 Vous allez gérer :
 
 * deux boutons ;
-* deux compteurs distincts ;
 * un total ;
-* un message dynamique.
-
-**Dans votre fichier JavaScript :**
-
-1. créez deux variables d’état ;
-2. récupérez tous les éléments utiles du HTML ;
-3. créez une fonction `updateUI()` qui :
-
-   * met à jour les deux compteurs,
-   * calcule le total,
-   * affiche le total,
-   * affiche un message selon la progression ;
-4. créez une fonction pour le bouton `Ajouter 1` ;
-5. créez une fonction pour le bouton `Ajouter 5` ;
-6. reliez chaque bouton à la bonne fonction.
-
-## Exemple de logique possible pour le message
-
-Vous pouvez choisir vos propres règles. Par exemple :
-
-* total = `0` → message de départ ;
-* total inférieur à `10` → message d’encouragement ;
-* total à partir de `10` → objectif atteint.
 
 ## Résultat attendu
 
-* `Ajouter 1` modifie seulement le premier compteur ;
-* `Ajouter 5` modifie seulement le second compteur ;
-* le total est recalculé automatiquement ;
-* le message change selon l’état courant.
+* `Ajouter 1` modifie incremente le compteur de 1;
+* `Ajouter 5` modifie incremente le compteur de 5;
+
 
 ## Commit attendu
 
