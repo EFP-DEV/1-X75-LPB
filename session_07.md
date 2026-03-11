@@ -1,4 +1,4 @@
-# Fondements théoriques des chaînes de caractères et tests unitaires 
+# Session 7 - Fondements théoriques des chaînes de caractères et tests unitaires 
 
 --- 
 
