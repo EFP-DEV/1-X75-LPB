@@ -105,7 +105,6 @@ Vous devez construire un micro-tracker complet avec :
 
 * trois compteurs indépendants ;
 * un total ;
-* un message dynamique ;
 * un bouton de réinitialisation.
 
 ## HTML fourni
@@ -133,8 +132,6 @@ Vous devez construire un micro-tracker complet avec :
   </article>
 
   <p>Total : <strong id="total-value">0</strong></p>
-  <p id="goal-message" role="status" aria-live="polite"></p>
-
   <button id="btn-reset">Réinitialiser</button>
 </section>
 ```
@@ -145,9 +142,8 @@ Vous devez construire un micro-tracker complet avec :
 2. récupérer les éléments HTML utiles ;
 3. gérer les clics sur les trois boutons d’ajout ;
 4. calculer et afficher le total ;
-5. afficher un message dynamique selon la progression ;
-6. gérer le bouton de réinitialisation ;
-7. garder une structure de code claire.
+5. gérer le bouton de réinitialisation ;
+6. garder une structure de code claire.
 
 ## Contraintes
 
@@ -160,7 +156,6 @@ Vous devez construire un micro-tracker complet avec :
 
 * chaque bouton augmente uniquement son propre compteur ;
 * le total correspond à la somme des trois valeurs ;
-* le message évolue selon la progression ;
 * le bouton `Réinitialiser` remet tout à zéro ;
 * l’interface reste correcte après chaque action.
 
