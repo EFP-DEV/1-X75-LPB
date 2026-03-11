@@ -76,37 +76,7 @@ Quand l’étape fonctionne, faites un commit.
 
 ---
 
-# Étape 2 — Compteur structuré
-
-Vous reprenez la même interface, le meme code HTML, mais vous organisez votre code de manière plus claire.
-
-**Dans votre fichier JavaScript :**
-
-1. gardez une variable pour l’état du compteur ;
-2. récupérez l’affichage et le bouton ;
-3. créez une fonction `updateUI()` qui met à jour l’affichage ;
-4. créez une fonction `increment()` qui augmente la valeur puis appelle `updateUI()` ;
-5. reliez le bouton à la fonction `increment()`.
-
-## Contraintes
-
-* le code doit être découpé en fonctions ;
-* l’affichage doit être mis à jour par une fonction dédiée ;
-* le comportement final doit rester le même qu’à l’étape 1.
-
-## Résultat attendu
-
-* le compteur fonctionne comme avant ;
-* le code est mieux organisé ;
-* chaque rôle est séparé clairement.
-
-## Commit attendu
-
-Quand l’étape fonctionne, faites un commit.
-
----
-
-# Étape 3 — Deux actions, total, message
+# Étape 2 — Deux actions, total, message
 
 Vous passez maintenant à une interface plus riche.
 
@@ -152,7 +122,7 @@ Quand l’étape fonctionne, faites un commit.
 
 ---
 
-# Étape 4 — Mini tableau de bord complet
+# Étape 3 — Mini tableau de bord complet
 
 Pour cette étape, **HTML est fourni** et ne **peut pas etre modifié**.
 Le JavaScript est entièrement à écrire par vous-même.
