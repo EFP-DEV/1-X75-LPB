@@ -247,8 +247,9 @@ Mais il existe une autre technique.
 On peut écouter **tous les clics sur la page** :
 
 ```js
-document.addEventListener('click', function(e) {
-
+let dash = document.getElementById('dashboard);
+dash.addEventListener('click', function(e) {
+  console.log(e.target);
 });
 ```
 
