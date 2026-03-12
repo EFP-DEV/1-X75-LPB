@@ -1,60 +1,233 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Micro-Tracker — DOM only</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 0 1rem;
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sandbox DOM</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --surface-alt: #eef2ff;
+      --text: #1f2937;
+      --text-soft: #4b5563;
+      --border: #d7dce5;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --radius: 0.9rem;
+      --shadow: 0 0.35rem 1.2rem rgba(15, 23, 42, 0.08);
+      --space-1: 0.5rem;
+      --space-2: 0.75rem;
+      --space-3: 1rem;
+      --space-4: 1.5rem;
+      --space-5: 2rem;
+      --measure: 72rem;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    header,
+    main {
+      width: min(100% - 2rem, var(--measure));
+      margin-inline: auto;
+    }
+
+    header {
+      padding-block: var(--space-5) var(--space-4);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    header p {
+      margin-top: var(--space-2);
+      max-width: 60ch;
+      color: var(--text-soft);
+    }
+
+    main {
+      display: grid;
+      gap: var(--space-4);
+      padding-bottom: var(--space-5);
+    }
+
+    section,
+    aside {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: var(--space-4);
+    }
+
+    section > h2,
+    aside > h2 {
+      margin-bottom: var(--space-3);
+    }
+
+    #zone-1,
+    #zone-2 {
+      display: grid;
+      gap: var(--space-3);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+      align-items: start;
+    }
+
+    #zone-1 > h2,
+    #zone-2 > h2 {
+      grid-column: 1 / -1;
+    }
+
+    .card {
+      display: grid;
+      gap: var(--space-3);
+      align-content: start;
+      min-inline-size: 0;
+      padding: var(--space-3);
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) - 0.25rem);
+    }
+
+    .card p {
+      color: var(--text-soft);
+    }
+
+    .value,
+    #total {
+      color: var(--text);
+    }
+
+    .actions {
+      display: grid;
+    }
+
+    .btn,
+    #reset {
+      appearance: none;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #ffffff;
+      border-radius: 0.7rem;
+      padding: 0.75rem 1rem;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn:hover,
+    #reset:hover {
+      filter: brightness(0.96);
+    }
+
+    .btn:focus-visible,
+    #reset:focus-visible {
+      outline: 3px solid var(--accent-soft);
+      outline-offset: 2px;
+    }
+
+    .special-card {
+      border-style: dashed;
+    }
+
+    .special {
+      justify-self: start;
+    }
+
+    #summary {
+      display: grid;
+      gap: var(--space-3);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+      align-items: start;
+    }
+
+    #summary > h2 {
+      grid-column: 1 / -1;
+    }
+
+    #summary p,
+    #summary button {
+      min-width: 0;
+    }
+
+    @media (width >= 60rem) {
+      main {
+        grid-template-columns: 2fr 1fr;
       }
 
-      section {
-        display: grid;
-        gap: 1rem;
-
-        /* Intrinsic grid, no breakpoints */
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        align-items: start;
+      #zone-1,
+      #zone-2 {
+        grid-column: 1;
       }
 
-      article {
-        border: 1px solid #ccc;
-        padding: 1rem;
-        border-radius: 0.4rem;
-        background: #fafafa;
+      #summary {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        align-self: start;
+        position: sticky;
+        top: 1rem;
       }
+    }
+  </style>
+</head>
+<body>
 
-      /* These two items take the full width of the grid */
-      .span-all {
-        grid-column: 1 / -1;
-      }
-    </style>
-  </head>
-  <body>
-    <section>
-      <article>
-        <h2>Soleil</h2>
-        <p>Minutes : <strong class="value">0</strong></p>
-        <button class="count">+1</button>
+  <header>
+    <h1 id="page-title">Sandbox DOM</h1>
+    <p>Terrain de jeu pour explorer le DOM comme un arbre.</p>
+  </header>
+
+  <main>
+    <section id="zone-1" aria-labelledby="zone-1-title">
+      <h2 id="zone-1-title">Zone 1</h2>
+
+      <article class="card">
+        <h3>Carte Soleil</h3>
+        <p>Valeur : <strong class="value">0</strong></p>
+        <button class="btn">Ajouter</button>
       </article>
 
-      <article>
-        <h2>Eau</h2>
-        <p>Verres : <strong class="value">0</strong></p>
-        <button class="count">+1</button>
+      <article class="card">
+        <h3>Carte Eau</h3>
+        <p>Valeur : <strong class="value">0</strong></p>
+        <button class="btn">Ajouter</button>
       </article>
-
-      <article>
-        <h2>Pause</h2>
-        <p>Moments : <strong class="value">0</strong></p>
-        <button class="count">+1</button>
-      </article>
-
-      <p class="span-all">Total : <strong id="total">0</strong></p>
-      <button id="reset" class="span-all">Réinitialiser</button>
     </section>
-  </body>
+
+    <section id="zone-2" aria-labelledby="zone-2-title">
+      <h2 id="zone-2-title">Zone 2</h2>
+
+      <article class="card special-card">
+        <h3>Carte Pause</h3>
+        <p>Valeur : <strong class="value">0</strong></p>
+        <div class="actions">
+          <button class="btn special">Ajouter</button>
+        </div>
+      </article>
+    </section>
+
+    <aside id="summary" aria-labelledby="summary-title">
+      <h2 id="summary-title">Résumé</h2>
+      <p>Total : <strong id="total">0</strong></p>
+      <button id="reset">Réinitialiser</button>
+    </aside>
+  </main>
+
+</body>
 </html>
