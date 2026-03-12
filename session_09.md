@@ -1,350 +1,288 @@
-# Session 9 - Micro Tracker DOM edition
+# Session 9 — Parcourir le DOM comme un arbre
 
-## Introduction
+## Objectif de la séance
 
-Lors de la session précédente, vous avez créé un micro-tracker avec :
+Lors de la séance précédente, vous avez appris à :
 
-* des variables,
-* des événements simples,
-* et du texte affiché directement dans le HTML.
+* réagir à un clic
+* récupérer un élément HTML
+* modifier le texte affiché
+* mettre à jour une interface simple
 
-Ce fonctionnement était volontairement **simplifié**, mais il avait plusieurs limites importantes.
+Nous utilisions surtout :
 
-### 1. Pas de structure flexible
+```js
+document.getElementById(...)
+```
 
-Chaque compteur était défini “à la main” dans le JavaScript.
-Si on voulait ajouter un 4ᵉ compteur, il fallait :
+Cette méthode est simple et très utile pour débuter.
 
-* ajouter du HTML,
-* ajouter une nouvelle variable,
-* ajouter du code supplémentaire.
+Mais elle présente une limite importante :
+elle suppose que **nous connaissons chaque élément individuellement**.
 
-**Le code n’était pas scalable** (pas adaptable à une interface plus grande).
-
----
-
-### 2. Le HTML n’était pas relié directement à l’interface
-
-La version précédente ne “lisait” pas réellement l’écran :
-elle ne faisait que mettre à jour des variables JavaScript avant de modifier l'interface
-
-Résultat :
-Le JavaScript “connaissait” les valeurs, mais le navigateur ne les connaissait pas encore.
-
-**L’interface et la logique vivaient séparément.**
+Dans une vraie interface, ce n’est pas toujours le cas.
 
 ---
 
-## 3. Peu de réutilisation / beaucoup de répétition
+# 1. Le DOM est une structure en arbre
 
-Chaque action (+1, reset…) nécessitait du code dédié.
-Impossible de programmer correctement, certainemant pas sans :
+Quand le navigateur lit votre HTML, il ne voit pas simplement une suite de lignes.
 
-* `querySelector()` et `closest()`
-* `querySelectorAll()` et `NodeList` (listes d’éléments HTML)
+Il construit une **structure hiérarchique**.
 
-Le code était **long, répétitif, difficile à maintenir**.
-
----
-
-# Pourquoi on change d’approche maintenant ?
-
-Cela nous amène au principe fondamental du développement web :
-
-# SoC — *Separation of Concerns*
-
-**Séparer les rôles de chaque langage pour obtenir un code propre et adaptable.**
-
-### 1. HTML → structure et sens
-
-* Décrit les éléments : un article, un bouton, une valeur.
-* Ne contient ni styles ni logique.
-
-### 2. CSS → présentation
-
-* Décide des couleurs, marges, tailles.
-* Ne touche jamais aux données ou à la logique.
-
-### 3. JavaScript → comportement
-
-* Lit et modifie le DOM.
-* Réagit aux interactions.
-* Met à jour l’interface.
-
-Dans l’exercice actuel :
-
-* Le **HTML** déclare simplement les compteurs.
-* Le **JS** découvre les compteurs via le DOM et met à jour les valeurs.
-* Le **CSS** reste totalement indépendant.
-
-**Chaque langage joue son rôle.**
-
----
-
-# Pourquoi c’est important pour vous (UX/UI designers) ?
-
-Parce qu’un designer moderne doit comprendre plus que l’apparence :
-il doit comprendre **comment l’interface réagit**.
-
-* savoir où mettre les classes,
-* savoir comment structurer un composant,
-* savoir comment le JavaScript va s’y connecter.
-
-Ce n’est pas apprendre à “coder”, c’est apprendre à **penser en composants**, à **penser en interface interactive**.
-
----
-
-# Demonstrations
-
-## 1. HTML Sandbox — Pour jouer avec `querySelector()` et `closest()`
-
-À coller dans un fichier `sandbox.html`.
-Pas de fichier JS au début : on manipule **uniquement la console**.
+Par exemple :
 
 ```html
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Sandbox DOM</title>
-  <style>
-    body { font-family: sans-serif; padding: 1rem; }
-    section, article, div { border: 1px solid #ccc; padding: .5rem; margin-bottom: .5rem; }
-    .box { background: #f0f0f0; padding: .3rem; }
-  </style>
-</head>
-<body>
-
-<h1>Sandbox DOM</h1>
-
-<section id="zone-1">
-  <h2>Zone 1</h2>
+<section>
   <article>
-    <h3>Article A</h3>
-    <div class="box">
-      <button class="btn">Bouton A1</button>
-    </div>
+    <button>+1</button>
   </article>
 </section>
-
-<section id="zone-2">
-  <h2>Zone 2</h2>
-  <article>
-    <h3>Article B</h3>
-    <div class="box">
-      <button class="btn">Bouton B1</button>
-      <button class="btn special">Bouton B2</button>
-    </div>
-  </article>
-</section>
-
-</body>
-</html>
 ```
+
+Devient dans le DOM :
+
+```
+section
+ └─ article
+     └─ button
+```
+
+Chaque élément possède :
+
+* un **parent**
+* éventuellement des **enfants**
+* des **éléments voisins**
+
+On peut donc :
+
+* descendre dans l’arbre
+* remonter dans l’arbre
+* chercher des éléments similaires
+
+C’est ce qui permet d’écrire un code **plus générique**.
 
 ---
 
-# 2. Démonstration 1 — Explorer `querySelector()` (console uniquement)
+# 2. Limite de l’approche précédente
 
-**Objectif :** comprendre *“chercher 1 élément dans le DOM”*.
-
-Dans la console :
-
-### A. Chercher par balise
+Dans la session 8, votre code ressemblait souvent à ceci :
 
 ```js
-document.querySelector('h2')
+let sun = 0;
+let water = 0;
+
+let btnSun = document.getElementById('btn-sun');
+let btnWater = document.getElementById('btn-water');
 ```
 
-→ renvoie "Zone 1" (le premier `h2`)
+Chaque élément était récupéré **un par un**.
 
-```js
-document.querySelector('h3')
-```
+Si on ajoute un nouveau compteur, il faut :
 
-→ renvoie "Article A"
+* ajouter du HTML
+* ajouter une variable
+* ajouter un event listener
+* ajouter du code pour mettre à jour l’interface
+
+Le programme ne s’adapte pas automatiquement.
+
+Le problème n’est pas JavaScript.
+Le problème est **la manière dont on utilise le DOM**.
 
 ---
 
-### B. Chercher par classe
+# 3. Une autre approche : travailler avec la structure
+
+Au lieu de dire :
+
+> “Donne-moi **ce bouton précis**”
+
+On peut dire :
+
+> “Donne-moi **tous les boutons de ce type**”
+
+ou
+
+> “Je sais sur quel bouton on a cliqué, trouve-moi **le composant auquel il appartient**.”
+
+Cette approche repose sur trois outils fondamentaux :
+
+* `querySelector()`
+* `querySelectorAll()`
+* `closest()`
+
+---
+
+# 4. `querySelector()` — chercher un élément
+
+`querySelector()` permet de chercher **un élément dans le DOM** avec un sélecteur CSS.
+
+Exemple :
+
+```js
+document.querySelector('button')
+```
+
+Renvoie **le premier bouton** trouvé.
+
+On peut aussi chercher par classe :
 
 ```js
 document.querySelector('.btn')
 ```
 
-→ renvoie le **premier bouton** trouvé (Bouton A1)
+Ou par identifiant :
 
 ```js
-document.querySelector('.special')
+document.querySelector('#zone-1')
 ```
 
-→ renvoie Bouton B2
+Contrairement à `getElementById`, cette méthode utilise **les mêmes règles que CSS**.
 
 ---
 
-### C. Chercher à l’intérieur d’un élément
+# 5. Chercher à l’intérieur d’un élément
+
+On peut aussi limiter la recherche à une partie du DOM.
+
+Exemple :
 
 ```js
-let zone2 = document.querySelector('#zone-2');
-zone2.querySelector('.btn')
+let zone = document.querySelector('#zone-2');
+
+zone.querySelector('.btn');
 ```
 
-→ cherche seulement **dans Zone 2**
+JavaScript cherche seulement **dans cette zone**.
+
+Cela permet de travailler **par composant**.
 
 ---
 
-# 3. Démonstration 2 — Explorer `closest()`
+# 6. `closest()` — remonter dans l’arbre
 
-But : revenir du bouton vers son parent logique.
+Si on connaît un élément, on peut chercher **son parent logique**.
 
-Dans la console :
-
-```js
-let btnB2 = document.querySelector('.special');
-btnB2.closest('section')
-```
-
-→ renvoie la section “Zone 2”
+Exemple :
 
 ```js
-btnB2.closest('article')
+let btn = document.querySelector('.btn');
+btn.closest('article');
 ```
 
-→ renvoie l’article B
+JavaScript remonte dans l’arbre jusqu’à trouver un `article`.
 
-```js
-btnB2.closest('.box')
-```
+On peut donc dire :
 
-→ renvoie le div.box autour des boutons
+> “Ce bouton appartient à quel composant ?”
 
-**Point à démontrer :**
-closest = remonter dans l’arbre **jusqu’au parent demandé**.
-
-Faites cliquer les étudiants n’importe où et les laisser tester en live.
+C’est extrêmement utile pour gérer les interfaces.
 
 ---
 
-# 4. Démonstration 3 — `querySelectorAll()` et les tableaux (NodeList)
+# 7. `querySelectorAll()` — chercher plusieurs éléments
 
-Là, on introduit **progressivement** les listes d’éléments comme un “tableau”.
+`querySelectorAll()` permet de récupérer **tous les éléments correspondant à un sélecteur**.
+
+```js
+let buttons = document.querySelectorAll('.btn');
+```
+
+Cette instruction renvoie une **NodeList**.
+
+Une NodeList ressemble à un tableau :
+
+```
+buttons[0]
+buttons[1]
+buttons[2]
+```
+
+Elle possède aussi une propriété :
+
+```
+buttons.length
+```
+
+qui indique combien d’éléments ont été trouvés.
 
 ---
 
-## Étape A — Récupérer plusieurs éléments
+# 8. Parcourir une liste d’éléments
+
+Une fois qu’on possède plusieurs éléments, on peut les parcourir.
+
+Dans ce cours, nous utilisons une **boucle while**.
+
+Exemple :
 
 ```js
-let allButtons = document.querySelectorAll('.btn');
-allButtons
-```
+let buttons = document.querySelectorAll('.btn');
 
-→ affiche une **NodeList** (ressemble à un tableau)
-
----
-
-## Étape B — Lire length
-
-```js
-allButtons.length
-```
-
-→ nombre total de boutons
-
----
-
-## Étape C — Accès par index
-
-```js
-allButtons[0]
-```
-
-→ Bouton A1
-
-```js
-allButtons[2]
-```
-
-→ Bouton B2 (selon l’ordre du DOM)
-
-→ ?
-
-```js
-allButtons[3]
-```
----
-
-## Étape D — Parcourir avec une boucle while
-
-**Créer un fichier `sandbox-dom.js`** et le relier.
-
-```js
-console.log("Script chargé");
-
-// On récupère tous les boutons
-let allButtons = document.querySelectorAll('.btn');
-
-// Boucle simple d’affichage
 let i = 0;
-let currentButton;
-while (i < allButtons.length) {
-  currentButton = allButtons[i];
-  console.log("Bouton trouvé :", currentButton.textContent);
+
+while (i < buttons.length) {
+  console.log(buttons[i].textContent);
   i = i + 1;
 }
-
 ```
 
----
-
-## Étape E — Modifier chaque bouton
-
-Changer leur texte pour X/Y, ou X est l'index du bouton dans la liste et Y la quantite totale de boutons
-
+Cette boucle lit chaque bouton dans l’ordre.
 
 ---
 
-# 5. Démonstration 4
+# 9. Délégation d’événement
+
+Dans la séance précédente, nous avions plusieurs écouteurs :
 
 ```js
-function colorAll() {
-  let items = document.querySelectorAll('.btn');
-
-  let i = 0;
-  while (i < items.length) {
-    items[i].classList.add('colorized');
-    i = i + 1;
-  }
-}
+btn1.addEventListener(...)
+btn2.addEventListener(...)
+btn3.addEventListener(...)
 ```
 
-Puis, appeler la fonction:
+Mais il existe une autre technique.
 
-```js
-colorAll();
-```
-
----
-
-# 6. Démonstration 5 — `closest()` + `querySelectorAll()` ensemble
+On peut écouter **tous les clics sur la page** :
 
 ```js
 document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('btn')) {
-    let article = e.target.closest('article');
-    console.log("Tu as cliqué sur le bouton dans l’article :", article.querySelector('h3').textContent);
-  }
+
 });
 ```
 
+L’objet `e` contient l’élément réellement cliqué.
+
+```
+e.target
+```
+
+On peut alors vérifier ce qui a été cliqué.
+
+Par exemple :
+
+```js
+if (e.target.classList.contains('btn')) {
+
+}
+```
+
+Puis utiliser `closest()` pour retrouver le composant concerné.
+
+Cette technique s’appelle **la délégation d’événement**.
+
+Elle permet de gérer **beaucoup d’éléments avec un seul écouteur**.
+
 ---
 
-# Conclusion
+# Ce que vous savez maintenant
 
-Après ces démonstrations vous :
+À la fin de cette séance vous devez comprendre :
 
-✓ savez chercher 1 élément
-✓ savez chercher plusieurs éléments
-✓ savez remonter dans le DOM avec closest
-✓ comprenez ce qu’est une NodeList
-✓ savez parcourir des éléments avec while
-✓ avez manipulé le DOM
+* que le DOM est une structure en arbre
+* comment chercher un élément
+* comment chercher plusieurs éléments
+* comment remonter vers un parent
+* comment parcourir une liste d’éléments
+* comment utiliser un seul event listener
