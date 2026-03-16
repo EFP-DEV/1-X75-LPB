@@ -29,8 +29,8 @@
 <tr><td>7</td><td><a href="session_07.md">Exo: JS-Calendar</a></td><td>4h</td></tr>
 <tr><td>8</td><td><a href="session_08.md">DOM Tracker</a></td><td>4h</td></tr>
 <tr><td>9</td><td><a href="session_09.md">DOM Tracker Dashboard</a></td><td>4h</td></tr>
+  <tr><td>10</td><td><a href="session_10.md">API + DOM</a></td><td>4h</td></tr>
 <!--
-  <tr><td>10</td><td><a href="session_10.md">Exo: JS-DOM</a></td><td>4h</td></tr>
 <tr><td>11</td><td><a href="session_11.md">Exo: JS-DOM</a></td><td>4h</td></tr>
 <tr><td colspan="3"><strong>Partie 3 : Programmation PHP (28h)</strong></td></tr>
 <tr><td>12</td><td><a href="session_12.md">Introduction à PHP: concepts et syntaxe générale</a></td><td>4h</td></tr>
