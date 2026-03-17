@@ -1,4 +1,4 @@
-# Session 10 — Exercice API
+# Session 10 — Exercice API - Nobels
 
 ## Liste des prix Nobel, HTML sémantique et gestion d’erreur
 
