@@ -83,6 +83,7 @@ Exemples :
 
 Un site réalisé uniquement en **HTML / CSS / JavaScript**, sans traitement côté serveur, est en principe statique.
 
+![Site dynamique](./assets/site-static.png)
 ---
 
 ## 2.2. Site dynamique
@@ -103,6 +104,8 @@ PHP fait partie des langages qui permettent de produire ce type de site.
 Dans ce cours, nous nous concentrerons sur le couple :
 
 **PHP / MySQL**
+
+![Site dynamique](./assets/site-dynamic.png)
 
 ---
 
