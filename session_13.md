@@ -77,14 +77,6 @@ INSERT INTO products (name, price_min, price_max, price, sale_price, image, is_s
 
 Dans cette séance, on travaille uniquement en **lecture**.
 
-Vous ne devez pas utiliser :
-
-* `INSERT`
-* `UPDATE`
-* `DELETE`
-* `prepare()`
-* formulaires de gestion
-
 Vous devez travailler uniquement avec :
 
 * `SELECT`
@@ -212,7 +204,6 @@ index.php?product=3
 
 Dans ce cas, le script doit lire la valeur transmise, faire une requête SQL de lecture, puis afficher la page détail.
 
-À ce stade, comme `prepare()` n’a pas encore été vu, on reste dans une logique de découverte simple autour de `SELECT`.
 
 ### Résultat attendu
 
