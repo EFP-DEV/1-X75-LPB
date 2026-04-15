@@ -1,4 +1,4 @@
-## **Exercice — Mini routeur (sans Apache, sans REQUEST_URI)**
+## **Exercice - Mini routeur**
 
 ---
 
