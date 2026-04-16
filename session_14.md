@@ -1,68 +1,551 @@
-# Session 15 - Mini routeur
+# Session 14 — Introduction au mini-routeur
 
 ---
 
 # 1. Objectif
 
-Dans ce chapitre, on apprend à lire une URL comme une structure.
+Jusqu’ici, vous avez utilisé des URLs comme :
 
-Le but est de comprendre comment un script PHP peut découper une URL pour en extraire des informations utiles, puis décider quoi faire.
+```text
+index.php?page=world
+````
 
-À la fin, vous devez comprendre comment obtenir à partir d’une URL :
+Dans ce chapitre, on va comprendre une autre forme d’URL :
 
-- une zone éventuelle (`admin` ou front)
-- une ressource
-- une action
-- un identifiant éventuel
+```text
+/world
+```
+
+Puis :
+
+```text
+/products/show/12
+```
+
+Le but est de comprendre comment un script PHP peut lire une URL découpée en segments, en extraire des informations, puis décider quoi faire.
+
+À la fin de ce chapitre, vous devez comprendre :
+
+* la différence entre paramètres et chemin
+* ce qu’est un front controller
+* le rôle très simple de `url_rewrite`
+* ce qu’est un segment d’URL
+* comment une URL peut être interprétée comme une structure
+* pourquoi cette logique prépare l’exercice du mini-routeur
 
 ---
 
-# 2. Qu’est-ce qu’un routeur ?
+# 2. Ce que vous connaissez déjà
 
-Un routeur est un mécanisme qui lit une URL et décide à quelle logique elle correspond.
+Vous connaissez déjà des URLs comme :
+
+```text
+index.php?page=home
+```
+
+ou :
+
+```text
+index.php?page=products
+```
+
+ou encore :
+
+```text
+index.php?page=product&id=12
+```
+
+Dans ce modèle, les informations sont transmises sous forme de paramètres.
+
+Exemple :
+
+```text
+index.php?page=product&id=12
+```
+
+contient :
+
+* `page=product`
+* `id=12`
+
+Le script PHP lit ces valeurs et décide quoi afficher.
+
+Cette logique est déjà une forme simple de routing.
+
+---
+
+# 3. Deux façons de transmettre une demande
+
+Une application web peut exprimer une demande de deux grandes façons.
+
+## 3.1. Avec des paramètres
+
+Exemple :
+
+```text
+index.php?page=products&action=show&id=12
+```
+
+Ici, l’information est transmise après `?`.
+
+On parle de paramètres.
+
+---
+
+## 3.2. Avec le chemin
 
 Exemple :
 
 ```text
 /products/show/12
-````
+```
 
-Cette URL peut être comprise comme :
+Ici, l’information est placée directement dans le chemin de l’URL.
 
-* `products` : la ressource
-* `show` : l’action
-* `12` : l’identifiant
+Dans les deux cas, l’idée est la même :
 
-Le routeur sert donc à transformer une URL en consignes exploitables par le programme.
+> dire au programme ce que l’on veut
 
----
-
-# 3. Pourquoi faire une simulation
-
-Dans un vrai site, l’URL demandée vient du navigateur et du serveur.
-
-Mais ici, on ne travaille pas encore avec :
-
-* `$_SERVER`
-* un serveur configuré
-* des règles de réécriture
-* un vrai système de contrôleurs
-
-On travaille directement sur une liste d’URLs pour se concentrer sur la logique de base :
-
-* lire
-* nettoyer
-* découper
-* interpréter
-* décider
+La différence est surtout une différence de forme.
 
 ---
 
-# 4. Les types d’URLs à comprendre
+# 4. Pourquoi utiliser des URLs comme /products/show/12 ?
 
-Dans cet exercice, les URLs doivent représenter plusieurs parties du site.
+Comparez :
 
-## 4.1. Routes front-office
+```text
+index.php?page=products&action=show&id=12
+```
+
+et :
+
+```text
+/products/show/12
+```
+
+La deuxième forme est souvent :
+
+* plus courte visuellement
+* plus lisible
+* plus facile à mémoriser
+* plus facile à repérer comme structure
+
+Elle permet aussi de voir plus clairement l’organisation logique du site.
+
+Exemple :
+
+```text
+/products
+/products/show/12
+/users/edit/3
+```
+
+On voit tout de suite une logique commune.
+
+---
+
+# 5. Une URL n’est pas qu’une adresse
+
+Une URL peut être lue comme une structure.
+
+Exemple :
+
+```text
+/products/show/12
+```
+
+On peut déjà y voir :
+
+* `products` : ce dont on parle
+* `show` : ce que l’on veut faire
+* `12` : l’élément concerné
+
+Autrement dit, une URL peut être comprise comme une petite consigne.
+
+C’est exactement ce que fera plus tard le mini-routeur.
+
+---
+
+# 6. Le front controller
+
+Quand on visite une URL comme :
+
+```text
+/products/show/12
+```
+
+on pourrait croire que le serveur ouvre un vrai dossier `products`, puis un vrai fichier `show`.
+
+Mais dans beaucoup de sites, ce n’est pas ce qui se passe.
+
+En réalité, plusieurs URLs différentes peuvent toutes être envoyées vers un seul fichier central :
+
+```text
+index.php
+```
+
+Ce fichier central s’appelle souvent le **front controller**.
+
+Son rôle est simple :
+
+* recevoir la demande
+* lire l’URL
+* décider quoi faire
+
+---
+
+# 7. url_rewrite : le rôle de l’artefact technique
+
+Pour afficher une belle URL comme :
+
+```text
+/products/show/12
+```
+
+tout en exécutant en réalité :
+
+```text
+index.php
+```
+
+on utilise souvent une réécriture d’URL.
+
+Cette réécriture est un mécanisme technique du serveur.
+
+Elle ne fait pas le routing à votre place.
+
+Elle sert simplement à faire arriver plusieurs URLs vers le même point d’entrée.
+
+Il faut retenir ceci :
+
+> `url_rewrite` envoie la requête vers `index.php`, puis PHP interprète l’URL
+
+---
+
+# 8. Exemple minimal de .htaccess
+
+Voici une forme simple de front controller avec réécriture :
+
+```apache
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^ index.php [L,QSA]
+```
+
+Ce qu’il faut comprendre :
+
+* si l’URL demandée ne correspond pas à un vrai fichier
+* et ne correspond pas à un vrai dossier
+* alors la requête est envoyée vers `index.php`
+
+C’est tout ce qu’il faut retenir ici.
+
+On ne détaille pas davantage dans ce chapitre.
+
+---
+
+# 9. Ce que fait réellement le script PHP
+
+Une fois la requête arrivée dans `index.php`, le travail du script commence.
+
+Le script doit alors :
+
+* lire l’URL
+* la nettoyer
+* la découper
+* comprendre sa structure
+* choisir une réponse
+
+C’est cela, la base du routing.
+
+---
+
+# 10. Observer des URLs sur de vrais sites
+
+Avant de coder, il est utile de regarder comment les URLs sont construites dans la réalité.
+
+Quand vous naviguez sur différents sites, regardez les adresses.
+
+Essayez d’identifier :
+
+* combien de segments elles contiennent
+* si elles utilisent `?`
+* si elles ont un identifiant
+* si elles contiennent des mots lisibles
+* si elles ont une structure stable
+
+Exemples de types d’URLs à observer :
+
+* page d’accueil
+* page liste
+* page détail
+* page catégorie
+* page de recherche
+* page avec filtres
+
+---
+
+# 11. Ce qu’il faut remarquer en observant
+
+En observant plusieurs sites, on voit vite que les URLs ne sont pas construites au hasard.
+
+On remarque souvent que :
+
+* la page d’accueil est très courte
+* une liste a souvent 1 ou 2 segments
+* une page détail ajoute souvent un identifiant ou un mot-clé
+* les filtres utilisent souvent des paramètres après `?`
+* les zones techniques ont parfois des segments spécifiques comme `admin` ou `api`
+
+Exemples :
+
+```text
+/products
+```
+
+```text
+/products/show/12
+```
+
+```text
+/search?q=chair
+```
+
+```text
+/admin/products/edit/5
+```
+
+---
+
+# 12. Qu’est-ce qu’un segment ?
+
+Un segment est une partie d’URL séparée par `/`.
+
+Exemple :
+
+```text
+/admin/products/edit/5
+```
+
+contient 4 segments :
+
+1. `admin`
+2. `products`
+3. `edit`
+4. `5`
+
+Chaque segment ajoute une précision.
+
+---
+
+# 13. Une URL doit rester simple
+
+Une bonne URL doit rester lisible.
+
+En pratique :
+
+* 1 segment peut suffire pour une section simple
+* 2 segments suffisent souvent pour ressource + action
+* 3 segments suffisent très souvent
+* 4 segments apparaissent quand on ajoute une zone comme `admin`
+* 5 segments peuvent exister, surtout en API ou en structure REST
+* au-delà, il faut se demander si l’URL n’est pas trop lourde
+
+Exemples courts :
+
+```text
+/products
+```
+
+```text
+/products/show
+```
+
+```text
+/products/show/12
+```
+
+```text
+/admin/products/edit/5
+```
+
+```text
+/api/users/42/orders/3
+```
+
+---
+
+# 14. Trois segments suffisent souvent
+
+Dans beaucoup de cas simples, une structure comme celle-ci suffit :
+
+```text
+/controller/action/id
+```
+
+Exemples :
+
+```text
+/products/list
+```
+
+```text
+/products/show/12
+```
+
+```text
+/users/edit/3
+```
+
+Cette structure est très utile pour apprendre, car elle est facile à lire et facile à traiter en PHP.
+
+---
+
+# 15. Quand il faut plus de segments
+
+On ajoute des segments quand on ajoute du contexte.
+
+Exemple :
+
+```text
+/admin/products/edit/5
+```
+
+Ici, `admin` ajoute une zone.
+
+Autre exemple :
+
+```text
+/api/users/42/orders/3
+```
+
+Ici, l’URL exprime une relation plus précise.
+
+Mais il faut garder une règle simple :
+
+> plus une URL est longue, plus elle doit être justifiée
+
+---
+
+# 16. Tous les segments n’ont pas toujours le même rôle
+
+La signification d’un segment dépend de sa position.
+
+Comparez :
+
+```text
+/products/show/12
+```
+
+et :
+
+```text
+/admin/products/edit/5
+```
+
+Dans la première :
+
+* segment 1 : ressource
+* segment 2 : action
+* segment 3 : id
+
+Dans la seconde :
+
+* segment 1 : zone
+* segment 2 : ressource
+* segment 3 : action
+* segment 4 : id
+
+Une URL ne se lit donc pas seulement morceau par morceau.
+
+Elle se lit comme une structure ordonnée.
+
+---
+
+# 17. Ce qu’on met généralement dans une URL
+
+Une URL contient souvent tout ou partie de ces éléments :
+
+* une zone éventuelle
+  exemple : `admin`, `api`
+
+* une ressource
+  exemple : `products`, `users`, `orders`
+
+* une action éventuelle
+  exemple : `show`, `edit`, `list`
+
+* un identifiant éventuel
+  exemple : `12`, `42`, `3`
+
+Exemples :
+
+```text
+/products
+```
+
+```text
+/products/show/12
+```
+
+```text
+/admin/users/edit/42
+```
+
+---
+
+# 18. Chemin et paramètres ne jouent pas le même rôle
+
+Il faut distinguer deux parties possibles d’une URL.
+
+## 18.1. Le chemin
+
+Exemple :
+
+```text
+/products/show/12
+```
+
+Le chemin sert souvent à exprimer la structure principale.
+
+---
+
+## 18.2. Les paramètres
+
+Exemple :
+
+```text
+/products/show/12?sort=asc
+```
+
+Ici, le chemin principal est :
+
+```text
+/products/show/12
+```
+
+et le paramètre est :
+
+```text
+sort=asc
+```
+
+En général :
+
+* le chemin exprime la route principale
+* les paramètres ajoutent des détails ou des options
+
+---
+
+# 19. Routes front et routes admin
+
+Toutes les URLs ne décrivent pas la même zone du site.
+
+## 19.1. Front-office
 
 Exemples :
 
@@ -78,15 +561,11 @@ Exemples :
 /products/show/12
 ```
 
-```text
-/users/show/3
-```
-
-Ces URLs représentent la partie publique du site.
+Ces routes représentent la partie publique du site.
 
 ---
 
-## 4.2. Routes d’administration
+## 19.2. Administration
 
 Exemples :
 
@@ -102,191 +581,11 @@ Exemples :
 /admin/products/edit/5
 ```
 
-```text
-/admin/users/edit/42
-```
-
-Ici, le premier segment `admin` indique qu’on est dans une zone spéciale du site.
+Ici, le premier segment indique que l’on entre dans une autre zone.
 
 ---
 
-# 5. Structure générale d’une URL
-
-Une URL est d’abord une chaîne de caractères.
-
-Exemple :
-
-```text
-/admin/products/edit/5
-```
-
-Cette chaîne peut être découpée en segments :
-
-```text
-admin
-products
-edit
-5
-```
-
-Chaque segment peut avoir un rôle.
-
----
-
-## 5.1. Cas d’une route front
-
-```text
-/products/show/12
-```
-
-Structure possible :
-
-* ressource : `products`
-* action : `show`
-* id : `12`
-
----
-
-## 5.2. Cas d’une route admin
-
-```text
-/admin/products/edit/5
-```
-
-Structure possible :
-
-* zone : `admin`
-* ressource : `products`
-* action : `edit`
-* id : `5`
-
----
-
-# 6. Le travail à faire sur chaque URL
-
-Le traitement d’une URL se fait toujours dans le même ordre.
-
-## 6.1. Nettoyer
-
-On commence par retirer ce qui ne nous intéresse pas.
-
-Par exemple, si une URL contient des paramètres après `?`, on garde seulement le chemin principal.
-
-Exemple :
-
-```text
-/products/show/12?sort=asc
-```
-
-devient :
-
-```text
-/products/show/12
-```
-
----
-
-## 6.2. Retirer les slashs inutiles
-
-Avant de découper, on enlève les slashs au début et à la fin.
-
-Exemple :
-
-```text
-/products/show/12/
-```
-
-devient :
-
-```text
-products/show/12
-```
-
-Cela évite de créer des segments vides inutiles.
-
----
-
-## 6.3. Découper
-
-Une fois l’URL préparée, on la découpe avec le séparateur `/`.
-
-Exemple :
-
-```text
-products/show/12
-```
-
-devient :
-
-```text
-[products, show, 12]
-```
-
-Le résultat est un tableau de segments.
-
----
-
-## 6.4. Interpréter
-
-Une fois les segments obtenus, on leur donne un sens.
-
-Selon le cas, on cherche à remplir des variables comme :
-
-* `$controller`
-* `$action`
-* `$id`
-
-Dans une version avec admin, on peut aussi distinguer une zone :
-
-* `$area`
-* `$controller`
-* `$action`
-* `$id`
-
----
-
-# 7. Routes front et routes admin
-
-Toutes les URLs n’ont pas exactement la même forme.
-
-C’est un point important.
-
----
-
-## 7.1. Route front simple
-
-```text
-/products/show/12
-```
-
-On peut comprendre :
-
-* controller : `products`
-* action : `show`
-* id : `12`
-
----
-
-## 7.2. Route admin
-
-```text
-/admin/products/edit/5
-```
-
-On peut comprendre :
-
-* area : `admin`
-* controller : `products`
-* action : `edit`
-* id : `5`
-
-Ici, la présence de `admin` modifie la lecture de l’URL.
-
-Le premier segment ne représente plus directement une ressource, mais une zone.
-
----
-
-# 8. Les valeurs par défaut
+# 20. Les valeurs par défaut
 
 Certaines URLs ne donnent pas toutes les informations.
 
@@ -302,194 +601,128 @@ ou :
 /products
 ```
 
-Dans ce cas, le programme peut compléter ce qui manque par convention.
+Dans ce cas, l’application peut compléter ce qui manque grâce à une convention.
 
-Exemples :
+Exemples possibles :
 
-* `/` peut représenter `home/index`
-* `/products` peut représenter `products/index`
-* `/admin` peut représenter une page d’accueil admin
+* `/` peut correspondre à `home/index`
+* `/products` peut correspondre à `products/index`
+* `/admin` peut correspondre à une page d’accueil admin
 
-Une valeur par défaut sert à donner un sens à une URL incomplète mais acceptable.
-
----
-
-# 9. La logique finale
-
-Une fois l’URL comprise, le programme peut appliquer une logique simple.
-
-Exemples :
-
-* afficher l’accueil
-* afficher la liste des produits
-* afficher le produit demandé
-* afficher le formulaire d’édition d’un utilisateur
-* renvoyer `404`
-
-Le rôle du mini routeur est donc double :
-
-1. comprendre l’URL
-2. orienter le programme vers une réponse
+Une URL peut donc être incomplète sans être invalide.
 
 ---
 
-# 10. La 404
+# 21. Routes bien formées et routes valides
 
-Une URL peut être bien formée mais inconnue.
+Il faut distinguer deux choses.
+
+## 21.1. Une route bien formée
 
 Exemple :
 
 ```text
-/unknown/test
+/products/show/999
 ```
 
-ou :
-
-```text
-/admin/ghost/delete/9
-```
-
-Dans ce cas, le routeur ne trouve pas de correspondance valable.
-
-La réponse attendue est alors :
-
-```text
-404
-```
-
-Cela signifie que la route n’existe pas dans la logique prévue.
+Cette URL a une structure correcte.
 
 ---
 
-# 11. Cas particuliers à connaître
+## 21.2. Une route valide dans l’application
 
-## 11.1. URL racine
-
-```text
-/
-```
-
-Elle ne contient pas de vrai segment utile.
-Il faut donc lui donner une interprétation par défaut.
-
----
-
-## 11.2. Slashs multiples
+Même si la structure est correcte, cela ne garantit pas que la donnée existe réellement.
 
 Exemple :
 
 ```text
-//products//show//12//
+/products/show/999
 ```
 
-Cette URL peut compliquer la lecture.
-Il faut donc normaliser autant que possible avant d’interpréter.
+peut être bien formée, mais il n’existe peut-être aucun produit `999`.
+
+Autrement dit :
+
+* une route peut être bien écrite
+* sans pour autant correspondre à une ressource réelle
 
 ---
 
-## 11.3. ID invalide
+# 22. Ce qu’il vaut mieux éviter
 
-Exemple :
+Il vaut mieux éviter :
+
+* des URLs trop longues
+* des structures qui changent sans règle
+* des noms incohérents
+* des segments inutiles
+* des formes difficiles à relire
+
+Moins bon :
 
 ```text
-/products/show/abc
+/doProductThing/12
 ```
-
-La structure ressemble à une route correcte, mais l’identifiant n’est peut-être pas valide.
-
-Si une route attend un identifiant numérique, il faut le vérifier.
-
----
-
-## 11.4. Trop de segments
-
-Exemple :
 
 ```text
-/products/show/12/extra
+/adminpanel2/manage_user_edit/42
 ```
 
-Si votre logique prévoit au maximum 3 segments côté front ou 4 côté admin, cette URL devient invalide.
-
----
-
-# 12. Ce que vous devez retenir
-
-Un mini routeur repose sur une idée simple :
-
-* une URL est une chaîne
-* on peut la nettoyer
-* on peut la découper
-* on peut attribuer un rôle à chaque segment
-* on peut décider quoi faire à partir de cette structure
-
-Exemples :
+Mieux :
 
 ```text
 /products/show/12
 ```
 
-peut devenir :
-
-* controller : `products`
-* action : `show`
-* id : `12`
-
-et :
-
 ```text
 /admin/users/edit/42
 ```
 
-peut devenir :
+---
 
-* area : `admin`
-* controller : `users`
-* action : `edit`
-* id : `42`
+# 23. Ce que le mini-routeur devra faire
+
+Dans l’exercice, vous n’allez pas encore utiliser un vrai serveur configuré.
+
+Vous allez simuler le travail du routeur à partir d’une liste d’URLs.
+
+Pour chaque URL, le script devra :
+
+* la lire
+* la nettoyer
+* la découper
+* identifier ses segments
+* comprendre sa structure
+* extraire les éléments utiles
+* décider si la route correspond à un cas connu ou à une 404
 
 ---
 
-# 13. Vocabulaire utile
+# 24. Résumé
 
-## URL
+Jusqu’ici, vous utilisiez des URLs comme :
 
-Adresse demandée.
+```text
+index.php?page=world
+```
 
-## Segment
+Vous allez maintenant travailler avec des URLs comme :
 
-Morceau d’URL séparé par `/`.
+```text
+/world
+```
 
-## Route
+ou :
 
-Forme d’URL reconnue par l’application.
+```text
+/products/show/12
+```
 
-## Controller
+Pour cela, il faut comprendre quatre idées simples :
 
-Ressource ou zone logique traitée.
+* une URL peut transmettre une demande
+* plusieurs belles URLs peuvent en réalité passer par `index.php`
+* `url_rewrite` sert seulement à faire arriver la requête au bon point d’entrée
+* le script PHP doit ensuite interpréter le chemin en segments
 
-## Action
-
-Opération demandée.
-
-## ID
-
-Identifiant d’un élément précis.
-
-## 404
-
-Réponse utilisée quand aucune route valable ne correspond.
-
----
-
-# 14. Résumé
-
-Le mini routeur sert à comprendre une URL.
-
-Il ne travaille pas encore avec un vrai serveur.
-Il ne charge pas encore de vrais contrôleurs.
-Il ne fait qu’une chose essentielle :
-
-> transformer une URL en structure logique
-
-C’est cette mécanique de base que vous devez maîtriser pour faire l’exercice.
+Le mini-routeur repose exactement sur cette logique.
