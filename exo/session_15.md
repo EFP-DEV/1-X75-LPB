@@ -14,9 +14,9 @@ Créer un petit système en plusieurs fichiers pour apprendre à :
 
 # Contexte
 
-On vous donne des données dans un fichier `data.php`.
+On vous donne des données dans un fichier `products.php`.
 
-Votre travail est de construire vous-même les fonctions dans un fichier `functions.php`, puis de les utiliser dans `index.php`.
+Votre travail est de construire vous-même les fonctions dans un fichier `product_model.php`, puis de les utiliser dans `index.php`.
 
 Le point important de l’exercice n’est pas seulement d’afficher des produits.
 
@@ -28,7 +28,7 @@ Le point important est de comprendre ceci :
 
 ---
 
-# Fichier `data.php`
+# Fichier `products.php`
 
 Copiez-collez ce fichier :
 
@@ -56,8 +56,8 @@ Copiez-collez ce fichier :
 ```php
 <?php
 
-include 'data.php';
-include 'functions.php';
+include 'products.php';
+include 'product_model.php';
 
 echo "<h2>Tous les produits</h2>";
 
@@ -76,7 +76,7 @@ foreach ($products as $product) {
 
 ---
 
-# Fichier `functions.php`
+# Fichier `product_model.php`
 
 Créez ce fichier vous-même.
 
@@ -100,7 +100,7 @@ Avant de coder, répondez à ces questions :
 
 1. Dans quel fichier les données sont-elles stockées ?
 2. Dans quel fichier les fonctions doivent-elles être écrites ?
-3. Pourquoi `index.php` peut-il appeler une fonction définie dans `functions.php` ?
+3. Pourquoi `index.php` peut-il appeler une fonction définie dans `product_model.php` ?
 4. Pourquoi `format_price()` ne doit-elle pas essayer d’utiliser directement `$currency` sans le recevoir ?
 5. Pourquoi `product_label()` doit-elle recevoir `$currency` et `$promo_label` en paramètre ?
 
@@ -108,7 +108,7 @@ Avant de coder, répondez à ces questions :
 
 # 2. Travail demandé
 
-Vous devez écrire les trois fonctions dans `functions.php`.
+Vous devez écrire les trois fonctions dans `product_model.php`.
 
 Interdiction d’utiliser :
 
@@ -304,7 +304,7 @@ Pourquoi ce changement est-il simple si la devise est passée en paramètre ?
 
 Répondez en une ou deux phrases :
 
-1. Pourquoi une fonction écrite dans `functions.php` peut-elle être appelée dans `index.php` ?
+1. Pourquoi une fonction écrite dans `product_model.php` peut-elle être appelée dans `index.php` ?
 2. Pourquoi `$currency` n’est-elle pas disponible automatiquement dans `format_price()` ?
 3. Pourquoi `global` est-il une mauvaise solution ici ?
 4. Pourquoi passer les données en paramètre rend-il le code plus clair ?
@@ -317,7 +317,7 @@ Répondez en une ou deux phrases :
 
 # 11. Contraintes
 
-* `functions.php` doit être entièrement écrit par vous
+* `product_model.php` doit être entièrement écrit par vous
 * pas de `global`
 * chaque fonction reçoit ses données en paramètre
 * pas de dépendance cachée
