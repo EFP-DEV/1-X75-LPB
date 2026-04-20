@@ -1,49 +1,88 @@
 # Session 15 - Fonctions & Scope
 
+## Objectif
 
-# Objectif
-
-> Comprendre à quoi servent les fonctions, comment les écrire correctement, et pourquoi le scope oblige à faire circuler les données explicitement.
+> Comprendre à quoi servent les fonctions, comment les réutiliser dans un script ou entre plusieurs fichiers, et pourquoi les données doivent entrer explicitement dans les fonctions.
 
 ---
 
 # 1. Pourquoi on crée des fonctions
 
-Quand on commence à écrire des scripts, on fait souvent tout à la suite :
+Quand on débute, on voit souvent les fonctions comme un simple moyen d’éviter la répétition.
+
+C’est vrai, mais ce n’est pas l’idée la plus importante.
+
+Une boucle sert à répéter.
+
+Une fonction sert à **nommer une action** et à **centraliser une règle**.
+
+Exemple :
 
 ```php
-$prix = 50;
-echo $prix . "€";
-
-$prix = 120;
-echo $prix . "€";
-
-$prix = 30;
-echo $prix . "€";
+echo "Chaise : " . 50 . "€<br>";
+echo "Table : " . 120 . "€<br>";
+echo "Lampe : " . 30 . "€<br>";
 ```
 
-Cela fonctionne, mais il y a vite des problèmes :
+Ici, on pourrait dire :
 
-* le code se répète
-* le script devient long
-* on modifie une chose à plusieurs endroits
-* on finit par perdre la logique générale
+> “On va mettre ça dans une boucle.”
 
-Une fonction sert à regrouper une action précise dans un bloc réutilisable.
+Oui, mais ce n’est pas le vrai point.
 
-Autrement dit, une fonction permet de dire :
+Le vrai problème est que la règle :
 
-* je lui donne des données
-* elle fait un traitement
-* elle me renvoie un résultat
+```php
+$prix . "€"
+```
 
-On peut résumer cela comme ceci :
+est écrite directement dans le code.
 
-> entrée → traitement → sortie
+Si demain on veut afficher :
+
+```php
+50 EUR
+```
+
+ou :
+
+```php
+50.00 €
+```
+
+il faudra modifier plusieurs endroits.
+
+Une fonction permet de définir cette règle une seule fois.
 
 ---
 
-## Premier exemple
+# 2. Premier exemple utile
+
+```php
+function format_price($price) {
+    return $price . "€";
+}
+```
+
+Puis :
+
+```php
+echo "Chaise : " . format_price(50) . "<br>";
+echo "Table : " . format_price(120) . "<br>";
+echo "Lampe : " . format_price(30) . "<br>";
+```
+
+Ici, la fonction ne répète pas.
+
+Elle **porte une règle**.
+
+Cette règle peut ensuite être utilisée partout dans le script.
+
+---
+
+# 3. Une fonction = entrée → traitement → sortie
+
+Une fonction reçoit des données, fait quelque chose, puis renvoie un résultat.
 
 ```php
 function bonjour($nom) {
@@ -55,40 +94,20 @@ echo bonjour("Bob");
 
 Ici :
 
-* `"Bob"` est la donnée d'entrée
-* la fonction fabrique un texte
+* `"Bob"` est la donnée d’entrée
+* la fonction construit un texte
 * elle retourne ce texte
 * `echo` affiche le résultat
 
 ---
 
-## Autre exemple très simple
-
-```php
-function carre($nombre) {
-    return $nombre * $nombre;
-}
-
-echo carre(4); // 16
-echo carre(7); // 49
-```
-
-La même logique peut être réutilisée autant de fois qu'on veut.
-
----
-
-# 2. Une fonction ne sert pas seulement à éviter la répétition
-
-Éviter la répétition est utile, mais ce n'est pas le plus important.
-
-Une fonction sert aussi à clarifier le code.
+# 4. Une fonction donne un nom à une action
 
 Comparer :
 
 ```php
-$prix = 50;
-$prix_tva = $prix * 1.21;
-echo $prix_tva;
+$prix = 100;
+echo $prix * 1.21;
 ```
 
 et :
@@ -98,66 +117,49 @@ function prix_tvac($prix) {
     return $prix * 1.21;
 }
 
-echo prix_tvac(50);
+echo prix_tvac(100);
 ```
 
-Dans le deuxième cas, on comprend plus vite l'intention.
+Dans le deuxième cas, le code est plus clair.
 
-La fonction donne un nom à l'action.
+La fonction ne fait pas seulement un calcul.
+
+Elle donne un nom à l’intention.
 
 ---
 
-# 3. Syntaxe de base d'une fonction
-
-Une fonction se déclare avec `function`, un nom, des paramètres éventuels, puis un bloc.
+# 5. Syntaxe de base
 
 ```php
 function addition($a, $b) {
     return $a + $b;
 }
-```
 
-Ensuite, on l'appelle :
-
-```php
 echo addition(2, 3); // 5
 ```
 
----
+Une fonction a généralement :
 
-## Exemple décomposé
-
-```php
-function addition($a, $b) {
-    $resultat = $a + $b;
-    return $resultat;
-}
-```
-
-Cette version fait la même chose, mais en plus explicite :
-
-* on reçoit `$a`
-* on reçoit `$b`
-* on calcule `$resultat`
-* on retourne `$resultat`
+* un nom
+* des paramètres
+* un traitement
+* un `return`
 
 ---
 
-# 4. return et echo ne font pas la même chose
+# 6. `return` et `echo`
 
-C'est une confusion très fréquente au début.
+Ils ne font pas la même chose.
 
-## 4.1. `echo` affiche
+## `echo`
 
 ```php
 echo "Bonjour";
 ```
 
-Cela envoie du contenu à l'écran.
+Affiche directement.
 
----
-
-## 4.2. `return` renvoie une valeur
+## `return`
 
 ```php
 function bonjour($nom) {
@@ -165,29 +167,11 @@ function bonjour($nom) {
 }
 ```
 
-Ici, la fonction ne décide pas quoi faire du résultat. Elle le renvoie.
+Renvoie une valeur.
 
 ---
 
-## Comparaison directe
-
-### Cas 1
-
-```php
-function bonjour($nom) {
-    echo "Bonjour " . $nom;
-}
-
-bonjour("Bob");
-```
-
-Cela affiche directement.
-
-Mais la fonction ne renvoie rien de réutilisable.
-
----
-
-### Cas 2
+# 7. Pourquoi `return` est plus souple
 
 ```php
 function bonjour($nom) {
@@ -197,41 +181,29 @@ function bonjour($nom) {
 echo bonjour("Bob");
 ```
 
-Cette version est plus souple.
-
-Pourquoi ?
-
-Parce qu'on peut :
+Cette fonction peut aussi être réutilisée ainsi :
 
 ```php
 $message = bonjour("Bob");
 echo $message;
 ```
 
-ou encore :
+ou :
 
 ```php
 echo strtoupper(bonjour("Bob"));
 ```
 
-Une fonction qui retourne une valeur est plus réutilisable qu'une fonction qui affiche directement.
-
----
-
-## Règle pratique
-
-En général :
+Règle pratique :
 
 * la fonction prépare ou calcule
-* l'affichage se fait à l'extérieur
+* l’affichage se fait à l’extérieur
 
 ---
 
-# 5. Les paramètres
+# 8. Les paramètres
 
-Les paramètres sont les données que la fonction reçoit.
-
-## Exemple
+Les paramètres sont les données reçues par la fonction.
 
 ```php
 function saluer($prenom) {
@@ -242,11 +214,7 @@ echo saluer("Lyna");
 echo saluer("Paul");
 ```
 
-La fonction est la même, mais les données changent.
-
----
-
-## Avec plusieurs paramètres
+Avec plusieurs paramètres :
 
 ```php
 function presenter($prenom, $age) {
@@ -256,53 +224,20 @@ function presenter($prenom, $age) {
 echo presenter("Lyna", 4);
 ```
 
----
-
-## Exemple utile
-
-```php
-function prix_tvac($prix, $taux) {
-    return $prix * (1 + $taux);
-}
-
-echo prix_tvac(100, 0.21); // 121
-```
-
----
-
-# 6. Les paramètres optionnels
-
-On peut donner une valeur par défaut à un paramètre.
-
-```php
-function bonjour($nom = "inconnu") {
-    return "Bonjour " . $nom;
-}
-
-echo bonjour(); // Bonjour inconnu
-echo bonjour("Bob"); // Bonjour Bob
-```
-
----
-
-## Exemple concret
+Avec une valeur par défaut :
 
 ```php
 function badge($nom, $role = "visiteur") {
     return $nom . " - " . $role;
 }
 
-echo badge("Bob"); // Bob - visiteur
-echo badge("Lyna", "admin"); // Lyna - admin
+echo badge("Bob");
+echo badge("Lyna", "admin");
 ```
-
-Cela permet de rendre une fonction plus flexible sans obliger à toujours tout préciser.
 
 ---
 
-# 7. Une fonction peut appeler une autre fonction
-
-C'est là que les fonctions deviennent vraiment utiles.
+# 9. Une fonction peut appeler une autre fonction
 
 ```php
 function format_price($price) {
@@ -318,74 +253,113 @@ echo product_label("Chaise", 50);
 
 Ici :
 
-* `format_price()` a un rôle précis
-* `product_label()` réutilise ce travail
+* `format_price()` gère le format du prix
+* `product_label()` réutilise cette règle
 
-On commence à construire des petits blocs simples qui collaborent entre eux.
+On construit donc de petits blocs simples qui collaborent.
 
 ---
 
-## Autre exemple
+# 10. Les fonctions peuvent être réutilisées dans plusieurs fichiers
+
+C’est un point important.
+
+Une fonction définie dans un fichier peut être utilisée dans un autre fichier si ce fichier a été chargé avec `include` ou `require`.
+
+## Exemple
 
 ```php
-function is_adult($age) {
-    return $age >= 18;
+// functions.php
+function format_price($price) {
+    return $price . "€";
 }
-
-function access_message($age) {
-    if (is_adult($age)) {
-        return "Accès autorisé";
-    }
-
-    return "Accès refusé";
-}
-
-echo access_message(20);
-echo access_message(15);
 ```
-
----
-
-# 8. Le scope : le vrai moment important
-
-Jusqu'ici, tout semble simple.
-
-Mais il y a une règle fondamentale à comprendre :
-
-> Une variable créée hors d'une fonction n'existe pas automatiquement dans la fonction.
-
-C'est cela, le scope.
-
----
-
-## Exemple qui semble logique, mais qui ne fonctionne pas
 
 ```php
-$nom = "Bob";
+// shop.php
+include 'functions.php';
 
-function test() {
-    return $nom;
-}
-
-echo test();
+echo format_price(50);
 ```
 
-Cela provoque une erreur ou un avertissement, parce que `$nom` n'existe pas dans le scope de la fonction.
+```php
+// promo.php
+include 'functions.php';
+
+echo format_price(499);
+```
+
+Ici, la fonction est disponible dans les deux fichiers.
+
+Cela montre qu’une fonction n’est pas seulement un “bloc local”.
+
+C’est aussi un outil de réutilisation à l’échelle du script chargé.
 
 ---
 
-## Pourquoi ?
+# 11. Le vrai point difficile : le scope
 
-Parce qu'il y a deux espaces différents :
+Voici la règle importante :
 
-* l'espace global du script
-* l'espace local de la fonction
+> Une fonction peut être appelée depuis n’importe quel endroit du script après son chargement, mais elle ne voit pas automatiquement les variables extérieures.
 
-La fonction vit dans son propre espace.
+Autrement dit :
+
+* les fonctions sont globalement appelables après déclaration ou inclusion
+* les variables, elles, ne traversent pas automatiquement le scope des fonctions
 
 ---
 
-## Exemple plus parlant
+# 12. Exemple de fonction disponible globalement
+
+```php
+// functions.php
+function bonjour($nom) {
+    return "Bonjour " . $nom;
+}
+```
+
+```php
+// index.php
+include 'functions.php';
+
+echo bonjour("Bob");
+```
+
+Cela fonctionne.
+
+La fonction a été chargée dans le script.
+
+---
+
+# 13. Exemple de variable extérieure inaccessible
+
+```php
+$currency = "€";
+
+function format_price($price) {
+    return $price . $currency;
+}
+```
+
+Cela ne fonctionne pas correctement.
+
+Pourquoi ?
+
+Parce que `$currency` existe dans le script, mais pas dans le scope local de la fonction.
+
+La fonction ne prend pas automatiquement les variables qui l’entourent.
+
+---
+
+# 14. Le scope local et le scope global
+
+Il faut distinguer deux espaces :
+
+* le scope global du script
+* le scope local de la fonction
+
+Exemple :
 
 ```php
 $prenom = "Lyna";
@@ -403,155 +377,110 @@ Les deux variables portent le même nom, mais ce ne sont pas les mêmes.
 
 ---
 
-# 9. La mauvaise solution : `global`
+# 15. La mauvaise solution : `global`
 
 PHP permet ceci :
 
 ```php
-$nom = "Bob";
+$currency = "€";
 
-function test() {
-    global $nom;
-    return $nom;
+function format_price($price) {
+    global $currency;
+    return $price . $currency;
 }
-
-echo test();
 ```
 
 Techniquement, cela marche.
 
-Mais pédagogiquement et architecturalement, c'est une mauvaise habitude.
+Mais c’est une mauvaise habitude.
 
 Pourquoi ?
 
-* la fonction dépend d'une variable cachée
-* on ne voit pas ses besoins dans ses paramètres
-* elle devient plus difficile à comprendre
-* elle devient plus difficile à réutiliser
+* la fonction dépend d’une variable cachée
+* son besoin n’apparaît pas dans ses paramètres
 * elle devient plus fragile
+* elle devient plus difficile à réutiliser
+
+En lisant :
+
+```php
+format_price(50);
+```
+
+on ne voit pas qu’elle dépend aussi de `$currency`.
 
 ---
 
-## Problème concret
+# 16. La bonne solution : passer les données en paramètre
 
 ```php
-$nom = "Bob";
-
-function saluer() {
-    global $nom;
-    return "Bonjour " . $nom;
-}
-```
-
-En lisant juste :
-
-```php
-saluer();
-```
-
-on ne sait pas que la fonction dépend de `$nom`.
-
-Cette dépendance est cachée.
-
----
-
-# 10. La bonne solution : passer les données en paramètre
-
-```php
-function test($nom) {
-    return $nom;
+function format_price($price, $currency) {
+    return $price . $currency;
 }
 
-echo test("Bob");
+echo format_price(50, "€");
 ```
 
 Ici, tout est clair :
 
-* la fonction a besoin d'un nom
-* ce besoin est visible
-* la donnée entre explicitement
+* la fonction a besoin d’un prix
+* la fonction a besoin d’une devise
+* on lui donne les deux explicitement
+
+C’est cela qu’on veut.
 
 ---
 
-## Même logique avec une phrase complète
+# 17. Même logique avec un tableau
 
 ```php
-function saluer($nom) {
-    return "Bonjour " . $nom;
-}
-
-echo saluer("Bob");
-echo saluer("Lyna");
-echo saluer("Milo");
+$products = [
+    ["name" => "Chaise", "price" => 50],
+    ["name" => "Table", "price" => 150],
+];
 ```
 
-La fonction n'a besoin de rien d'autre que ce qu'on lui donne.
-
-C'est exactement ce qu'on veut.
-
----
-
-# 11. Une bonne fonction est explicite
-
-Une bonne fonction :
-
-* reçoit ce dont elle a besoin
-* ne dépend pas d'éléments cachés
-* fait une chose identifiable
-* retourne un résultat clair
-
----
-
-## Exemple clair
+Exemple incorrect :
 
 ```php
-function calcul_tva($prix, $taux) {
-    return $prix * $taux;
-}
-
-function prix_tvac($prix, $taux) {
-    return $prix + calcul_tva($prix, $taux);
-}
-
-echo prix_tvac(100, 0.21);
-```
-
-Chaque fonction a un rôle simple.
-
----
-
-## Exemple moins clair
-
-```php
-$taux = 0.21;
-
-function prix_tvac($prix) {
-    global $taux;
-    return $prix + ($prix * $taux);
+function show_products() {
+    foreach ($products as $product) {
+        echo $product["name"] . "<br>";
+    }
 }
 ```
 
-Cela marche peut-être, mais la dépendance au taux est cachée.
+Pourquoi c’est incorrect ?
+
+Parce que `$products` n’entre pas automatiquement dans la fonction.
+
+Version correcte :
+
+```php
+function show_products($products) {
+    foreach ($products as $product) {
+        echo $product["name"] . "<br>";
+    }
+}
+```
 
 ---
 
-# 12. Application directe avec PDO
+# 18. Application directe avec PDO
 
-C'est ici que le problème du scope devient très concret.
+C’est ici que le scope devient très concret.
 
-Supposons que vous avez ceci dans un fichier :
+Supposons que vous avez ceci :
 
 ```php
 include 'database.php';
 ```
 
-Et que `database.php` contient un objet `$pdo`.
+Et que `database.php` crée un objet `$pdo`.
 
 Dans le script principal, `$pdo` existe.
 
-Mais dans une fonction, il n'existe pas automatiquement.
-
----
+Mais dans une fonction, non.
 
 ## Exemple incorrect
 
@@ -560,10 +489,6 @@ function getUsers() {
     return $pdo->query("SELECT * FROM user");
 }
 ```
-
-Cela ne fonctionne pas, car `$pdo` n'est pas connu dans la fonction.
-
----
 
 ## Version correcte
 
@@ -579,265 +504,338 @@ Puis :
 $result = getUsers($pdo);
 ```
 
-Ici, on injecte la dépendance.
-
-La fonction dit clairement ce qu'elle attend pour fonctionner.
+La fonction annonce clairement ce dont elle a besoin.
 
 ---
 
-## Même logique avec une autre requête
+# 19. Résumé
 
-```php
-function getProductById($pdo, $id) {
-    return $pdo->query("SELECT * FROM product WHERE id = " . $id);
-}
-```
+Une bonne fonction :
 
-Le point important ici n'est pas encore la sécurité SQL. Le point important est le scope :
+* fait une action identifiable
+* centralise une règle
+* peut être réutilisée dans plusieurs endroits ou fichiers
+* reçoit ses données en paramètre
+* ne dépend pas de variables cachées
+* retourne un résultat clair
 
-* la fonction a besoin de `$pdo`
-* la fonction a besoin de `$id`
-* on lui donne les deux explicitement
+Le point central de cette séance n’est donc pas seulement :
 
----
+> “faire des fonctions”
 
-# 13. Résumé intermédiaire
+Le point central est :
 
-À ce stade, il faut retenir trois idées simples :
-
-1. Une fonction sert à isoler une action.
-2. Une fonction reçoit ses données par paramètres.
-3. Une fonction ne voit pas automatiquement les variables extérieures.
+> centraliser une action, puis faire circuler les données explicitement
 
 ---
 
-# 14. Exemples progressifs
-
-## 14.1. Exemple 1 — transformer une donnée
-
-```php
-function upper($text) {
-    return strtoupper($text);
-}
-
-echo upper("bonjour");
-```
-
----
-
-## 14.2. Exemple 2 — faire un calcul
-
-```php
-function multiply($a, $b) {
-    return $a * $b;
-}
-
-echo multiply(4, 5);
-```
-
----
-
-## 14.3. Exemple 3 — fabriquer une phrase
-
-```php
-function user_label($name, $age) {
-    return $name . " (" . $age . " ans)";
-}
-
-echo user_label("Lyna", 4);
-```
-
----
-
-## 14.4. Exemple 4 — réutiliser une autre fonction
-
-```php
-function euro($price) {
-    return $price . "€";
-}
-
-function product_card($name, $price) {
-    return $name . " - " . euro($price);
-}
-
-echo product_card("Lampe", 30);
-```
-
----
-
-## 14.5. Exemple 5 — booléen
-
-```php
-function is_major($age) {
-    return $age >= 18;
-}
-
-var_dump(is_major(20)); // true
-var_dump(is_major(12)); // false
-```
-
----
-
-## 14.6. Exemple 6 — dépendance explicite
-
-```php
-function findAllProducts($pdo) {
-    return $pdo->query("SELECT * FROM product");
-}
-```
-
----
-
-# 15. Exercice 1 — Premières fonctions utiles
+# Session 15 — Exercice : Fonctions, réutilisation et scope
 
 ## Contexte
 
-Vous avez un tableau de produits :
+On vous donne plusieurs fichiers.
+
+Le code fonctionne partiellement, mais il est mal construit.
+
+Le problème n’est pas seulement la répétition.
+
+Le problème est aussi que certaines fonctions essaient d’utiliser des variables extérieures sans les recevoir en paramètre.
+
+Votre travail est de corriger cela.
+
+---
+
+## Fichier `data.php`
 
 ```php
+<?php
+
 $products = [
-    ["name" => "Chaise", "price" => 50],
-    ["name" => "Table", "price" => 150],
-    ["name" => "Lampe", "price" => 30],
+    ["name" => "Chaise", "price" => 50, "promo" => false],
+    ["name" => "Table", "price" => 150, "promo" => true],
+    ["name" => "Lampe", "price" => 30, "promo" => false],
+    ["name" => "Canapé", "price" => 499, "promo" => true],
 ];
+
+$currency = "€";
+$promo_label = "PROMO";
+$expensive_limit = 100;
 ```
 
 ---
 
-## But général
+## Fichier `functions.php`
 
-Découper le travail en petites fonctions simples.
+```php
+<?php
 
-Vous allez créer plusieurs fonctions qui collaborent entre elles.
+function format_price($price) {
+    return $price . $currency;
+}
+
+function product_label($product) {
+    $label = $product["name"] . " - " . format_price($product["price"]);
+
+    if ($product["promo"]) {
+        $label .= " - " . $promo_label;
+    }
+
+    return $label;
+}
+
+function is_expensive($product) {
+    return $product["price"] > $expensive_limit;
+}
+```
 
 ---
 
-## Étape 1 — formater un prix
-
-Créer une fonction :
+## Fichier `index.php`
 
 ```php
-format_price($price)
-```
+<?php
 
-Exemples attendus :
+include 'data.php';
+include 'functions.php';
 
-```php
-echo format_price(50);  // 50€
-echo format_price(150); // 150€
-echo format_price(30);  // 30€
+echo "<h2>Tous les produits</h2>";
+
+foreach ($products as $product) {
+    echo product_label($product) . "<br>";
+}
+
+echo "<h2>Produits chers</h2>";
+
+foreach ($products as $product) {
+    if (is_expensive($product)) {
+        echo product_label($product) . "<br>";
+    }
+}
 ```
 
 ---
 
-## Étape 2 — créer un label produit
+# 1. Observer le problème
 
-Créer une fonction :
+Avant de corriger, observez le code.
+
+## Questions
+
+1. Pourquoi les fonctions de `functions.php` posent problème ?
+2. Quelles variables utilisent-elles sans les recevoir ?
+3. Dans quels fichiers les données sont-elles définies ?
+4. Dans quels fichiers les fonctions sont-elles définies ?
+5. Pourquoi une fonction chargée avec `include` peut être appelée dans `index.php`, mais ne voit pas automatiquement `$currency` ou `$promo_label` ?
+
+---
+
+# 2. Ce qu’il faut comprendre
+
+Dans cet exercice :
+
+* `index.php` charge `data.php`
+* `index.php` charge `functions.php`
+* les fonctions deviennent disponibles dans le script
+* mais les variables extérieures n’entrent pas automatiquement dans les fonctions
+
+Autrement dit :
+
+* ceci est normal :
 
 ```php
-product_label($product)
+include 'functions.php';
+echo product_label($product);
+```
+
+* mais ceci est une mauvaise dépendance :
+
+```php
+function format_price($price) {
+    return $price . $currency;
+}
+```
+
+---
+
+# 3. Travail demandé
+
+Corrigez les fonctions pour qu’elles reçoivent explicitement les données dont elles ont besoin.
+
+Vous ne pouvez pas utiliser `global`.
+
+---
+
+# 4. Étape 1 — corriger `format_price()`
+
+La fonction doit recevoir :
+
+* le prix
+* la devise
+
+Version attendue dans l’idée :
+
+```php
+format_price($price, $currency)
+```
+
+Puis vous devrez adapter les appels.
+
+---
+
+# 5. Étape 2 — corriger `product_label()`
+
+La fonction doit recevoir ce dont elle a besoin pour fonctionner.
+
+Elle utilise actuellement :
+
+* le produit
+* la devise
+* le label promo
+
+Version attendue dans l’idée :
+
+```php
+product_label($product, $currency, $promo_label)
 ```
 
 Elle doit retourner une chaîne comme :
 
 ```php
 Chaise - 50€
-Table - 150€
-Lampe - 30€
+Table - 150€ - PROMO
 ```
 
-Exemple d'utilisation :
+Consigne importante :
 
-```php
-echo product_label($products[0]);
-```
-
-Consigne importante : utiliser `format_price()` dans cette fonction.
+* vous devez utiliser `format_price()` dans `product_label()`
 
 ---
 
-## Étape 3 — afficher tous les produits
+# 6. Étape 3 — corriger `is_expensive()`
 
-Afficher tous les produits avec une boucle :
+Cette fonction dépend actuellement d’une limite extérieure.
 
-```php
-foreach ($products as $product) {
-    echo product_label($product) . "<br>";
-}
-```
+Elle doit la recevoir explicitement.
 
-Résultat attendu à l'écran :
+Version attendue dans l’idée :
 
 ```php
-Chaise - 50€
-Table - 150€
-Lampe - 30€
+is_expensive($product, $expensive_limit)
 ```
+
+Elle doit retourner :
+
+* `true` si le prix dépasse la limite
+* `false` sinon
 
 ---
 
-## Étape 4 — détecter les produits chers
+# 7. Étape 4 — corriger `index.php`
 
-Créer une fonction :
+Une fois les fonctions corrigées, adaptez les appels dans `index.php`.
+
+Vous devez maintenant transmettre explicitement les données nécessaires.
+
+Exemple de logique attendue :
 
 ```php
-is_expensive($product)
+product_label($product, $currency, $promo_label)
 ```
 
-Règle :
-
-* retourne `true` si le prix est supérieur à 100
-* retourne `false` sinon
-
-Exemples :
+et :
 
 ```php
-var_dump(is_expensive(["name" => "Chaise", "price" => 50]));  // false
-var_dump(is_expensive(["name" => "Table", "price" => 150]));  // true
+is_expensive($product, $expensive_limit)
 ```
 
 ---
 
-## Étape 5 — afficher seulement les produits chers
+# 8. Étape 5 — vérifier la réutilisation
 
-Utiliser une boucle et la fonction `is_expensive()` pour afficher uniquement les produits dont le prix est supérieur à 100.
-
-Résultat attendu :
+Ajoutez dans `index.php` une nouvelle section :
 
 ```php
-Table - 150€
+<h2>Produits en promo</h2>
 ```
+
+Affichez uniquement les produits dont `promo` vaut `true`.
+
+Vous pouvez faire un `if` dans la boucle.
+
+Mais vous devez réutiliser `product_label()` pour l’affichage.
+
+Le but est de ne pas recopier la logique d’affichage.
 
 ---
 
-# 16. Contraintes de l'exercice
+# 9. Étape 6 — changement de consigne
+
+Le client change d’avis.
+
+Il ne veut plus voir :
+
+```php
+Table - 150€ - PROMO
+```
+
+Il veut voir :
+
+```php
+Table - 150€ (promotion)
+```
+
+## Travail demandé
+
+Modifiez le code.
+
+## Question
+
+Combien d’endroits avez-vous dû changer ?
+
+Le but est de constater qu’une règle centralisée se modifie plus facilement.
+
+---
+
+# 10. Contraintes
 
 * pas de `global`
 * chaque fonction reçoit ses données en paramètre
-* pas de code dupliqué
-* une fonction = un rôle précis
+* pas de dépendance cachée
+* pas de code dupliqué pour l’affichage
+* une fonction qui fabrique une valeur doit utiliser `return`
+* l’affichage final se fait à l’extérieur des fonctions
 
 ---
 
-# 17. Ce que l'exercice travaille vraiment
+# 11. Ce que l’exercice travaille vraiment
 
-Cet exercice ne sert pas seulement à "faire des fonctions".
+Cet exercice sert à apprendre à :
 
-Il sert à apprendre à :
-
-* découper un problème
-* nommer les actions
-* faire circuler les données proprement
-* faire collaborer plusieurs fonctions
-* comprendre concrètement le scope
+* distinguer fonction et variable
+* comprendre qu’une fonction chargée dans un script est réutilisable partout
+* comprendre qu’une variable extérieure n’entre pas automatiquement dans une fonction
+* faire circuler les données explicitement
+* rendre un script plus facile à lire et à modifier
+* centraliser une règle au bon endroit
 
 ---
 
-# 18. Résultat attendu
+# 12. Résultat attendu
 
-À la fin, on veut un script :
+À la fin, vous devez obtenir un code :
 
-* plus lisible
-* mieux découpé
+* plus clair
+* plus explicite
+* plus facile à corriger
+* plus facile à réutiliser
 * sans dépendances cachées
-* où chaque fonction a une responsabilité claire
+
+---
+
+# 13. Question finale
+
+Répondez en une ou deux phrases :
+
+1. Pourquoi une fonction définie dans un fichier inclus peut-elle être appelée ailleurs ?
+2. Pourquoi une variable définie hors d’une fonction n’est-elle pas disponible automatiquement dans cette fonction ?
+3. Pourquoi passer les données en paramètre est-il préférable à `global` ?
