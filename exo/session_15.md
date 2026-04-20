@@ -1,203 +1,277 @@
-# Session 15 - Exercice — Pourquoi les fonctions changent vraiment le code
+# Session 15 — Exercice : Fonctions, réutilisation et scope
 
-## Contexte
+## Objectif
 
-On vous donne un script qui fonctionne, mais qui est mal construit.
+Créer un petit système en plusieurs fichiers pour apprendre à :
 
-Il affiche une liste de produits, mais il se répète beaucoup.
-
-Votre travail n'est pas seulement de “faire des fonctions”.
-
-Votre travail est de transformer un code lourd, fragile et répétitif en code plus propre, plus lisible et plus facile à modifier.
+* définir des fonctions dans un fichier séparé ;
+* les réutiliser dans un autre fichier avec `include` ;
+* comprendre qu’une fonction chargée devient appelable dans le script ;
+* comprendre qu’une variable extérieure n’entre pas automatiquement dans une fonction ;
+* faire circuler les données explicitement avec des paramètres.
 
 ---
 
-## Données de départ
+# Contexte
+
+On vous donne des données dans un fichier `data.php`.
+
+Votre travail est de construire vous-même les fonctions dans un fichier `functions.php`, puis de les utiliser dans `index.php`.
+
+Le point important de l’exercice n’est pas seulement d’afficher des produits.
+
+Le point important est de comprendre ceci :
+
+* une fonction peut être définie dans un fichier et utilisée dans un autre ;
+* mais une fonction ne récupère pas automatiquement les variables extérieures ;
+* si une fonction a besoin d’une donnée, cette donnée doit entrer en paramètre.
+
+---
+
+# Fichier `data.php`
+
+Copiez-collez ce fichier :
 
 ```php
+<?php
+
 $products = [
     ["name" => "Chaise", "price" => 50, "promo" => false],
     ["name" => "Table", "price" => 150, "promo" => true],
     ["name" => "Lampe", "price" => 30, "promo" => false],
     ["name" => "Canapé", "price" => 499, "promo" => true],
 ];
+
+$currency = "€";
+$promo_label = "PROMO";
+$expensive_limit = 100;
 ```
 
 ---
 
-# 1. Script de départ
+# Fichier `index.php`
 
-Voici un script volontairement mauvais :
+Copiez-collez ce fichier :
 
 ```php
+<?php
+
+include 'data.php';
+include 'functions.php';
+
 echo "<h2>Tous les produits</h2>";
 
-echo $products[0]["name"] . " - " . $products[0]["price"] . "€";
-if ($products[0]["promo"]) {
-    echo " - PROMO";
+foreach ($products as $product) {
+    echo product_label($product, $currency, $promo_label) . "<br>";
 }
-echo "<br>";
 
-echo $products[1]["name"] . " - " . $products[1]["price"] . "€";
-if ($products[1]["promo"]) {
-    echo " - PROMO";
-}
-echo "<br>";
+echo "<h2>Produits chers</h2>";
 
-echo $products[2]["name"] . " - " . $products[2]["price"] . "€";
-if ($products[2]["promo"]) {
-    echo " - PROMO";
+foreach ($products as $product) {
+    if (is_expensive($product, $expensive_limit)) {
+        echo product_label($product, $currency, $promo_label) . "<br>";
+    }
 }
-echo "<br>";
-
-echo $products[3]["name"] . " - " . $products[3]["price"] . "€";
-if ($products[3]["promo"]) {
-    echo " - PROMO";
-}
-echo "<br>";
 ```
 
 ---
 
-# 2. Observer le problème
+# Fichier `functions.php`
 
-Avant de modifier le code, observez-le.
+Créez ce fichier vous-même.
 
-## Questions
+Vous devez y écrire les fonctions suivantes.
 
-1. Quelles parties se répètent ?
-2. Pourquoi ce code devient-il pénible si on a 30 produits au lieu de 4 ?
-3. Si on veut changer l'affichage du prix, combien d'endroits faudra-t-il modifier ?
-4. Si on veut réafficher les produits ailleurs dans la page, faudra-t-il recopier du code ?
+## Signatures obligatoires
 
-But de cette étape : comprendre que le vrai problème n'est pas “écrire une fonction”, mais éviter de refaire la même chose partout.
+```php
+function format_price($price, $currency) {}
+
+function product_label($product, $currency, $promo_label) {}
+
+function is_expensive($product, $expensive_limit) {}
+```
 
 ---
 
-# 3. Première amélioration — isoler l'affichage du prix
+# 1. Observer avant d’écrire
 
-Créez une fonction :
+Avant de coder, répondez à ces questions :
 
-```php
-format_price($price)
-```
-
-Cette fonction reçoit un prix et retourne une chaîne comme :
-
-```php
-50€
-150€
-499€
-```
-
-## Exemples attendus
-
-```php
-echo format_price(50);
-echo format_price(150);
-echo format_price(499);
-```
-
-## Important
-
-La fonction doit retourner une valeur avec `return`.
-
-Elle ne doit pas faire `echo`.
+1. Dans quel fichier les données sont-elles stockées ?
+2. Dans quel fichier les fonctions doivent-elles être écrites ?
+3. Pourquoi `index.php` peut-il appeler une fonction définie dans `functions.php` ?
+4. Pourquoi `format_price()` ne doit-elle pas essayer d’utiliser directement `$currency` sans le recevoir ?
+5. Pourquoi `product_label()` doit-elle recevoir `$currency` et `$promo_label` en paramètre ?
 
 ---
 
-# 4. Deuxième amélioration — isoler l'affichage d'un produit
+# 2. Travail demandé
 
-Créez une fonction :
+Vous devez écrire les trois fonctions dans `functions.php`.
+
+Interdiction d’utiliser :
+
+* `global`
+
+Chaque fonction doit recevoir explicitement ce dont elle a besoin.
+
+---
+
+# 3. Étape 1 — écrire `format_price()`
+
+## Signature imposée
 
 ```php
-product_label($product)
+function format_price($price, $currency) {}
 ```
 
-Cette fonction reçoit un tableau produit et retourne une chaîne.
+## Travail
+
+Cette fonction doit :
+
+* recevoir un prix ;
+* recevoir une devise ;
+* retourner une chaîne contenant le prix suivi de la devise.
+
+## Résultats attendus
+
+* `50€`
+* `150€`
+* `499€`
+
+---
+
+# 4. Étape 2 — écrire `product_label()`
+
+## Signature imposée
+
+```php
+function product_label($product, $currency, $promo_label) {}
+```
+
+## Travail
+
+Cette fonction doit :
+
+* recevoir un produit ;
+* recevoir la devise ;
+* recevoir le texte du label promo ;
+* retourner une chaîne complète pour afficher le produit.
 
 ## Règles
 
-* elle affiche le nom
-* elle affiche le prix formaté
-* si le produit est en promo, elle ajoute ` - PROMO`
+Le label doit :
 
-## Exemples attendus
+* afficher le nom ;
+* afficher le prix formaté ;
+* ajouter le label promo si le produit est en promo.
 
-```php
-echo product_label($products[0]); // Chaise - 50€
-echo product_label($products[1]); // Table - 150€ - PROMO
-```
+## Résultats attendus
+
+* `Chaise - 50€`
+* `Table - 150€ - PROMO`
 
 ## Consigne importante
 
-Vous devez utiliser `format_price()` dans `product_label()`.
-
-But de cette étape : montrer qu'une fonction peut en utiliser une autre.
-
----
-
-# 5. Troisième amélioration — afficher tous les produits proprement
-
-Affichez maintenant tous les produits avec une boucle `foreach`.
-
-Consigne : vous ne pouvez plus reconstruire l'affichage à la main dans la boucle.
-
-Vous devez utiliser `product_label()`.
-
-## Résultat attendu
+Dans cette fonction, vous devez réutiliser :
 
 ```php
-Chaise - 50€
-Table - 150€ - PROMO
-Lampe - 30€
-Canapé - 499€ - PROMO
+format_price(...)
 ```
 
 ---
 
-# 6. Quatrième amélioration — réutiliser au lieu de recopier
+# 5. Étape 3 — écrire `is_expensive()`
 
-Sous la liste complète, affichez une deuxième section :
+## Signature imposée
+
+```php
+function is_expensive($product, $expensive_limit) {}
+```
+
+## Travail
+
+Cette fonction doit :
+
+* recevoir un produit ;
+* recevoir une limite ;
+* retourner `true` si le prix est supérieur à la limite ;
+* retourner `false` sinon.
+
+## Pour une limite de `100`
+
+Résultats attendus :
+
+* chaise → `false`
+* table → `true`
+* lampe → `false`
+* canapé → `true`
+
+---
+
+# 6. Étape 4 — tester avec `index.php`
+
+Une fois vos fonctions écrites, exécutez `index.php`.
+
+Vous devez obtenir deux sections :
+
+## Section 1 — Tous les produits
+
+Résultat attendu :
+
+* `Chaise - 50€`
+* `Table - 150€ - PROMO`
+* `Lampe - 30€`
+* `Canapé - 499€ - PROMO`
+
+## Section 2 — Produits chers
+
+Résultat attendu :
+
+* `Table - 150€ - PROMO`
+* `Canapé - 499€ - PROMO`
+
+---
+
+# 7. Étape 5 — ajouter une section “Produits en promo”
+
+Ajoutez dans `index.php` une troisième section :
 
 ```php
 <h2>Produits en promo</h2>
 ```
 
-Dans cette section, affichez seulement les produits dont `promo` vaut `true`.
+Dans cette section, affichez uniquement les produits dont `promo` vaut `true`.
 
-Vous pouvez d'abord faire cela avec un `if` dans la boucle.
+## Consigne
 
-Ensuite, créez une fonction :
+Vous devez réutiliser :
 
 ```php
-is_on_sale($product)
+product_label(...)
 ```
 
-Cette fonction retourne :
+Vous ne pouvez pas reconstruire l’affichage à la main.
 
-* `true` si le produit est en promo
-* `false` sinon
+## Résultat attendu
 
-Puis réécrivez votre boucle en utilisant cette fonction.
+* `Table - 150€ - PROMO`
+* `Canapé - 499€ - PROMO`
 
 ---
 
-# 7. Le moment important — changement de consigne
+# 8. Étape 6 — changement de consigne
 
-Maintenant, le client change d'avis.
+Le client change d’avis.
 
 Il ne veut plus voir :
 
-```php
-Table - 150€ - PROMO
-```
+* `Table - 150€ - PROMO`
 
 Il veut voir :
 
-```php
-Table - 150€ (promotion)
-```
+* `Table - 150€ (promotion)`
 
 ## Travail demandé
 
@@ -205,54 +279,81 @@ Modifiez votre code pour appliquer cette nouvelle règle.
 
 ## Question
 
-Combien de lignes avez-vous dû changer ?
-
-But de cette étape : faire sentir concrètement l'intérêt des fonctions.
-
-Quand le code est bien découpé, on change une règle à un seul endroit.
+Combien d’endroits avez-vous dû modifier ?
 
 ---
 
-# 8. Contraintes
+# 9. Étape 7 — nouvelle devise
 
-* pas de `global`
-* chaque fonction reçoit ses données en paramètre
-* pas de code dupliqué
-* une fonction = un rôle précis
-* une fonction qui fabrique une valeur doit utiliser `return`
-* l'affichage final se fait à l'extérieur des fonctions
+Ajoutez une nouvelle section dans `index.php` pour afficher les produits chers avec une autre devise :
 
----
+* ` EUR`
 
-# 9. Ce que cet exercice travaille vraiment
+## Résultat attendu
 
-Cet exercice apprend à :
+* `Table - 150 EUR - PROMO`
+* `Canapé - 499 EUR - PROMO`
 
-* repérer les répétitions
-* découper un problème
-* centraliser une règle
-* réutiliser du code
-* faire collaborer plusieurs fonctions
-* rendre un script plus facile à modifier
-* comprendre qu'une fonction n'est pas juste un “bloc de code”, mais un outil de maintenance
+## Question
+
+Pourquoi ce changement est-il simple si la devise est passée en paramètre ?
 
 ---
 
-# 10. Résultat attendu
-
-À la fin, vous devez avoir un script :
-
-* plus court
-* plus lisible
-* plus logique
-* plus facile à modifier
-* capable de réutiliser les mêmes règles à plusieurs endroits
-
----
-
-# 11. Question finale
+# 10. Vérification de compréhension
 
 Répondez en une ou deux phrases :
 
-1. Qu'est-ce que les fonctions vous ont évité ?
-2. Qu'est-ce qu'elles vous ont permis de changer plus facilement ?
+1. Pourquoi une fonction écrite dans `functions.php` peut-elle être appelée dans `index.php` ?
+2. Pourquoi `$currency` n’est-elle pas disponible automatiquement dans `format_price()` ?
+3. Pourquoi `global` est-il une mauvaise solution ici ?
+4. Pourquoi passer les données en paramètre rend-il le code plus clair ?
+5. Quelle différence faites-vous entre :
+
+   * réutiliser une fonction ;
+   * réutiliser une variable extérieure ?
+
+---
+
+# 11. Contraintes
+
+* `functions.php` doit être entièrement écrit par vous
+* pas de `global`
+* chaque fonction reçoit ses données en paramètre
+* pas de dépendance cachée
+* pas de code dupliqué pour afficher un produit
+* une fonction qui fabrique une valeur utilise `return`
+* l’affichage final se fait dans `index.php`
+
+---
+
+# 12. Bonus
+
+Ajoutez une quatrième fonction.
+
+## Signature imposée
+
+```php
+function is_on_sale($product) {}
+```
+
+## Travail
+
+Cette fonction doit :
+
+* retourner `true` si le produit est en promo ;
+* retourner `false` sinon.
+
+Puis réécrivez la section “Produits en promo” en utilisant cette fonction.
+
+---
+
+# 13. Ce que l’exercice travaille vraiment
+
+Cet exercice sert à comprendre que :
+
+* une fonction peut être définie dans un fichier et utilisée dans un autre ;
+* une fonction devient réutilisable après chargement avec `include` ;
+* une variable extérieure ne traverse pas automatiquement le scope d’une fonction ;
+* une bonne fonction annonce ses besoins dans ses paramètres ;
+* centraliser une règle rend le code plus facile à modifier.
