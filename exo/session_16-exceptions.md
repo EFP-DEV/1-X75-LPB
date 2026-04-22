@@ -174,38 +174,32 @@ catch (Exception $e)
 
 ---
 
-## Exercice 6 — Utiliser `finally` avec un fichier
+## Exercice 6 — `finally`
 
 Créer la fonction :
 
 ```php
-function read_first_line($filepath)
+function divide($a, $b)
 ```
 
 ### Règles
 
-* si le chemin est vide : `InvalidArgumentException`
-* si le fichier n’existe pas : `RuntimeException`
-* si le fichier ne peut pas être ouvert : `RuntimeException`
-* si le fichier est vide : `RuntimeException`
-* sinon retourner sa première ligne
+* si `$b === 0`, lancer `Exception`
+* sinon retourner le résultat de la division
+* dans tous les cas, `finally` doit afficher :
 
-### Contraintes pédagogiques
-
-* si un handle de fichier a été ouvert, il doit être fermé **dans un `finally`** ;
-* le script principal doit aussi contenir un `try/catch/finally`.
+```php
+FIN
+```
 
 ### À faire
 
-1. Écrire la fonction.
-2. Dans la fonction, garantir la fermeture du fichier avec `finally`.
-3. Dans le script principal, faire un `try/catch/finally`.
-4. Dans le `finally` du script principal, afficher : `Lecture terminée`.
-5. Tester avec :
+1. Écrire la fonction avec `try/catch/finally`.
+2. Tester avec :
 
-   * un vrai chemin ;
-   * un faux chemin ;
-   * si possible, un fichier vide.
+   * `divide(10, 2)`
+   * `divide(10, 0)`
+3. Expliquer pourquoi `FIN` s’affiche dans les deux cas.
 
 ---
 
