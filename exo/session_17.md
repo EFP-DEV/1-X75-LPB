@@ -1,4 +1,4 @@
-# Session 16 — Exercice
+# Session 17 — Exercice
 
 ## Construire un Model générique en PHP avec PDO
 
