@@ -1,4 +1,4 @@
-# Session 16 - Introduction à MVC
+# Session 17 - Introduction à MVC
 
 ## 1. Objectif
 
