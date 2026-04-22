@@ -1,4 +1,4 @@
-# Session 16 - Exercices — Exceptions en PHP
+# Session 16 - Exercices - Exceptions en PHP
 
 ## Objectifs de la série
 
