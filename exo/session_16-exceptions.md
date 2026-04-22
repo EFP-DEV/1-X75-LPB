@@ -1,6 +1,32 @@
-# Exercices — Exceptions en PHP
+# Session 16 - Exercices — Exceptions en PHP
 
-## Exercice 1 — Lire le flux d’une exception
+## Objectifs de la série
+
+À la fin de cette série, vous devez être capable de :
+
+- lire le flux d’exécution quand une exception est lancée ;
+- remplacer un `return false` par une exception explicite ;
+- distinguer une erreur d’entrée d’une opération impossible ;
+- utiliser plusieurs blocs `catch` dans le bon ordre ;
+- employer `finally` pour garantir un nettoyage ;
+- traiter une liste complète sans arrêter tout le script ;
+- factoriser l’affichage des erreurs avec une fonction `report()`.
+
+## Conventions communes
+
+Dans tous les exercices :
+
+- utilisez `InvalidArgumentException` quand une donnée est absente, vide, mal typée ou hors domaine ;
+- utilisez `RuntimeException` quand les données sont valides mais que l’opération ne peut pas aboutir ;
+- donnez toujours un message clair à l’exception ;
+- dans les exercices 8 et 10, une erreur locale ne doit pas arrêter le traitement global ;
+- la fonction `report()` doit **retourner une chaîne**, pas faire directement un `echo`.
+
+---
+
+## Exercice 1 — Suivre le flux d’une exception
+
+Ne modifiez pas ce code.
 
 ```php
 function reciprocal($number)
@@ -23,17 +49,18 @@ try {
 }
 
 echo '<br>END';
-```
+````
 
 ### À faire
 
-1. Dire exactement ce qui s’affiche.
-2. Expliquer pourquoi le troisième appel ne s’exécute pas.
-3. Expliquer le rôle de `throw`, `try` et `catch`.
+1. Sans exécuter le code, écrire **exactement** ce qui s’affiche.
+2. Indiquer à quel moment l’exécution quitte le bloc `try`.
+3. Expliquer pourquoi le troisième appel à `reciprocal()` ne s’exécute pas.
+4. Expliquer le rôle de `throw`, `try` et `catch`.
 
 ---
 
-## Exercice 2 — Interdire une note invalide
+## Exercice 2 — Valider une note
 
 Créer la fonction :
 
@@ -43,20 +70,21 @@ function set_grade($grade)
 
 ### Règles
 
-* une note doit être numérique
-* une note doit être comprise entre `0` et `20`
-* sinon la fonction doit lancer une exception
-* si la note est correcte, la fonction retourne la note
+* la note doit être numérique ;
+* la note doit être comprise entre `0` et `20` ;
+* si la note est invalide, lancer `InvalidArgumentException` ;
+* si la note est correcte, retourner la note.
 
 ### À faire
 
 1. Écrire la fonction.
-2. Tester avec plusieurs valeurs : `12`, `-3`, `25`, `'hello'`.
-3. Gérer les erreurs avec `try/catch`.
+2. Prévoir des messages d’erreur différents selon le problème.
+3. Tester avec les valeurs suivantes : `12`, `-3`, `25`, `'hello'`, `'18.5'`.
+4. Utiliser une boucle et un `try/catch` pour tester **tous** les cas sans arrêter le script.
 
 ---
 
-## Exercice 3 — Remplacer `return false` par `throw`
+## Exercice 3 — Remplacer `return false` par une exception
 
 Code de départ :
 
@@ -77,36 +105,57 @@ function get_username($user)
 
 ### À faire
 
-1. Réécrire la fonction pour ne plus retourner `false`.
-2. Si `username` est absent ou vide, lancer `InvalidArgumentException`.
-3. Dans le script principal, attraper l’erreur et afficher un message propre.
+1. Réécrire la fonction pour qu’elle ne retourne plus jamais `false`.
+2. Si `username` est absent, lancer `InvalidArgumentException`.
+3. Si `username` est vide après `trim()`, lancer `InvalidArgumentException`.
+4. Si tout est correct, retourner le username **nettoyé avec `trim()`**.
+5. Dans le script principal, attraper l’erreur et afficher un message propre.
+
+### Jeux de test à prévoir
+
+* un tableau sans `username` ;
+* un tableau avec `username => ''` ;
+* un tableau avec `username => '   '` ;
+* un tableau avec `username => ' alice '`.
 
 ---
 
-## Exercice 4 — Deux types d’erreurs différents
+## Exercice 4 — Distinguer erreur d’entrée et opération impossible
 
 Créer la fonction :
 
 ```php
-function calculate_discount($price, $percent)
+function withdraw($balance, $amount)
 ```
 
 ### Règles
 
-* si `$price` n’est pas numérique ou est négatif : `InvalidArgumentException`
-* si `$percent` n’est pas numérique : `InvalidArgumentException`
-* si `$percent` est inférieur à `0` ou supérieur à `100` : `RuntimeException`
-* sinon retourner le prix remisé
+* si `$balance` n’est pas numérique ou est négatif : `InvalidArgumentException`
+* si `$amount` n’est pas numérique ou est inférieur ou égal à `0` : `InvalidArgumentException`
+* si `$amount` est supérieur à `$balance` : `RuntimeException`
+* sinon retourner le nouveau solde
 
 ### À faire
 
 1. Écrire la fonction.
-2. Prévoir deux `catch` différents.
-3. Afficher un message différent selon le type d’exception.
+2. Prévoir deux blocs `catch` différents :
+
+   * `InvalidArgumentException`
+   * `RuntimeException`
+3. Afficher un message différent selon le type d’erreur.
+4. Tester avec plusieurs cas valides et invalides.
+
+### Cas de test conseillés
+
+* `(100, 30)`
+* `(100, 150)`
+* `(-10, 5)`
+* `(100, 0)`
+* `('abc', 10)`
 
 ---
 
-## Exercice 5 — Comprendre l’ordre des catch
+## Exercice 5 — Comprendre l’ordre des `catch`
 
 Reprendre l’exercice précédent.
 
@@ -118,13 +167,14 @@ Reprendre l’exercice précédent.
 catch (Exception $e)
 ```
 
-2. Le placer après les `catch` spécifiques.
-3. Tester.
-4. Expliquer pourquoi il faut attraper d’abord `InvalidArgumentException` et `RuntimeException`, puis `Exception`.
+2. Le placer **après** les `catch` spécifiques.
+3. Tester le script.
+4. Expliquer pourquoi `InvalidArgumentException` et `RuntimeException` doivent être attrapées avant `Exception`.
+5. Expliquer ce qui se passerait si `catch (Exception $e)` était placé en premier.
 
 ---
 
-## Exercice 6 — `finally` avec un fichier
+## Exercice 6 — Utiliser `finally` avec un fichier
 
 Créer la fonction :
 
@@ -136,14 +186,26 @@ function read_first_line($filepath)
 
 * si le chemin est vide : `InvalidArgumentException`
 * si le fichier n’existe pas : `RuntimeException`
-* sinon ouvrir le fichier et retourner sa première ligne
+* si le fichier ne peut pas être ouvert : `RuntimeException`
+* si le fichier est vide : `RuntimeException`
+* sinon retourner sa première ligne
+
+### Contraintes pédagogiques
+
+* si un handle de fichier a été ouvert, il doit être fermé **dans un `finally`** ;
+* le script principal doit aussi contenir un `try/catch/finally`.
 
 ### À faire
 
 1. Écrire la fonction.
-2. Dans le script principal, faire un `try/catch/finally`.
-3. Dans `finally`, afficher : `Lecture terminée`.
-4. Tester avec un vrai chemin et un faux chemin.
+2. Dans la fonction, garantir la fermeture du fichier avec `finally`.
+3. Dans le script principal, faire un `try/catch/finally`.
+4. Dans le `finally` du script principal, afficher : `Lecture terminée`.
+5. Tester avec :
+
+   * un vrai chemin ;
+   * un faux chemin ;
+   * si possible, un fichier vide.
 
 ---
 
@@ -155,7 +217,7 @@ Créer la fonction :
 function validate_registration($user)
 ```
 
-### Règles
+### Données obligatoires
 
 Le tableau `$user` doit contenir :
 
@@ -163,17 +225,22 @@ Le tableau `$user` doit contenir :
 * `email`
 * `age`
 
-Contraintes :
+### Contraintes
 
-* `name` ne peut pas être vide
-* `email` doit contenir `@`
-* `age` doit être un entier positif
+* `name` ne peut pas être vide après `trim()`
+* `email` doit être valide
+* `age` doit être un entier strictement positif
+
+### Règles
+
+* si une donnée est absente ou invalide, lancer `InvalidArgumentException`
+* si tout est correct, retourner `true`
 
 ### À faire
 
-1. Si une donnée est absente ou invalide, lancer `InvalidArgumentException`.
-2. Si tout est correct, retourner `true`.
-3. Tester avec plusieurs utilisateurs.
+1. Écrire la fonction.
+2. Utiliser une vraie validation d’email (`filter_var`).
+3. Tester plusieurs utilisateurs.
 4. Gérer les erreurs avec `try/catch`.
 
 ### Données de test
@@ -184,6 +251,7 @@ $users = [
     ['name' => '', 'email' => 'paul@mail.com', 'age' => 20],
     ['name' => 'Nora', 'email' => 'noramail.com', 'age' => 18],
     ['name' => 'Jules', 'email' => 'jules@mail.com', 'age' => -2],
+    ['name' => 'Sara', 'email' => 'sara@mail.com'],
 ];
 ```
 
@@ -193,7 +261,7 @@ $users = [
 
 On veut vérifier une liste de commandes.
 
-Chaque commande contient :
+Chaque commande doit contenir :
 
 * `order_id`
 * `amount`
@@ -207,8 +275,11 @@ function validate_order($order)
 ### Règles
 
 * `order_id` doit exister
+* `order_id` doit être un entier strictement positif
 * `amount` doit être numérique
 * `amount` doit être strictement supérieur à `0`
+* sinon lancer `InvalidArgumentException`
+* si tout est correct, retourner `true`
 
 ### À faire
 
@@ -225,6 +296,7 @@ $orders = [
     ['order_id' => 102, 'amount' => 0],
     ['order_id' => 103, 'amount' => -15],
     ['order_id' => 104, 'amount' => 'abc'],
+    ['amount' => 120],
     ['order_id' => 105, 'amount' => 120],
 ];
 ```
@@ -239,13 +311,24 @@ Créer la fonction :
 function report(Throwable $e, $context = null)
 ```
 
+### Règles
+
+La fonction doit **retourner une chaîne**.
+
+* si l’erreur est un `InvalidArgumentException`, préfixer par `INPUT ERROR`
+* si l’erreur est un `RuntimeException`, préfixer par `RUNTIME ERROR`
+* sinon, préfixer par `GENERAL ERROR`
+* si `$context` est fourni, l’ajouter dans le message
+* inclure le message original de l’exception
+
 ### À faire
 
-1. Si l’erreur est un `InvalidArgumentException`, afficher `INPUT ERROR`.
-2. Si l’erreur est un `RuntimeException`, afficher `RUNTIME ERROR`.
-3. Si l’erreur est une autre `Exception`, afficher `GENERAL ERROR`.
-4. Si `$context` est fourni, l’ajouter dans le message.
-5. Réutiliser cette fonction dans un ou deux exercices précédents.
+1. Écrire la fonction.
+2. Retourner une chaîne réutilisable, par exemple :
+
+   * `INPUT ERROR - order #102 - Amount must be greater than 0`
+3. Réutiliser cette fonction dans l’exercice 8.
+4. Réutiliser cette fonction dans l’exercice 10.
 
 ---
 
@@ -267,6 +350,7 @@ $students = [
     ['student_id' => 2, 'name' => 'Tom', 'grades' => []],
     ['student_id' => 3, 'name' => '', 'grades' => [10, 11]],
     ['student_id' => 4, 'name' => 'Mila', 'grades' => [14, 'oops', 16]],
+    ['student_id' => 5, 'name' => 'Leo', 'grades' => '15,16'],
 ];
 ```
 
@@ -283,7 +367,8 @@ function report(Throwable $e, $context = null)
 #### `validate_student($student)`
 
 * `student_id` doit exister
-* `name` ne peut pas être vide
+* `student_id` doit être un entier strictement positif
+* `name` ne peut pas être vide après `trim()`
 * `grades` doit exister et être un tableau
 
 Sinon : `InvalidArgumentException`
@@ -292,19 +377,29 @@ Sinon : `InvalidArgumentException`
 
 * si le tableau est vide : `RuntimeException`
 * si une note n’est pas numérique : `InvalidArgumentException`
+* si une note est hors de l’intervalle `0` à `20` : `InvalidArgumentException`
 * sinon retourner la moyenne
 
 ### À faire
 
-1. Parcourir les étudiants.
+1. Parcourir les étudiants avec une boucle.
 2. Pour chaque étudiant :
 
-   * valider l’étudiant
-   * calculer sa moyenne
+   * valider l’étudiant ;
+   * calculer sa moyenne.
 3. Si une erreur arrive sur un étudiant, l’attraper, l’afficher avec `report()`, puis continuer.
-4. Le traitement global doit continuer jusqu’au bout.
+4. Le traitement global doit aller jusqu’au bout.
 5. Prévoir plusieurs `catch` :
 
    * `InvalidArgumentException`
    * `RuntimeException`
    * `Exception`
+
+### Résultat attendu
+
+À la fin, le script doit afficher :
+
+* les étudiants valides avec leur moyenne ;
+* les étudiants invalides avec un message cohérent produit par `report()` ;
+* un traitement complet de toute la liste, sans arrêt prématuré.
+
