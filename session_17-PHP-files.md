@@ -408,42 +408,24 @@ Principe :
 À ce stade, il suffit de comprendre que le problème existe, et qu'il existe aussi un mécanisme simple pour le traiter.
 
 ---
-
 ## 14. Micro-scénarios d'échec à reconnaître
 
-Voici quelques cas typiques. Chacun relie un symptôme observable à une cause probable.
+Chaque ligne relie un symptôme observable à une cause probable et au niveau concerné (cf. section 3).
 
-### "Le programme ne trouve pas le fichier"
-
-Cause probable : mauvais chemin, mauvais dossier courant, faute dans le nom.
-
-### "Le fichier s'ouvre, mais on ne lit rien"
-
-Cause possible : fichier vide, mauvaise logique de lecture, curseur déjà déplacé.
-
-### "Tout est lu sur une seule ligne"
-
-Cause possible : fin de ligne inattendue, fichier produit sur un autre système.
-
-### "Les accents sont cassés"
-
-Cause probable : mauvais encodage.
-
-### "Les colonnes sont mauvaises"
-
-Cause probable : mauvais séparateur, tabulation prise pour une virgule, guillemets mal gérés.
-
-### "Le fichier résultat existe, mais son contenu est incomplet"
-
-Cause possible : erreur pendant l'écriture, fichier non fermé correctement.
-
-### "Le contenu final est incohérent"
-
-Cause possible : plusieurs écritures simultanées, absence de verrouillage.
-
-### "Permission refusée"
-
-Cause probable : le fichier existe mais les droits sont insuffisants.
+| Symptôme | Cause probable | Niveau |
+|---|---|---|
+| Le programme ne trouve pas le fichier | Mauvais chemin, mauvais dossier courant, faute dans le nom | Contrôle |
+| Le fichier s'ouvre, mais on ne lit rien | Fichier vide, ou `fopen` en mode écriture au lieu de lecture | Contrôle |
+| Tout est lu sur une seule ligne | Fin de ligne inattendue (`\r\n` vs `\n`), fichier produit sur un autre système | Contrôle |
+| Les accents sont cassés | Mauvais encodage (UTF-8 lu comme ISO-8859-1 ou inversement) | Contrôle |
+| Les colonnes sont décalées | Mauvais séparateur (tabulation prise pour virgule, ou inversement) | Structure |
+| Une colonne contient des données d'une autre | Guillemets ou virgules dans les valeurs, mal gérés par le découpage | Structure |
+| Le fichier SQL généré contient l'en-tête du fichier source | Première ligne non ignorée | Données |
+| Le fichier résultat existe mais est vide | `fopen` en mode `w` exécuté, mais rien écrit (erreur silencieuse, filtre trop strict) | Contrôle |
+| Le fichier résultat est incomplet | Erreur pendant l'écriture, fichier non fermé correctement | Contrôle |
+| Le contenu final est incohérent ou mélangé | Plusieurs écritures simultanées, absence de verrouillage | Contrôle |
+| Permission refusée | Le fichier existe mais les droits sont insuffisants | Contrôle |
+| Le SQL produit provoque une erreur à l'exécution | Apostrophe dans une valeur non échappée (ex : `VALUES ('Hawai'i')`) | Données |
 
 Le bon réflexe n'est pas de mémoriser une syntaxe, mais d'apprendre à diagnostiquer.
 
