@@ -11,6 +11,8 @@
 ---
 
 ## Plan détaillé du module
+
+
 <table>
 <thead>
 <tr><th>Séance</th><th>Thème du cours</th><th>Durée</th></tr>
