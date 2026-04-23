@@ -472,3 +472,85 @@ La syntaxe change selon le langage.
 La logique, elle, reste la même.
 
 Ce qu'il faut maîtriser, ce n'est pas seulement "comment ouvrir un fichier", mais tout le raisonnement qui permet de passer d'une source brute à un résultat fiable.
+
+---
+
+# Annexe — Observer un fichier avec un éditeur hexadécimal
+
+## Pourquoi un éditeur hexadécimal
+
+Un éditeur de texte affiche le contenu lisible d'un fichier, mais masque tout le reste : séparateurs invisibles, fins de ligne, encodage. Un éditeur hexadécimal montre chaque octet tel qu'il est stocké. C'est l'outil qui permet de voir ce qu'un éditeur de texte cache.
+
+Un outil en ligne comme [hexed.it](https://hexed.it/) suffit. Il n'y a rien à installer.
+
+---
+
+## Quoi regarder
+
+Trois choses à vérifier systématiquement avant de coder.
+
+### 1. L'encodage (les premiers octets)
+
+Certains fichiers commencent par une séquence spéciale appelée BOM (Byte Order Mark). Elle indique l'encodage utilisé.
+
+| Premiers octets | Encodage |
+|---|---|
+| `EF BB BF` | UTF-8 avec BOM |
+| `FF FE` | UTF-16 Little Endian |
+| `FE FF` | UTF-16 Big Endian |
+| Aucun marqueur | UTF-8 sans BOM (cas le plus courant) |
+
+Si le fichier commence directement par le contenu (pas de BOM) et que tous les octets restent dans la plage `00`–`7F`, le fichier est en ASCII pur, ce qui est aussi du UTF-8 valide.
+
+Si des octets dépassent `7F`, il faut déterminer s'ils forment des séquences UTF-8 valides (par exemple `C3 A9` pour `é`) ou s'il s'agit d'un encodage mono-octet comme ISO-8859-1 (où `é` serait un seul octet `E9`).
+
+### 2. Le séparateur de colonnes
+
+Dans un fichier tabulaire, les colonnes sont séparées par un caractère invisible.
+
+| Octet | Caractère |
+|---|---|
+| `09` | Tabulation (TSV) |
+| `2C` | Virgule `,` (CSV) |
+| `3B` | Point-virgule `;` (CSV variante) |
+
+Un éditeur de texte peut afficher un espace là où il y a une tabulation. L'éditeur hexadécimal lève le doute.
+
+### 3. Les fins de ligne
+
+| Séquence | Système |
+|---|---|
+| `0A` | LF — Unix, Linux, macOS |
+| `0D 0A` | CR+LF — Windows |
+
+Si on voit `0A` seul en fin de ligne : LF. Si on voit `0D` suivi de `0A` : CR+LF.
+
+---
+
+## Exemple concret : `iso-639-3.tab`
+
+En ouvrant ce fichier dans hexed.it, on observe :
+
+* **Premiers octets** : `49 64 09 50 61 72 74` — le fichier commence directement par `Id` (le nom de la première colonne). Pas de BOM. L'encodage est UTF-8 sans BOM.
+* **Séparateur** : les octets `09` apparaissent entre chaque champ. C'est bien une tabulation.
+* **Fins de ligne** : chaque ligne se termine par `0A` seul. C'est du LF, sans `0D`. Pas de `\r\n` à gérer.
+* **Plage des octets** : tous les octets visibles restent dans `00`–`7F`. Le fichier est en ASCII pur.
+
+Conclusion avant de coder :
+
+* séparateur : `\t` ;
+* fin de ligne : `\n` ;
+* encodage : ASCII / UTF-8 ;
+* pas de cas particulier à prévoir.
+
+---
+
+## Résumé
+
+Avant de traiter un fichier, ouvrir les premiers octets dans un éditeur hexadécimal permet de répondre à trois questions en quelques secondes :
+
+1. Quel est l'encodage ?
+2. Quel est le séparateur ?
+3. Quelles sont les fins de ligne ?
+
+Ces trois réponses relèvent du contrôle (cf. section 3 de la leçon). Les ignorer, c'est risquer un programme qui tourne mais qui produit un résultat faux.
