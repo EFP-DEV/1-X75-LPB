@@ -359,14 +359,20 @@ Si une erreur survient et que le fichier n'est pas fermé correctement :
 * l'écriture peut être incomplète ;
 * le résultat produit peut être corrompu.
 
-Le bon réflexe est d'encadrer les opérations fichier avec :
+### Le cas de PHP
 
-* `try` : on ouvre et on travaille ;
-* `catch` : on gère l'erreur ;
-* `finally` : on ferme quoi qu'il arrive.
+En PHP, les fonctions fichier (`fopen`, `fgets`, `fwrite`) ne lancent pas d'exceptions. Elles retournent `false` en cas d'échec.
 
-`finally` est essentiel, car "penser à fermer" n'est pas une garantie.
-Une vraie garantie demande un mécanisme systématique.
+Cela signifie que `try/catch` seul ne suffit pas : il n'y a rien à attraper.
+
+Le bon réflexe est double :
+
+* **vérifier chaque retour** : si `fopen` retourne `false`, il ne faut pas tenter de lire ;
+* **utiliser `try/finally`** : le bloc `finally` garantit que `fclose()` sera appelé quoi qu'il arrive dans le reste du code, même si on décide d'interrompre le traitement en cours de route.
+
+`finally` ne sert pas ici à attraper une exception, mais à garantir la fermeture dans tous les cas de figure : sortie normale, `return` anticipé, ou exception levée ailleurs dans le code.
+
+Sans ce mécanisme, "toujours fermer le fichier" reste un vœu, pas une garantie.
 
 ---
 
