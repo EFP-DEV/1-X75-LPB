@@ -16,7 +16,7 @@
 <tr><th>Séance</th><th>Thème du cours</th><th>Durée</th></tr>
 </thead>
 <tbody>
-<tr><td colspan="3"><strong>Partie 1 : Fondamentaux des algorithmes (24h)</strong></td></tr>
+<tr><td colspan="3"><strong>Partie 1 : Fondamentaux des algorithmes (20h)</strong></td></tr>
 <tr><td>0</td><td><a href="session_00.md">Introduction, concepts et logique</a></td><td>4h</td></tr>
 <tr><td>1</td><td><a href="session_01-ALGO-test.md">Structures conditionnelles</a></td><td>4h</td></tr>
 <tr><td>2</td><td><a href="session_02.md">Structures conditionnelles (avancées)</a></td><td>4h</td></tr>
@@ -29,7 +29,7 @@
 <tr><td>8</td><td><a href="session_08-event-listeners.md">DOM Tracker</a></td><td>4h</td></tr>
 <tr><td>9</td><td><a href="session_09-DOM.md">DOM Tracker Dashboard</a></td><td>4h</td></tr>
 <tr><td>10</td><td><a href="ession_10-API-JS.md">API + DOM</a></td><td>4h</td></tr>
-<tr><td colspan="3"><strong>Partie 3 : Programmation PHP (28h)</strong></td></tr>
+<tr><td colspan="3"><strong>Partie 3 : Programmation PHP (36h)</strong></td></tr>
 <tr><td>11</td><td><a href="session_11-PHP.md">Introduction à PHP: concepts et syntaxe générale + Exo: Découpe pour SSR</a></td><td>4h</td></tr>
 <tr><td>12</td><td><a href="session_12-controller-request-pdo.md">Contrôleur, GET/POST, PDO</a></td><td>4h</td></tr>
 <tr><td>13</td><td><a href="session_13-pdo.md">Lecture de produits avec PDO</a></td><td>4h</td></tr>
