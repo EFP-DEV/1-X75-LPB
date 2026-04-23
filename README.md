@@ -11,7 +11,6 @@
 ---
 
 ## Plan détaillé du module
-
 <table>
 <thead>
 <tr><th>Séance</th><th>Thème du cours</th><th>Durée</th></tr>
@@ -25,22 +24,20 @@
 <tr><td>4</td><td><a href="session_04.md">Structures itératives (boucles)</a></td><td>4h</td></tr>
 <tr><td colspan="3"><strong>Partie 2 : Programmation JavaScript (24h)</strong></td></tr>
 <tr><td>5</td><td><a href="session_05.md">Du pseudo-code au code</a></td><td>4h</td></tr>
-<tr><td>6</td><td><a href="session_06.md">Tableau et fonction</a></td><td>4h</td></tr>
+<tr><td>6</td><td><a href="session_06-JS-Calendar.md">Tableau et fonction</a></td><td>4h</td></tr>
 <tr><td>7</td><td><a href="session_07.md">Exo: JS-Calendar</a></td><td>4h</td></tr>
 <tr><td>8</td><td><a href="session_08.md">DOM Tracker</a></td><td>4h</td></tr>
 <tr><td>9</td><td><a href="session_09.md">DOM Tracker Dashboard</a></td><td>4h</td></tr>
 <tr><td>10</td><td><a href="session_10.md">API + DOM</a></td><td>4h</td></tr>
-
 <tr><td colspan="3"><strong>Partie 3 : Programmation PHP (28h)</strong></td></tr>
-<tr><td>11</td><td><a href="session_11.md">Introduction à PHP: concepts et syntaxe générale + Exo: Découpe pour SSR</a></td><td>4h</td></tr>
-<!-- <tr><td>13</td><td><a href="session_12.md">Exo: Découpe pour SSR</a></td><td>4h</td></tr>
-<tr><td>14</td><td><a href="session_13.md">Exo: Formulaires & PDO</a></td><td>4h</td></tr>
-<tr><td>15</td><td><a href="session_14.md">Exo: Moteur de recherche</a></td><td>4h</td></tr>
-<tr><td>16</td><td><a href="session_15.md">Exo: Login</a></td><td>4h</td></tr>
-<tr><td>17</td><td><a href="session_16.md">Exo:</a></td><td>4h</td></tr>
-<tr><td>18</td><td><a href="session_17.md">Exo: PHP-Formulaire</a></td><td>4h</td></tr>
-<tr><td>19</td><td><a href="session_18.md"><strong>Examen final</strong></a></td><td>4h</td></tr> 
-<tr><td>19</td><td><a href="session_18.md"><strong>Examen final</strong></a></td><td>4h</td></tr> -->
+<tr><td>11</td><td><a href="session_11-PHP.md">Introduction à PHP: concepts et syntaxe générale + Exo: Découpe pour SSR</a></td><td>4h</td></tr>
+<tr><td>12</td><td><a href="session_12-controller-request-pdo.md">Contrôleur, GET/POST, PDO</a></td><td>4h</td></tr>
+<tr><td>13</td><td><a href="session_13-pdo.md">Lecture de produits avec PDO</a></td><td>4h</td></tr>
+<tr><td>14</td><td><a href="session_14.md">Mini routeur</a></td><td>4h</td></tr>
+<tr><td>15</td><td><a href="session_15-functions-scope.md">Fonctions et portée des variables</a></td><td>4h</td></tr>
+<tr><td>16</td><td><a href="session_16-exceptions.md">Exceptions</a></td><td>4h</td></tr>
+<tr><td>17</td><td><a href="session_17-files.md">Lire, filtrer et produire des fichiers</a></td><td>4h</td></tr>
+<!-- <tr><td>18</td><td><a href="session_18.md"><strong>Examen final</strong></a></td><td>4h</td></tr> -->
 </tbody>
 </table>
 
