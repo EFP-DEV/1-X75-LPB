@@ -2,27 +2,13 @@
 
 ### Objectif
 
-Se rendre sur https://iso639-3.sil.org/ et telecharger le fichier "ISO 639-3 Code Set"  (`iso-639-3.tab`)
+Se rendre sur https://iso639-3.sil.org/ et telecharger le code set ISO 639-3  (`iso-639-3.tab`)
 
 Vous devez lire le fichier, sélectionner uniquement les langues vivantes, puis écrire un nouveau fichier nommé `languages-iso693-3.sql`.
 
 Le programme ne doit pas exécuter les requêtes SQL dans une base de données.
 
 Il doit seulement transformer un fichier texte en un autre fichier texte.
-
----
-
-## Ce qu’il faut comprendre avant de coder
-
-Le fichier fourni est un fichier texte.
-
-Les données sont organisées ligne par ligne.
-
-Chaque ligne utile correspond à une langue.
-
-Les colonnes sont séparées par des tabulations, pas par des virgules.
-
-La première ligne est une ligne d’en-tête : elle contient les noms des colonnes et ne doit pas être transformée en SQL.
 
 ---
 
@@ -74,12 +60,14 @@ Donc, pour chaque ligne :
 
 ## Format attendu dans le fichier SQL
 
-Le fichier final `languages.sql` doit contenir une instruction `INSERT` par langue conservée.
-
-Exemple de forme attendue :
+Le fichier final `languages.sql` doit contenir une instruction `INSERT` par langue conservée, pour la table:
 
 ```sql
-INSERT INTO languages (code, name) VALUES ('aaa', 'Ghotuo');
+CREATE TABLE IF NOT EXISTS languages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(3) NOT NULL,
+    name VARCHAR(255) NOT NULL
+);
 ```
 
 Chaque requête doit être écrite sur sa propre ligne.
@@ -137,67 +125,3 @@ Je filtre les langues vivantes.
 Je transforme les lignes gardées en requêtes SQL.
 J’écris le résultat dans un nouveau fichier.
 Je vérifie le fichier final.
-
----
-
-## Quiz
-
-### 1. Quelle est la première chose à faire avant de coder ?
-
-Observer le fichier.
-
-### 2. Pourquoi faut-il regarder le fichier dans un éditeur de texte ?
-
-Pour comprendre sa structure réelle.
-
-### 3. Quel est le séparateur des colonnes dans cet exercice ?
-
-La tabulation.
-
-### 4. À quoi sert la première ligne du fichier ?
-
-À nommer les colonnes.
-
-### 5. Pourquoi faut-il ignorer cette première ligne ?
-
-Parce qu’elle ne représente pas une langue.
-
-### 6. Que représente une ligne utile dans ce fichier ?
-
-Une langue.
-
-### 7. Pourquoi lire le fichier ligne par ligne ?
-
-Parce que chaque ligne correspond à une entrée à traiter.
-
-### 8. Faut-il conserver toutes les lignes ?
-
-Non.
-
-### 9. Quelle règle faut-il appliquer ?
-
-Conserver uniquement les langues vivantes.
-
-### 10. Que produit-on pour chaque ligne conservée ?
-
-Une instruction `INSERT`.
-
-### 11. Quel est le nom du fichier final ?
-
-`languages.sql`
-
-### 12. Le programme doit-il envoyer les requêtes dans une base de données ?
-
-Non.
-
-### 13. Quel est le rôle principal du programme ?
-
-Transformer un fichier TSV en fichier SQL.
-
-### 14. Pourquoi faut-il vérifier le fichier final ?
-
-Pour s’assurer que le résultat est correct.
-
-### 15. Quelle erreur méthodologique faut-il éviter ?
-
-Coder avant d’avoir compris la structure du fichier.
