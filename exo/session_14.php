@@ -55,34 +55,39 @@ $urls = [
     '/users/edit/42/now',
 ];
 
+/*
 // var_dump($urls);
-$current_url = $urls[0];
-var_dump('origianl', $current_url);
+for($i = 0; $i < count($urls); ++$i){
+    $current_url = $urls[$i];
+    // reste du code
+}
+*/
 
-$current_url = trim($current_url, '/');
-var_dump('trimmed', $current_url);
+foreach($urls as $i => $current_url){
 
-$current_url = str_replace('//', '/', $current_url);
-var_dump('replaced', $current_url);
+    $current_url = trim($current_url, '/');
+    $current_url = str_replace('//', '/', $current_url);
 
-if($current_url === ''){
-    $current_url = 'home/index';
-    // $current_url = 'home/home';
-    // $current_url = 'index/home';
-    // $current_url = 'index/index';
-    // $current_url = '/';
-    // $current_url = '/';
+    $segments = [];
+    $controller = 'home';
+    $action = 'index';
+    $id = null;
+
+    if(str_contains($current_url, '/')){
+        $segments = explode('/', $current_url);
+    }
+    if(isset($segments[0])){
+        $controller = $segments[0];
+    }
+    if(isset($segments[1])){
+        $action = $segments[1];
+    }
+    if(isset($segments[2])){
+        $id = $segments[2];
+    }
+    echo "URL : " . $urls[$i] .PHP_EOL;
+    echo "Controller : " . $controller . ".php".PHP_EOL;
+    echo "Action : " . $action . "()".PHP_EOL;
+    echo "Identifiant : '" . $id . "'".PHP_EOL.PHP_EOL;
 }
 
-$segments = explode('/', $current_url);
-var_dump($segments);
-// $first_segment = array_shift($segments);
-
-$controller = $segments[0];
-$action = $segments[1];
-$id = $segments[2];
-
-echo "URL : " . $current_url .PHP_EOL;
-echo "Controller : " . $controller . ".php".PHP_EOL;
-echo "Action : " . $action . "()".PHP_EOL;
-echo "Identifiant : '" . $id . "'".PHP_EOL;
