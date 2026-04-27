@@ -353,7 +353,7 @@ $students = [
 ```php
 function validate_student($student)
 function calculate_average($grades)
-function report(Throwable $e, $context = null)
+function report(Throwable $e, $context = null)     // deja ecrite pour exo 9
 ```
 
 ### Règles
